@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Sedgwick Ave', cursive;
+    color: #525252;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.metronome {
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 250px;
+    justify-content: space-between;
+}
+
+.bpm-display {
+    width: 100%;
+    text-align: center;
+    color: #fa545c;
+    font-weight: bold;
+}
+
+.bpm-display .tempo {
+    font-size: 4em;    
+}
+
+.tempo-text {
+    font-size: .8em;
+    text-transform: uppercase;
+    text-align: center; 
+}
+
+.tempo-settings {
+    display: flex;
+    justify-content: space-between;    
+}
+
+.tempo-settings .adjust-tempo-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    text-align: center;
+}
