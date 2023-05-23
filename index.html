@@ -8,27 +8,37 @@
     <title>Metronome</title>
   </head>
   <body>
+    <header class="header">
+      CLICK CLICK CLICK!
+      <button id="sixties">60's</button>
+      <button id="seventies">70's</button>
+      <button id="eighties">80's</button>
+      <button id="nineties">90's</button>
+    </header>
     <div class="container">
       <div class="metronome">
         <div class="bpm-display">
           <span class="tempo">140</span>
           <span class="bpm">BPM</span>
         </div>
-        <div class="tempo-text">Mid</div>
+        <p class="tempo-text">Mid</p>
         <div class="tempo-settings">
-          <div class="adjust-tempo-btn decrease-tempo">-</div>
+          <button class="adjust-tempo-btn decrease-tempo">-</button>
           <input type="range" min="20" max="300" step="1" class="slider" />
-          <div class="adjust-tempo-btn increase-tempo">+</div>
+          <button class="adjust-tempo-btn increase-tempo">+</button>
         </div>
-        <div class="start-stop">START</div>
+        <div id="startStopcontainer" aria-label="button-holder">
+        <button class="start-stop">START</button>
+        </div>
         <div class="measures">
-        <div class="subtract-beats stepper">-</div>
+        <button class="subtract-beats stepper">-</button>
         <div class="measure-count">4</div>
-        <div class="add-beats stepper">+</div>
+        <button class="add-beats stepper">+</button>
     </div>
     <span class="beatsPerMeasureTxt">Beats</span>
       </div>
     </div>
+    <footer>app by Jeff!</footer>
 
     <script src="./app.js" type="module"></script>
   </body>

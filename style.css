@@ -4,6 +4,7 @@
     --colorOne: #468189;
     --colorTwo: #77ACA2;
     --colorThree: #F4E9CD;
+    --font: 'Sedgwick Ave', cursive;
 }
 
 
@@ -14,7 +15,7 @@
 
 body {
     font-family: 'Sedgwick Ave', cursive;
-    color: #525252;
+    color: var(--colorTwo);
     user-select: none;
 }
 
@@ -22,7 +23,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 75vh;
 }
 
 .metronome {
@@ -31,58 +32,67 @@ body {
     width: 300px;
     height: 250px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .bpm-display {
     width: 100%;
     text-align: center;
-    color: #fa545c;
+    color: var(--colorOne);
     font-weight: bold;
 }
 
 .bpm-display .tempo {
-    font-size: 4em;    
+    font-size: 10vw;    
+}
+
+.bpm {
+    font-size: 4vw;  
 }
 
 .tempo-text {
-    font-size: .8em;
+    font-size: 2vw;
     text-transform: uppercase;
     text-align: center; 
 }
 
 .tempo-settings {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
+   
 }
 
-.tempo-settings .adjust-tempo-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 40px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
+.adjust-tempo-btn {
+    background-color: var(--colorTwo);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 28px;
+    color: #FFFFFF;
+    width: 5vw;
+    height: 5vh;
+    font-family: var(--font);
+    font-size: 3vw;
     text-align: center;
     cursor: pointer;
 }
 
-.tempo-settings .adjust-tempo-btn:hover {
-    background-color: #fa545c;
+.adjust-tempo-btn:hover {
+    background-color: var(--colorTwo);
     color: white;
 }
 
-.tempo-settings .decrease-tempo {
-    line-height: 25px;
-}
 
-.tempo-settings .increase-tempo {
-    line-height: 25px;
-}
 
+.slider {
+    width: 35vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
 
 input[type="range"] {
     -webkit-appearance: none;
     background-color: transparent;
-    width: 70%;
 }
 input[type="range"]::-webkit-slider-thumb{
     -webkit-appearance: none;
@@ -96,7 +106,7 @@ input[type="range"]::-webkit-slider-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: #fa545c;
+    background-color: var(--colorOne);
     margin-top: -8px;    
 }
 
@@ -105,39 +115,69 @@ input[type="range"]::-moz-range-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: #fa545c; 
+    background-color: var(--colorOne); 
     border: none;   
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 1px;
-    background-color: #468189;
+    background-color: var(--colorOne);
 }
 
 input[type="range"]::-moz-range-track {
     width: 100%;
     height: 1px;
-    background-color: #468189;
+    background-color: var(--colorOne);
 }
 
+#startStopcontainer {
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+}
 
 
 .start-stop {
-    width: 50px;
-    height: 50px;
-    font-size: 0.7em;
+    position: relative;
+    background-color: var(--colorTwo);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 200px;
     text-align: center;
-    background-color: #fa545c;
-    border-radius: 50%;
-    color: white;
-    line-height: 50px;
-    margin: 0 auto;
+    transition-duration: 0.4s;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .start-stop:hover {
-    background: #ff656c;
+    background: var(--colorTwo)
 }
+
+
+.start-stop:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  .start-stop:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
+
 
 .measures {
     display: flex;
@@ -147,20 +187,17 @@ input[type="range"]::-moz-range-track {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 1px solid #eee;
+    border: .4px solid #eee;
     text-align: center;
     margin: 0 5px;
     cursor: pointer;
 }
 
 .measures .stepper:hover {
-    background: #ff656c;
+    background: var(--colorOne);
     color: #fff;
 }
 
-.measures .add-beats {
-    line-height: 20px;    
-}
 
 .beatsPerMeasureTxt {
     text-align: center;
