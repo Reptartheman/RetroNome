@@ -8,28 +8,44 @@
 }
 
 
-* {
-    padding: 0;
-    margin: 0;
-}
-
-body {
+html, body {
+    width: 100%;
+    height: 100%;
     font-family: 'Sedgwick Ave', cursive;
     color: var(--colorTwo);
     user-select: none;
 }
 
+
+header {
+    display: flex;
+    border: solid var(--colorOne);
+    justify-content:space-around;
+}
+
+footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    border: solid var(--colorOne);
+    font-size: x-large;
+}
+
+
+
 .container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 75vh;
+    min-height: 100%;
 }
 
 .metronome {
+    margin: 5%;
+    border: solid var(--colorTwo);
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    width: 300px;
+    width: 50%;
     height: 250px;
     justify-content: space-between;
     align-items: center;
@@ -158,42 +174,31 @@ input[type="range"]::-moz-range-track {
 }
 
 
-.start-stop:after {
-    content: "";
-    background: #f1f1f1;
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px !important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
-  }
-  
-  .start-stop:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-  }
-
 
 .measures {
     display: flex;
     justify-content: center;
+    align-content: center;
 }
-.measures .stepper {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: .4px solid #eee;
+.stepper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--colorThree);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 28px;
+    color: var(--colorTwo);
+    width: 5vw;
+    height: 5vh;
+    font-family: var(--font);
+    font-size: 3vw;
     text-align: center;
-    margin: 0 5px;
     cursor: pointer;
 }
 
-.measures .stepper:hover {
+.stepper:hover {
     background: var(--colorOne);
     color: #fff;
 }
@@ -201,7 +206,13 @@ input[type="range"]::-moz-range-track {
 
 .beatsPerMeasureTxt {
     text-align: center;
-    font-size: 2em;
+    font-size: 3vh;
     text-transform: uppercase;
 }
 
+.measure-count {
+    font-size: 3vw;
+    padding-left: 15%;
+    padding-right: 15%;
+
+}
