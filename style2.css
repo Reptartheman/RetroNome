@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
+
+:root {
+    --colorOne: #468189;
+    --colorTwo: #77ACA2;
+    --colorThree: #F4E9CD;
+    --font: 'Sedgwick Ave', cursive;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Sedgwick Ave', cursive;
+    color: var(--colorTwo);
+    user-select: none;
+}
