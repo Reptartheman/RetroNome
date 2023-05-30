@@ -5,22 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style2.css" />
-    <title>Metronome</title>
+    <title>MetroNote</title>
   </head>
   <body>
     <header class="header">
-      CLICK CLICK CLICK!
+      <h1>Welcome to MetroNote</h1>
+    </header>
+    <nav>
       <button id="sixties">60's</button>
       <button id="seventies">70's</button>
       <button id="eighties">80's</button>
       <button id="nineties">90's</button>
-    </header>
+    </nav>
+
     <div class="container">
       <main class="metronome">
         <div class="bpm-display">
-          <span class="tempo">140</span>
-          <span class="bpm">BPM</span>
+          <h1 class="tempo"> 140 </h1>
+          <h1 class="bpm"> BPM </h1>
+          <p class="tempo-text">Mid</p>
         </div>
+
+        
+        <div class="tempo-settings">
+          <button class="adjust-tempo-btn decrease-tempo">-</button>
+          <input type="range" min="20" max="300" step="1" class="slider" />
+          <button class="adjust-tempo-btn increase-tempo">+</button>
+        </div>
+        <div id="startStopcontainer" aria-label="button-holder">
+          <button class="start-stop">START</button>
+        </div>
+        <div class="measures">
+          <button class="subtract-beats stepper">-</button>
+          <p class="measure-count">4</p>
+          <p class="beatsPerMeasureTxt">Beats</p>
+          <button class="add-beats stepper">+</button>
+        </div>
+        
         <div class="formArea">
           <input
             class="note-title"
@@ -28,26 +49,17 @@
             maxlength="28"
             type="text"
           />
-          <textarea class="note-textarea" placeholder="Enter your practice session info"></textarea>
+          <textarea
+            class="note-textarea"
+            placeholder="Enter your practice session info"
+          ></textarea>
+          <button class="addNote">Add Note</button>
+            <p class="timer"></p>
+ 
         </div>
-        <p class="tempo-text">Mid</p>
-        <div class="tempo-settings">
-          <button class="adjust-tempo-btn decrease-tempo">-</button>
-          <input type="range" min="20" max="300" step="1" class="slider" />
-          <button class="adjust-tempo-btn increase-tempo">+</button>
-        </div>
-        <div id="startStopcontainer" aria-label="button-holder">
-        <button class="start-stop">START</button>
-        </div>
-        <div class="measures">
-        <button class="subtract-beats stepper"> - </button>
-        <p class="measure-count"> 4 </p>
-        <button class="add-beats stepper"> + </button>
-        </div>
-     <p class="beatsPerMeasureTxt">Beats</p>
       </main>
     </div>
-    
+
     <footer>app by Jeff!</footer>
     <script src="./app.js" type="module"></script>
   </body>

@@ -9,7 +9,7 @@
 
 
 html, body {
-    width: 100%;
+    width: 75%;
     height: 100%;
     font-family: 'Sedgwick Ave', cursive;
     color: var(--colorTwo);
@@ -52,6 +52,8 @@ footer {
 }
 
 .bpm-display {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     text-align: center;
     color: var(--colorOne);
