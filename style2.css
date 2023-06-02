@@ -20,6 +20,14 @@ header {
     display: flex;
     border: solid var(--colorOne);
     justify-content:space-around;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 40px;
 }
 
 /* .container {
@@ -124,23 +132,24 @@ input[type="range"]::-moz-range-track {
 }
 
 #startStopcontainer {
+    display: flex;
+    justify-content: center;
     padding-top: 3vh;
     padding-bottom: 3vh;
 }
 
 
 .start-stop {
-    display: flex;
-    justify-content: center;
+   
 /*     position: relative; */
     background-color: var(--colorTwo);
     border: none;
     border-radius: 10px;
     font-family: var(--font);
-    font-size: 28px;
+    font-size: 3vw;
     color: #FFFFFF;
     padding: 20px;
-    width: 200px;
+    width: 50%;
     text-align: center;
     transition-duration: 0.4s;
     overflow: hidden;

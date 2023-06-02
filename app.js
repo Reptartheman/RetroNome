@@ -9,7 +9,10 @@ const subtractBeats = document.querySelector(".subtract-beats");
 const addBeats = document.querySelector(".add-beats");
 const measureCount = document.querySelector(".measure-count");
 const sessionTimeDisplay = document.querySelector(".timer");
-
+const hoursDisplay = document.querySelector("#hours");
+const minutesDisplay = document.querySelector("#minutes");
+const secondsDisplay = document.querySelector("#seconds");
+const timeStamp = Date.now();
 const click1 = new Audio("./click1.wav");
 const click2 = new Audio("./click2.wav");
 
@@ -18,9 +21,9 @@ let beatsPerMeasure = 4;
 let count = 0;
 let isRunning = false;
 let tempoTextString = "Mid";
-let startTimestamp; 
-let timeInterval;
 let isTimerRunning = false;
+let time = 0;
+let resetTime;
 
 
 decreaseTempoBtn.addEventListener("click", () => {
@@ -64,10 +67,12 @@ startStopBtn.addEventListener("click", () => {
   count = 0;
   if (!isRunning) {
     metronome.start();
+    startTimer();
     isRunning = true;
     startStopBtn.textContent = "STOP";
   } else {
     metronome.stop();
+    stopTimer();
     isRunning = false;
     startStopBtn.textContent = "START";
   }
@@ -145,27 +150,60 @@ function playClick() {
   count++;
 }
 
-function callback() {
-    startTimestamp = Date.now(); // Get the current timestamp
-    
-    timeInterval = setInterval(function() {
-      var elapsedTime = Date.now() - startTimestamp; // Calculate elapsed time in milliseconds
-      
-      // Convert milliseconds to hours, minutes, and seconds
-      var hours = Math.floor(elapsedTime / 3600000);
-      var minutes = Math.floor((elapsedTime % 3600000) / 60000);
-      var seconds = Math.floor((elapsedTime % 60000) / 1000);
-      
-      // Format the time values
-      var formattedTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-      sessionTimeDisplay.textContent = `Session Time: ${formattedTime}`;
-      // Display the formatted time
-    }, 1000); // Update the timer every second
+
+
+let startTimeStamp; // Variable to store the starting timestamp
+let timerInterval; // Variable to store the interval ID
+
+function startTimer() {
+  startTimeStamp = Date.now(); // Get the starting timestamp
+
+  timerInterval = setInterval(updateTime, 1000); // Update the timer every second
+}
+
+function stopTimer() {
+  clearInterval(timerInterval); // Clear the interval to stop the timer
+}
+
+function updateTime() {
+  const elapsedTime = Date.now() - startTimeStamp;
+
+  let hours = Math.floor(elapsedTime / 3600000);
+  let minutes = Math.floor((elapsedTime % 3600000) / 60000);
+  let seconds = Math.floor((elapsedTime % 60000) / 1000);
+
+
+
+  if (seconds === 59) {
+    minutes++;
+    seconds = 0;
+
+    if (minutes === 60) {
+      hours++;
+      minutes = 0;
+    }
   }
 
+
+  secondsDisplay.textContent = pad(seconds);
+  minutesDisplay.textContent = pad(minutes);
+  hoursDisplay.textContent = pad(hours);
+
+  let formattedTime = `${hoursDisplay.textContent}:${minutesDisplay.textContent}:${secondsDisplay.textContent}`;
+  sessionTimeDisplay.textContent = `Session Time: ${formattedTime}`;
+
+}
+
 function pad(num) {
-    return (num < 10 ? "0" : "") + num; // Add leading zero if the number is less than 10
-  }
-  
-const timer = new Timer(callback, 1000, { immediate: true});
-const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
+  return (num < 10 ? "0" : "") + num; // Add leading zero if the number is less than 10
+}
+
+// ...
+
+
+
+
+const timer = new Timer(updateTime, 1000, { immediate: true });
+const metronome = new Timer(playClick, 60000 / bpm, { immediate: true }); 
+
+
