@@ -1,18 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 :root {
-    --colorOne: #468189;
-    --colorTwo: #77ACA2;
-    --colorThree: #F4E9CD;
-    --font: 'Sedgwick Ave', cursive;
+    --colorOne: #0d0c0c;
+    --colorTwo: #a5a2a2;
+    --colorThree: #e5e5e5;
+    --colorFour:#ffffff;
+    --colorFive:#dd2020;
+    --border: 4px solid #333;
+    --fontOne: 'Press Start 2P', cursive;
+    --fontTwo: 'VT323', monospace;
 }
 
 
 html, body {
     width: 100%;
     height: 100%;
-    font-family: 'Sedgwick Ave', cursive;
-    color: var(--colorTwo);
+    background-color: var(--colorThree);
     user-select: none;
 }
 
@@ -20,15 +24,13 @@ header {
     display: flex;
     border: solid var(--colorOne);
     justify-content:space-around;
-    margin-left: 40px;
-    margin-right: 40px;
+    font-family: var(--fontOne);
+    color: var(--colorOne);
+    margin-left: 30px;
+    margin-right: 30px;
+    text-align: center;
 }
 
-nav {
-    display: flex;
-    justify-content: space-evenly;
-    margin-left: 40px;
-}
 
 /* .container {
     display: grid;
@@ -40,11 +42,6 @@ nav {
 
 .metronome {
 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    grid-column-gap: 45px;
-    grid-row-gap: 5px;
     margin: 3%;
     border: solid var(--colorTwo);
 /*     width: 100%;
@@ -59,7 +56,7 @@ nav {
     width: 100%;
     text-align: center;
     color: var(--colorOne);
-    font-weight: bold;
+    font-family: var(--fontOne);
 }
 
 .tempo {
@@ -80,8 +77,18 @@ nav {
 
 .tempo-settings {
     display: flex;
-    justify-content: space-between;
-   
+    justify-content: space-evenly;   
+}
+
+.tempo-settings button {
+    background-color: var(--colorTwo);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--fontTwo);
+    font-size: 4vw;
+    color:var(--colorFive);
+    padding: 20px;
+    width: 10%;
 }
 
 .slider {
@@ -140,17 +147,17 @@ input[type="range"]::-moz-range-track {
 
 
 .start-stop {
-   
-/*     position: relative; */
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     background-color: var(--colorTwo);
     border: none;
     border-radius: 10px;
-    font-family: var(--font);
-    font-size: 3vw;
-    color: #FFFFFF;
+    font-family: var(--fontTwo);
+    font-size: 4vw;
+    color:var(--colorFive);
     padding: 20px;
-    width: 50%;
-    text-align: center;
+    width: 30%;
     transition-duration: 0.4s;
     overflow: hidden;
     cursor: pointer;
@@ -163,10 +170,29 @@ input[type="range"]::-moz-range-track {
 
 
 .measures {
+    font-family: var(--fontTwo);
     display: flex;
-    justify-content: center;
-    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
 }
+
+.measures button {
+    background-color: var(--colorTwo);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--fontTwo);
+    font-size: 4vw;
+    color:var(--colorFive);
+    padding: 20px;
+    width: 10%;
+}
+
+.measures p {
+    font-size: 3vw;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
 .stepper {
     display: flex;
     justify-content: center;
@@ -191,15 +217,10 @@ input[type="range"]::-moz-range-track {
 }
 
 
-.beatsPerMeasureTxt {
-    text-align: center;
-    font-size: 3vh;
-    text-transform: uppercase;
-}
+
 
 .measure-count {
-    font-size: 3vw;
-    padding-left: 15%;
-    padding-right: 15%;
+    
+
 
 }
