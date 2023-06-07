@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style2.css" />
-    <title>MetroNote</title>
+    <title>RetroNome</title>
   </head>
   <body>
     <header class="header">
@@ -30,36 +30,42 @@
         <div id="startStopcontainer" aria-label="button-holder">
           <button class="start-stop">START</button>
         </div>
-        <div class="measures">
+        <div class="beats">
           <button class="subtract-beats stepper">-</button>
-          <p class="measure-count">4</p>
+          <p class="beat-count">4</p>
           <p class="beatsPerMeasureTxt">Beats</p>
           <button class="add-beats stepper">+</button>
         </div>
         
-        <div class="formArea">
-          <input
-            class="note-title"
-            placeholder="Note Title"
-            maxlength="28"
-            type="text"
-          />
-          <textarea
-            class="note-textarea"
-            placeholder="Enter your practice session info"
-          ></textarea>
-          <button class="addNote">Add Note</button>
-            <p class="timer"> 
-              <span id="hours"></span>
-              <span id="minutes"></span>
-              <span id="seconds"></span>
-            </p>
- 
-        </div>
+
       </main>
+      <section class="formArea">
+        <p id="date"></p>
+        <textarea
+          class="note-textarea"
+          placeholder="Enter your practice session info"
+        ></textarea>
+        <div id="noteBtnContainer">
+        <button class="addNote">Add Note</button>
+      </div>
+          <p class="timer"> 
+            <span id="hours"></span>
+            <span id="minutes"></span>
+            <span id="seconds"></span>
+          </p>
+
+      </section>
     </div>
 
-    <footer>app by Jeff!</footer>
+    <footer>
+      <p id="joystick">🕹</p> 
+      <p> <a href="https://github.com/Reptartheman"> GitHub Profile</a> </p>  
+      <p id="joystick">🕹</p> 
+    </footer>
+    <script
+    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"></script>
     <script src="./app.js" type="module"></script>
   </body>
 </html>

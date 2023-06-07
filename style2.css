@@ -12,10 +12,10 @@
     --fontTwo: 'VT323', monospace;
 }
 
-
+/* ----------------------- MAIN CONTENT STYLES ----------------------- */
 html, body {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     background-color: var(--colorThree);
     user-select: none;
 }
@@ -31,22 +31,29 @@ header {
     text-align: center;
 }
 
+footer {
+    display: flex;
+    border: solid var(--colorOne);
+    justify-content:space-evenly;
+    align-items: center;
+    font-family: var(--fontOne);
+    color: var(--colorOne);
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 3%;
+    text-align: center;
+}
 
-/* .container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    grid-column-gap: 45px;
-    grid-row-gap: 5px;
-}  */
+#joystick {
+    font-size: 50px;
+}
+
+
+/* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
-
-    margin: 3%;
-    border: solid var(--colorTwo);
-/*     width: 100%;
-    height: 100%; */
-   
+    margin: 1.5% 3% 1.5% 3%;
+    border: solid var(--colorTwo);   
 }
 
 .bpm-display {
@@ -138,6 +145,8 @@ input[type="range"]::-moz-range-track {
     background-color: var(--colorOne);
 }
 
+/* ----------------------- START BUTTON STYLES ----------------------- */
+
 #startStopcontainer {
     display: flex;
     justify-content: center;
@@ -168,15 +177,15 @@ input[type="range"]::-moz-range-track {
 }
 
 
-
-.measures {
+/* ----------------------- BEATS STYLES ----------------------- */
+.beats {
     font-family: var(--fontTwo);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.measures button {
+.beats button {
     background-color: var(--colorTwo);
     border: none;
     border-radius: 10px;
@@ -187,7 +196,7 @@ input[type="range"]::-moz-range-track {
     width: 10%;
 }
 
-.measures p {
+.beats p {
     font-size: 3vw;
     padding-left: 15%;
     padding-right: 15%;
@@ -216,11 +225,58 @@ input[type="range"]::-moz-range-track {
     color: #fff;
 }
 
-
-
-
-.measure-count {
+/* ----------------------- FORM STYLES ----------------------- */
+.formArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2% 3% 2% 3%;
     
-
-
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid var(--colorOne);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
 }
+
+.addNote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--colorTwo);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--fontTwo);
+    font-size: 2vw;
+    color:var(--colorFive);
+    width: 15vw;
+    height: 5vh;
+}
+
+#noteBtnContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+.note-textarea {
+    resize: none;
+    width: 50vw;
+    height: 15vh;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--fontTwo);
+    font-size: larger;
+  }
+
+/* ----------------------- MISC CONTENT STYLES ----------------------- */
+#date {
+    font-family: var(--fontTwo);
+    font-size:x-large;
+    color: #dd2020;
+}
+
+

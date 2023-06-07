@@ -1,3 +1,7 @@
+
+// TODO: Add functionality for resetting a second text area
+// TODO: For alternate color schemes.
+// TODO: Add functionality to use sounds from Web Audio API or ToneJS.
 import Timer from "./timer.js";
 const tempoDisplay = document.querySelector(".tempo");
 const tempoText = document.querySelector(".tempo-text");
@@ -7,23 +11,33 @@ const tempoSlider = document.querySelector(".slider");
 const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
 const addBeats = document.querySelector(".add-beats");
-const measureCount = document.querySelector(".measure-count");
+const beatCount = document.querySelector(".beat-count");
 const sessionTimeDisplay = document.querySelector(".timer");
 const hoursDisplay = document.querySelector("#hours");
 const minutesDisplay = document.querySelector("#minutes");
 const secondsDisplay = document.querySelector("#seconds");
-const timeStamp = Date.now();
+const dateDisplay = document.querySelector("#date");
+const addNote = document.querySelector(".addNote");
 const click1 = new Audio("./click1.wav");
 const click2 = new Audio("./click2.wav");
 
+let note;
+let noteText;
 let bpm = 140;
 let beatsPerMeasure = 4;
 let count = 0;
 let isRunning = false;
 let tempoTextString = "Mid";
 let isTimerRunning = false;
-let time = 0;
-let resetTime;
+
+
+
+function displayDate() {
+  let todayDate = dayjs().format('M/DD/YYYY');
+  dateDisplay.textContent = `Today is: ${todayDate}`;
+  return todayDate;
+};
+displayDate();
 
 
 decreaseTempoBtn.addEventListener("click", () => {
@@ -49,7 +63,7 @@ subtractBeats.addEventListener("click", () => {
     return;
   }
   beatsPerMeasure--;
-  measureCount.textContent = beatsPerMeasure;
+  beatCount.textContent = beatsPerMeasure;
   count = 0;
 });
 
@@ -58,7 +72,7 @@ addBeats.addEventListener("click", () => {
     return;
   }
   beatsPerMeasure++;
-  measureCount.textContent = beatsPerMeasure;
+  beatCount.textContent = beatsPerMeasure;
   count = 0;
 });
 
@@ -87,6 +101,7 @@ startStopBtn.addEventListener("click", () => {
       isTimerRunning = true;
     }
   });
+
 
 
 const updateMetronome = () => {
@@ -119,7 +134,7 @@ const updateMetronome = () => {
       tempoTextString = "You are going to get a speeding ticket";
       break;
     case bpm > 280 && bpm < 300:
-      tempoTextString = "Easy there John Coltrane!";
+      tempoTextString = "Slow Down Sonic!";
       break;
     default:
       tempoTextString = "Invalid";
@@ -195,15 +210,29 @@ function updateTime() {
 }
 
 function pad(num) {
-  return (num < 10 ? "0" : "") + num; // Add leading zero if the number is less than 10
+  return (num < 10 ? "0" : "") + num; 
 }
 
-// ...
+ function saveNote(event) {
+  event.preventDefault();
+  note = document.querySelector(".note-textarea");
+  noteText = note.value.trim();
+  localStorage.setItem('Note', JSON.stringify(noteText));
+}
 
-
-
-
+function init() {
+ let savedNote = JSON.parse(localStorage.getItem('Note'));
+  
+  if (savedNote) {
+    // Populate the text on the page
+    document.querySelector(".note-textarea").textContent = savedNote;
+  }
+};
+ 
 const timer = new Timer(updateTime, 1000, { immediate: true });
-const metronome = new Timer(playClick, 60000 / bpm, { immediate: true }); 
+const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
+
+addNote.addEventListener("click", saveNote);
+init();
 
 
