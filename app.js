@@ -1,7 +1,7 @@
 
 // TODO: Add functionality for resetting a second text area
 // TODO: For alternate color schemes.
-// TODO: Add functionality to use sounds from Web Audio API or ToneJS.
+
 import Timer from "./timer.js";
 const tempoDisplay = document.querySelector(".tempo");
 const tempoText = document.querySelector(".tempo-text");
