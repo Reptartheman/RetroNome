@@ -48,6 +48,45 @@ footer {
     font-size: 50px;
 }
 
+/* ----------------------- THEME CONTAINER STYLES ----------------------- */
+
+.themeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.colorTheme {
+    background-color: var(--colorTwo);
+    border: none;
+    border-radius: 5px;
+    color:var(--colorFive);
+    padding: 10px;
+    font-family: var(--fontTwo);
+    font-size: 1vw;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+#default:hover {
+    background: var(--colorOne);
+    color: #fff;
+}
+
+
+#sonic:hover {
+    background-color:#0156AC;
+    color:#F2F3F1;
+}
+
+
+
+#underWorld:hover {
+    background-color:#045F76;
+    color:#74C408;
+}
+
 
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
@@ -260,7 +299,7 @@ input[type="range"]::-moz-range-track {
     resize: none;
 }
 
-.addNote {
+.note {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -276,15 +315,16 @@ input[type="range"]::-moz-range-track {
     cursor: pointer;
 }
 
-.addNote:hover {
+.note:hover {
     background: var(--colorOne);
     color: #fff;
 }
 
 #noteBtnContainer {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 1%;
+    width: 55%;
 }
 
 .note-textarea {
@@ -297,6 +337,9 @@ input[type="range"]::-moz-range-track {
     font-family: var(--fontTwo);
     font-size: larger;
   }
+
+
+
 
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
 #date {

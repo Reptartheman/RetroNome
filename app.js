@@ -17,19 +17,20 @@ const hoursDisplay = document.querySelector("#hours");
 const minutesDisplay = document.querySelector("#minutes");
 const secondsDisplay = document.querySelector("#seconds");
 const dateDisplay = document.querySelector("#date");
-const addNote = document.querySelector(".addNote");
+const addNote = document.querySelector("#addNote");
+const removeNote = document.querySelector("#removeNote");
 const click1 = new Audio("./click1.wav");
 const click2 = new Audio("./click2.wav");
 
 let note;
 let noteText;
-let bpm = 140;
+let bpm = 120;
 let beatsPerMeasure = 4;
 let count = 0;
 let isRunning = false;
 let tempoTextString = "Mid";
 let isTimerRunning = false;
-
+let colorTheme;
 
 
 function displayDate() {
@@ -110,34 +111,34 @@ const updateMetronome = () => {
   metronome.timeInterval = 60000 / bpm;
   switch (true) {
     case bpm <= 40:
-      tempoTextString = "Grown up tempo";
+      tempoTextString = " " + "Bowser tempo";
       break;
     case bpm > 40 && bpm < 80:
-      tempoTextString = "A little bit faster now";
+      tempoTextString = " " + "Donkey kong tempo";
       break;
     case bpm > 80 && bpm < 120:
-      tempoTextString = "We groovin now!";
+      tempoTextString = " " + "Yoshi tempo";
       break;
     case bpm > 120 && bpm < 180:
-      tempoTextString = "Drum N Bass";
+      tempoTextString = " " + "Tetris tempo";
       break;
     case bpm > 180 && bpm < 220:
-      tempoTextString = "Take a breath";
+      tempoTextString = " " + "Cowabunga!";
       break;
     case bpm > 220 && bpm < 240:
-      tempoTextString = "Are you practicing Be-bop?";
+      tempoTextString = " " + "Sonic tempo!";
       break;
     case bpm > 240 && bpm < 260:
-      tempoTextString = `You're making me nervous`;
+      tempoTextString = "Mario's fireball tempo!";
       break;
     case bpm > 260 && bpm < 280:
-      tempoTextString = "You are going to get a speeding ticket";
+      tempoTextString = "Megaman tempo!";
       break;
     case bpm > 280 && bpm < 300:
-      tempoTextString = "Slow Down Sonic!";
+      tempoTextString = "Slow Down!";
       break;
     default:
-      tempoTextString = "Invalid";
+      tempoTextString = "Ok, chill out";
   }
   tempoText.textContent = tempoTextString;
 };
@@ -213,6 +214,8 @@ function pad(num) {
   return (num < 10 ? "0" : "") + num; 
 }
 
+
+
  function saveNote(event) {
   event.preventDefault();
   note = document.querySelector(".note-textarea");
@@ -233,6 +236,13 @@ const timer = new Timer(updateTime, 1000, { immediate: true });
 const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
 
 addNote.addEventListener("click", saveNote);
+
+removeNote.addEventListener("click", () => {
+  event.preventDefault();
+  //note = document.querySelector(".note-textarea");
+  note.value = '';
+  localStorage.removeItem('Note');
+})
 init();
 
 

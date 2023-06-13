@@ -10,15 +10,22 @@
   <body>
     <header class="header">
       <h1>Welcome to RetroNome</h1>
+      <div class="themeContainer">
+        <h3>Select your theme
+          <button class="colorTheme" id="default">Default</button>
+          <button class="colorTheme" id="sonic">Sonic</button>
+          <button class="colorTheme" id="underWorld">Underworld</button>
+        </h3>
+      </div>
     </header>
 
 
     <div class="container">
       <main class="metronome">
         <div class="bpm-display">
-          <h1 class="tempo"> 140 </h1>
+          <h1 class="tempo"> 120 </h1>
           <h1 class="bpm"> BPM </h1>
-          <p class="tempo-text">Mid</p>
+          <p class="tempo-text"></p>
         </div>
 
         
@@ -46,7 +53,8 @@
           placeholder="Enter your practice session info"
         ></textarea>
         <div id="noteBtnContainer">
-        <button class="addNote">Add Note</button>
+        <button class="note" id="addNote">Add Note</button>
+        <button class="note" id="removeNote">Remove Note</button>
       </div>
           <p class="timer"> 
             <span id="hours"></span>
