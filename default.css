@@ -383,6 +383,10 @@ input[type="range"]::-moz-range-track {
     font-size: larger;
   }
 
+.timer {
+    font-family: var(--fontTwo);
+    color: var(--colorOne);
+}
 
 
 
@@ -779,7 +783,10 @@ input[type="range"]::-moz-range-track {
     font-size: larger;
   }
 
-
+  .timer {
+    font-family: var(--fontTwo);
+    color: var(--colorOne);
+}
 
 
 /* ----------------------- MISC CONTENT STYLES ----------------------- */

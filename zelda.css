@@ -7,6 +7,8 @@
     --colorThree: #0D9263;
     --colorFour:#FEFFFE;
     --colorFive:#D4CE46;
+    --red:#dd2020;
+    --black: #0d0c0c;
     --border: solid 2px var(--colorFive);
     --fontOne: 'Press Start 2P', cursive;
     --fontTwo: 'VT323', monospace;
@@ -87,8 +89,9 @@ a:active {
 /* ----------------------- THEME BUTTON STYLES ----------------------- */
 
 #default {
-    background-color: var(--colorFour);
-    border: solid 2px var(--colorOne)
+    background-color: var(--red);
+    border: solid 2px var(--black);
+    color: var(--red);
 }
 
 #default:active {
@@ -394,7 +397,10 @@ input[type="range"]::-moz-range-track {
 
 
 
-
+.timer {
+    font-family: var(--fontTwo);
+    color: var(--colorFour);
+}
 
 
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
