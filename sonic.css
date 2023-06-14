@@ -357,7 +357,7 @@ input[type="range"]::-moz-range-track {
     border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 5vw;
+    font-size: 2vw;
     color:var(--colorFour);
     width: 15vw;
     height: 5vh;
