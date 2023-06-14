@@ -1,7 +1,4 @@
 
-// TODO: Add functionality for resetting a second text area
-// TODO: For alternate color schemes.
-
 import Timer from "./timer.js";
 const tempoDisplay = document.querySelector(".tempo");
 const tempoText = document.querySelector(".tempo-text");
@@ -19,6 +16,10 @@ const secondsDisplay = document.querySelector("#seconds");
 const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
+const defaultBtn = document.querySelector("#default");
+const sonicBtn = document.querySelector("#sonic");
+const zeldaBtn = document.querySelector("#zelda");
+const linkElement = document.querySelector("link[href='./default.css']");
 const click1 = new Audio("./click1.wav");
 const click2 = new Audio("./click2.wav");
 
@@ -231,11 +232,30 @@ function init() {
     document.querySelector(".note-textarea").textContent = savedNote;
   }
 };
- 
+
+
+function changeStyle(stylesheet) {
+linkElement.setAttribute('href', stylesheet);
+};
+
+
 const timer = new Timer(updateTime, 1000, { immediate: true });
 const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
 
 addNote.addEventListener("click", saveNote);
+
+defaultBtn.addEventListener("click", () => {
+  changeStyle('default.css');
+});
+
+sonicBtn.addEventListener("click", () => {
+  changeStyle('sonic.css');
+});
+
+zeldaBtn.addEventListener("click", () => {
+  changeStyle('zelda.css');
+});
+
 
 removeNote.addEventListener("click", () => {
   event.preventDefault();

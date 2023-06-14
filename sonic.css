@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 :root {
-    --colorOne: #0d0c0c;
-    --colorTwo: #a5a2a2;
-    --colorThree: #e5e5e5;
-    --colorFour:#ffffff;
-    --colorFive:#dd2020;
-    --border: 4px solid #333;
+    --colorOne: #0e142e;
+    --colorTwo: #F7C982;
+    --colorThree: #3061E3;
+    --colorFour:#FEFFFE;
+    --colorFive:#DB2429;
+    --border: solid 2px var(--colorTwo);
     --fontOne: 'Press Start 2P', cursive;
     --fontTwo: 'VT323', monospace;
 }
@@ -22,12 +22,12 @@ html, body {
 
 header {
     display: flex;
-    border: solid var(--colorOne);
+    border: var(--border);
     justify-content:space-evenly;
     align-items: center;
     font-family: var(--fontOne);
     font-size: 70%;
-    color: var(--colorOne);
+    color: var(--colorFour);
     margin-left: 30px;
     margin-right: 30px;
     /* text-align: center; */
@@ -35,19 +35,31 @@ header {
 
 footer {
     display: flex;
-    border: solid var(--colorOne);
+    border: var(--border);
     justify-content:space-evenly;
     align-items: center;
     font-family: var(--fontOne);
-    color: var(--colorOne);
+    color: var(--colorFour);
     margin-left: 30px;
     margin-right: 30px;
     margin-bottom: 3%;
     text-align: center;
 }
 
+footer p {
+    color: var(--colorFour);
+}
+
+a {
+    color: var(--colorFour);
+} 
+
+a:active {
+    color:var(--colorTwo);
+}
+
 #joystick {
-    font-size: 50px;
+    font-size: 3vh;
 }
 
 /* ----------------------- THEME CONTAINER STYLES ----------------------- */
@@ -61,16 +73,28 @@ footer {
 .colorTheme {
     background-color: var(--colorTwo);
     border: none;
-    border-radius: 5px;
+    border-radius: 40%;
     margin: 10%;
     color:var(--colorFive);
     padding: 10px;
     font-family: var(--fontTwo);
-    font-size: 1vw;
+    font-size: 3vh;
     transition-duration: 0.4s;
     cursor: pointer;
+    box-shadow: 0 5px #999;
 }
 
+/* ----------------------- THEME BUTTON STYLES ----------------------- */
+
+#default {
+    background-color: var(--colorFive);
+    border: solid 2px var(--colorOne)
+}
+
+#default:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 
 #default:hover {
     background: var(--colorOne);
@@ -78,16 +102,38 @@ footer {
 }
 
 
-#sonic:hover {
+#sonic {
     background-color:#0156AC;
-    color:#F2F3F1;
+    border: solid 2px var(--colorFour);
+    color:#0156AC
 }
 
+#sonic:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 
 
-#underWorld:hover {
-    background-color:#045F76;
-    color:#74C408;
+#sonic:hover {
+    background-color:var(--colorFour);
+    color:#0156AC;
+    border: solid 2px #0156AC;
+}
+
+#zelda {
+    background-color: #0d9263;
+    color:#0d9263;
+    border: solid 2px #d4ce46;
+}
+
+#zelda:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+#zelda:hover {
+    background-color: #d4ce46;
+    color:#0d9263;
 }
 
 
@@ -95,7 +141,7 @@ footer {
 
 .metronome {
     margin: 1.5% 3% 1.5% 3%;
-    border: solid var(--colorTwo);   
+    border: var(--border);   
 }
 
 .bpm-display {
@@ -104,7 +150,7 @@ footer {
     justify-content: center;
     width: 100%;
     text-align: center;
-    color: var(--colorOne);
+    color: var(--colorFour);
     font-family: var(--fontOne);
 }
 
@@ -130,12 +176,12 @@ footer {
 }
 
 .tempo-settings button {
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border-color: var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFive);
+    color:var(--colorFour);
     padding: 20px;
     width: 10%;
     transition-duration: 0.4s;
@@ -143,8 +189,8 @@ footer {
 }
 
 .tempo-settings button:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 .slider {
@@ -169,7 +215,7 @@ input[type="range"]::-webkit-slider-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--colorOne);
+    background-color: var(--colorFour);
     margin-top: -8px;    
 }
 
@@ -178,20 +224,20 @@ input[type="range"]::-moz-range-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--colorOne); 
+    background-color: var(--colorFour); 
     border: none;   
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 1px;
-    background-color: var(--colorOne);
+    background-color: var(--colorFour);
 }
 
 input[type="range"]::-moz-range-track {
     width: 100%;
     height: 1px;
-    background-color: var(--colorOne);
+    background-color: var(--colorFour);
 }
 
 /* ----------------------- START BUTTON STYLES ----------------------- */
@@ -208,12 +254,12 @@ input[type="range"]::-moz-range-track {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFive);
+    color:var(--colorFour);
     padding: 20px;
     width: 30%;
     transition-duration: 0.4s;
@@ -222,8 +268,8 @@ input[type="range"]::-moz-range-track {
 }
 
 .start-stop:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 
@@ -237,12 +283,12 @@ input[type="range"]::-moz-range-track {
 }
 
 .beats button {
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFive);
+    color:var(--colorFour);
     padding: 20px;
     width: 10%;
     transition-duration: 0.4s;
@@ -250,17 +296,19 @@ input[type="range"]::-moz-range-track {
 }
 
 .beats button:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 .beats p {
     font-size: 4vw;
+    color: var(--colorFour);
 }
 
 .beatsPerMeasureTxt {
     display: flex;
     justify-content: space-around;
+    color: var(--colorFour);
 }
 
 .stepper {
@@ -292,12 +340,11 @@ input[type="range"]::-moz-range-track {
     flex-direction: column;
     justify-content: center;
     margin: 2% 3% 2% 3%;
-    
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid var(--colorOne);
+    border: 2px solid var(--colorTwo);
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: var(--colorThree);
     font-size: 16px;
     resize: none;
 }
@@ -306,12 +353,12 @@ input[type="range"]::-moz-range-track {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 2vw;
-    color:var(--colorFive);
+    font-size: 5vw;
+    color:var(--colorFour);
     width: 15vw;
     height: 5vh;
     transition-duration: 0.4s;
@@ -319,8 +366,8 @@ input[type="range"]::-moz-range-track {
 }
 
 .note:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 #noteBtnContainer {
@@ -339,7 +386,9 @@ input[type="range"]::-moz-range-track {
     border-radius: 4px;
     font-family: var(--fontTwo);
     font-size: larger;
-  }
+}
+
+
 
 
 
@@ -348,7 +397,7 @@ input[type="range"]::-moz-range-track {
 #date {
     font-family: var(--fontTwo);
     font-size:x-large;
-    color: #dd2020;
+    color: var(--colorFour);
 }
 
 
@@ -363,39 +412,52 @@ input[type="range"]::-moz-range-track {
     /* ----------------------- MAIN CONTENT STYLES ----------------------- */
     html, body {
         width: 100%;
-        /* height: 100%; */
+        margin-top: 15px;
         background-color: var(--colorThree);
         user-select: none;
     }
     
     header {
         display: flex;
-        border: solid var(--colorOne);
+        border: var(--border);
         justify-content:space-evenly;
         align-items: center;
         font-family: var(--fontOne);
-        font-size: 50%;
-        color: var(--colorOne);
-        margin-left: 30px;
-        margin-right: 30px;
+        font-size: 40%;
+        color: var(--colorFour);
+        margin-left: 15px;
+        margin-right: 15px;
         text-align: center;
     }
-    
+
     footer {
         display: flex;
-        border: solid var(--colorOne);
+        border: var(--border);
         justify-content:space-evenly;
         align-items: center;
+        font-size: 40%;
         font-family: var(--fontOne);
-        color: var(--colorOne);
-        margin-left: 30px;
-        margin-right: 30px;
+        color: var(--colorFour);
+        margin-left: 15px;
+        margin-right: 15px;
         margin-bottom: 3%;
         text-align: center;
     }
     
+    footer p {
+        color: var(--colorFour);
+    }
+    
+    a {
+        color: var(--colorFour);
+    } 
+    
+    a:active {
+        color:var(--colorTwo);
+    }
+    
     #joystick {
-        font-size: 50px;
+        font-size: 3vh;
     }
     
     /* ----------------------- THEME CONTAINER STYLES ----------------------- */
@@ -403,42 +465,76 @@ input[type="range"]::-moz-range-track {
     .themeContainer {
         display: flex;
         justify-content: space-evenly;
-         align-items: center;
+        align-items: center;
+        margin-right: 30px;
     }
     
     .colorTheme {
         background-color: var(--colorTwo);
         border: none;
-        border-radius: 5px;
-        margin: 2%;
+        border-radius: 40%;
+        margin: 10%;
         color:var(--colorFive);
         padding: 10px;
         font-family: var(--fontTwo);
-        font-size: 2vw;
+        font-size: 3vh;
         transition-duration: 0.4s;
         cursor: pointer;
+        box-shadow: 0 5px #999;
     }
-
-
-#default:hover {
-    background: var(--colorOne);
-    color: #fff;
-}
-
-
-#sonic:hover {
-    background-color:#0156AC;
-    color:#F2F3F1;
-}
-
-
-
-#underWorld:hover {
-    background-color:#045F76;
-    color:#74C408;
-}
-
-
+    
+    /* ----------------------- THEME BUTTON STYLES ----------------------- */
+    
+    #default {
+        background-color: var(--colorFive);
+        border: solid 2px var(--colorOne)
+    }
+    
+    #default:active {
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+    
+    #default:hover {
+        background: var(--colorOne);
+        color: #fff;
+    }
+    
+    
+    #sonic {
+        background-color:#0156AC;
+        border: solid 2px var(--colorFour);
+        color:#0156AC
+    }
+    
+    #sonic:active {
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+    
+    
+    #sonic:hover {
+        background-color:var(--colorFour);
+        color:#0156AC;
+        border: solid 2px #0156AC;
+    }
+    
+    #zelda {
+        background-color: #0d9263;
+        color:#0d9263;
+        border: solid 2px #d4ce46;
+    }
+    
+    #zelda:active {
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+    
+    #zelda:hover {
+        background-color: #d4ce46;
+        color:#0d9263;
+    }
+    
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
@@ -452,7 +548,7 @@ input[type="range"]::-moz-range-track {
     justify-content: center;
     width: 100%;
     text-align: center;
-    color: var(--colorOne);
+    color: var(--colorFour);
     font-family: var(--fontOne);
 }
 
@@ -478,12 +574,12 @@ input[type="range"]::-moz-range-track {
 }
 
 .tempo-settings button {
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border-color: var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFive);
+    color:var(--colorFour);
     padding: 20px;
     width: 10%;
     transition-duration: 0.4s;
@@ -491,8 +587,8 @@ input[type="range"]::-moz-range-track {
 }
 
 .tempo-settings button:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 .slider {
@@ -517,7 +613,7 @@ input[type="range"]::-webkit-slider-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--colorOne);
+    background-color: var(--colorFour);
     margin-top: -8px;    
 }
 
@@ -526,20 +622,20 @@ input[type="range"]::-moz-range-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--colorOne); 
+    background-color: var(--colorFour); 
     border: none;   
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 1px;
-    background-color: var(--colorOne);
+    background-color: var(--colorFour);
 }
 
 input[type="range"]::-moz-range-track {
     width: 100%;
     height: 1px;
-    background-color: var(--colorOne);
+    background-color: var(--colorFour);
 }
 
 /* ----------------------- START BUTTON STYLES ----------------------- */
@@ -556,12 +652,12 @@ input[type="range"]::-moz-range-track {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFive);
+    color:var(--colorFour);
     padding: 20px;
     width: 30%;
     transition-duration: 0.4s;
@@ -570,8 +666,8 @@ input[type="range"]::-moz-range-track {
 }
 
 .start-stop:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 
@@ -585,12 +681,12 @@ input[type="range"]::-moz-range-track {
 }
 
 .beats button {
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFive);
+    color:var(--colorFour);
     padding: 20px;
     width: 10%;
     transition-duration: 0.4s;
@@ -598,17 +694,19 @@ input[type="range"]::-moz-range-track {
 }
 
 .beats button:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 .beats p {
     font-size: 4vw;
+    color: var(--colorFour);
 }
 
 .beatsPerMeasureTxt {
     display: flex;
     justify-content: space-around;
+    color: var(--colorFour);
 }
 
 .stepper {
@@ -640,12 +738,11 @@ input[type="range"]::-moz-range-track {
     flex-direction: column;
     justify-content: center;
     margin: 2% 3% 2% 3%;
-    
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid var(--colorOne);
+    border: 2px solid var(--colorTwo);
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: var(--colorThree);
     font-size: 16px;
     resize: none;
 }
@@ -654,12 +751,12 @@ input[type="range"]::-moz-range-track {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--colorTwo);
-    border: none;
+    background-color: var(--colorThree);
+    border: solid 2px var(--colorTwo);
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 2vw;
-    color:var(--colorFive);
+    font-size: 3vw;
+    color:var(--colorFour);
     width: 15vw;
     height: 5vh;
     transition-duration: 0.4s;
@@ -667,8 +764,8 @@ input[type="range"]::-moz-range-track {
 }
 
 .note:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorFour);
+    color: var(--colorThree);
 }
 
 #noteBtnContainer {
@@ -691,12 +788,11 @@ input[type="range"]::-moz-range-track {
 
 
 
-
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
 #date {
     font-family: var(--fontTwo);
     font-size:x-large;
-    color: #dd2020;
+    color: var(--colorFour);
 }
 }
 
