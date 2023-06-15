@@ -16,8 +16,11 @@
 
 /* ----------------------- MAIN CONTENT STYLES ----------------------- */
 html, body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     background-color: var(--colorThree);
     user-select: none;
 }
@@ -421,8 +424,11 @@ input[type="range"]::-moz-range-track {
 @media only screen and (min-width: 100px) and (max-width: 844px) and (orientation: portrait) {
     /* ----------------------- MAIN CONTENT STYLES ----------------------- */
     html, body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         width: 100%;
-        margin-top: 15px;
+        height: 100%;
         background-color: var(--colorThree);
         user-select: none;
     }
@@ -496,7 +502,7 @@ input[type="range"]::-moz-range-track {
     /* ----------------------- THEME BUTTON STYLES ----------------------- */
     
     #default {
-        background-color: var(--colorFour);
+        background-color: var(--red);
         border: solid 2px var(--colorOne)
     }
     
@@ -543,13 +549,14 @@ input[type="range"]::-moz-range-track {
     #zelda:hover {
         background-color: #d4ce46;
         color:#0d9263;
+        border: solid 2px var(--colorOne);
     }
     
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
     margin: 1.5% 3% 1.5% 3%;
-    border: solid var(--colorTwo);   
+    border: var(--border);   
 }
 
 .bpm-display {
@@ -584,8 +591,8 @@ input[type="range"]::-moz-range-track {
 }
 
 .tempo-settings button {
-    background-color: var(--colorThree);
-    border-color: var(--colorTwo);
+    background-color: var(--colorTwo);
+    border-color: var(--colorFive);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
@@ -662,8 +669,8 @@ input[type="range"]::-moz-range-track {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    background-color: var(--colorThree);
-    border: solid 2px var(--colorTwo);
+    background-color: var(--colorTwo);
+    border-color: var(--colorFive);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
@@ -691,14 +698,18 @@ input[type="range"]::-moz-range-track {
 }
 
 .beats button {
-    background-color: var(--colorThree);
-    border: solid 2px var(--colorTwo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--colorTwo);
+    border-color: var(--colorFive);
     border-radius: 10px;
     font-family: var(--fontTwo);
     font-size: 4vw;
-    color:var(--colorFour);
+    color: var(--colorFour);
     padding: 20px;
-    width: 10%;
+    width: 5vw;
+    height: 5vh;
     transition-duration: 0.4s;
     cursor: pointer;
 }
@@ -719,7 +730,7 @@ input[type="range"]::-moz-range-track {
     color: var(--colorFour);
 }
 
-.stepper {
+/* .stepper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -735,7 +746,7 @@ input[type="range"]::-moz-range-track {
     font-size: 3vw;
     text-align: center;
     cursor: pointer;
-}
+} */
 
 .stepper:hover {
     background: var(--colorOne);
@@ -750,7 +761,7 @@ input[type="range"]::-moz-range-track {
     margin: 2% 3% 2% 3%;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid var(--colorTwo);
+    border: 2px solid var(--colorFive);
     border-radius: 4px;
     background-color: var(--colorThree);
     font-size: 16px;
@@ -761,11 +772,11 @@ input[type="range"]::-moz-range-track {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--colorThree);
-    border: solid 2px var(--colorTwo);
+    background-color: var(--colorTwo);
+    border-color: var(--colorFive);
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 3vw;
+    font-size: 2vw;
     color:var(--colorFour);
     width: 15vw;
     height: 5vh;
@@ -794,8 +805,14 @@ input[type="range"]::-moz-range-track {
     border-radius: 4px;
     font-family: var(--fontTwo);
     font-size: larger;
-  }
+}
 
+
+
+.timer {
+    font-family: var(--fontTwo);
+    color: var(--colorFour);
+}
 
 
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
@@ -804,6 +821,7 @@ input[type="range"]::-moz-range-track {
     font-size:x-large;
     color: var(--colorFour);
 }
+
 }
 
 
