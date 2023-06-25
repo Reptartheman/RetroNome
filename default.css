@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap');
+
 :root {
     --colorOne: #0d0c0c;
     --colorTwo: #a5a2a2;
@@ -15,6 +14,7 @@
     --fontTwo: 'VT323', monospace;
     --fontSizeOne: 0.8vw;
     --fontSizeTwo: 2.8vw;
+    --fontSizeThree: 2.2vw;
     
 
 }
@@ -30,27 +30,20 @@ body {
     user-select: none;
 }
 
-header {
-    display: flex;
-    border: var(--border);
-    justify-content:space-evenly;
-    align-items: center;
-    font-family: var(--fontOne);
-    font-size: var(--fontSizeOne);
-    color: var(--colorOne);
-    margin: var(--margin);
-    /* text-align: center; */
+header,
+footer {
+  display: flex;
+  border: var(--border);
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: var(--fontOne);
+  color: var(--colorOne);
+  margin: var(--margin);
+  text-align: center;
 }
 
-footer {
-    display: flex;
-    border: var(--border);
-    justify-content:space-evenly;
-    align-items: center;
-    font-family: var(--fontOne);
-    color: var(--colorOne);
-    margin: var(--margin);
-    text-align: center;
+footer p {
+  color: var(--colorOne);
 }
 
 a {
@@ -143,7 +136,7 @@ a:active {
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
-    margin: 1.5% 3% 1.5% 3%;
+    margin: var(--margin);
     border: var(--border);   
 }
 
@@ -151,8 +144,8 @@ a:active {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    font-size: var(--fontSizeOne);
     text-align: center;
+    font-size: var(--fontSizeOne);
     color: var(--colorOne);
     font-family: var(--fontOne);
 
@@ -263,7 +256,7 @@ input[type="range"]::-moz-range-track {
     border: none;
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 2.2vw;
+    font-size: var(--fontSizeThree);
     color:var(--colorFive);
     padding: 20px;
     width: 15%;
@@ -374,7 +367,6 @@ input[type="range"]::-moz-range-track {
 
 #noteBtnContainer {
     display: flex;
-    justify-content: flex-start;
     justify-content: space-evenly;
     margin-top: 1%;
     width: 55%;
@@ -426,32 +418,17 @@ input[type="range"]::-moz-range-track {
         user-select: none;
     }
     
-    header {
-        display: flex;
-        border: var(--border);
-        justify-content:space-evenly;
-        align-items: center;
-        font-family: var(--fontOne);
-        font-size: 40%;
-        color: var(--colorOne);
-        margin-left: 15px;
-        margin-right: 15px;
-        text-align: center;
-    }
-
-    
+    header,
     footer {
-        display: flex;
-        border: var(--border);
-        justify-content:space-evenly;
-        align-items: center;
-        font-family: var(--fontOne);
-        font-size: 40%;
-        color: var(--colorOne);
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-bottom: 3%;
-        text-align: center;
+      display: flex;
+      border: var(--border);
+      justify-content: space-evenly;
+      align-items: center;
+      font-family: var(--fontOne);
+      font-size: 40%;
+      color: var(--colorOne);
+      margin: var(--margin);
+      text-align: center;
     }
     
     footer p {
@@ -496,8 +473,8 @@ input[type="range"]::-moz-range-track {
     /* ----------------------- THEME BUTTON STYLES ----------------------- */
     
     #default {
-        background-color: var(--colorFour);
-        border: solid 2px var(--colorFive)
+        background-color: var(--colorFive);
+        border: solid 2px var(--colorOne);
     }
     
     #default:active {
@@ -549,7 +526,7 @@ input[type="range"]::-moz-range-track {
 
 .metronome {
     margin: 1.5% 3% 1.5% 3%;
-    border: solid var(--colorTwo);   
+    border: var(--border);   
 }
 
 .bpm-display {
@@ -557,6 +534,7 @@ input[type="range"]::-moz-range-track {
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    margin-top: 15px;
     text-align: center;
     color: var(--colorOne);
     font-family: var(--fontOne);
@@ -584,11 +562,13 @@ input[type="range"]::-moz-range-track {
 }
 
 .tempo-settings button {
+    display: flex;
+    justify-content: center;
     background-color: var(--colorTwo);
     border: none;
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 4vw;
+    font-size: 5vw;
     color:var(--colorFive);
     padding: 20px;
     width: 10%;
@@ -666,7 +646,7 @@ input[type="range"]::-moz-range-track {
     border: none;
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 4vw;
+    font-size: 5vw;
     color:var(--colorFive);
     padding: 20px;
     width: 30%;
@@ -687,7 +667,7 @@ input[type="range"]::-moz-range-track {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: auto 50px auto 50px;
+    margin: auto 50px 25px 50px;
 }
 
 .beats button {
@@ -717,7 +697,7 @@ input[type="range"]::-moz-range-track {
     justify-content: space-around;
 }
 
-.stepper {
+/* .stepper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -733,7 +713,7 @@ input[type="range"]::-moz-range-track {
     font-size: 3vw;
     text-align: center;
     cursor: pointer;
-}
+} */
 
 .stepper:hover {
     background: var(--colorOne);
@@ -764,7 +744,7 @@ input[type="range"]::-moz-range-track {
     border: none;
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 3vw;
+    font-size: 3.7vw;
     color:var(--colorFive);
     width: 15vw;
     height: 5vh;
@@ -780,7 +760,7 @@ input[type="range"]::-moz-range-track {
 #noteBtnContainer {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 1%;
+    margin-top: 5%;
     width: 55%;
 }
 
