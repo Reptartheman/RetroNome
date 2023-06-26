@@ -9,10 +9,6 @@ const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
 const addBeats = document.querySelector(".add-beats");
 const beatCount = document.querySelector(".beat-count");
-const sessionTimeDisplay = document.querySelector(".timer");
-const hoursDisplay = document.querySelector("#hours");
-const minutesDisplay = document.querySelector("#minutes");
-const secondsDisplay = document.querySelector("#seconds");
 const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
@@ -20,8 +16,8 @@ const defaultBtn = document.querySelector("#default");
 const sonicBtn = document.querySelector("#sonic");
 const zeldaBtn = document.querySelector("#zelda");
 const linkElement = document.querySelector("link[href='./assets/styles/default.css']");
-const click1 = new Audio("../sounds/click1.wav");
-const click2 = new Audio("../sounds/click2.wav");
+const click1 = new Audio("./assets/sounds/click1.wav");
+const click2 = new Audio("./assets/sounds/click2.wav");
 
 let note;
 let noteText;
@@ -30,8 +26,7 @@ let beatsPerMeasure = 4;
 let count = 0;
 let isRunning = false;
 let tempoTextString = "Mid";
-let isTimerRunning = false;
-let colorTheme;
+
 
 
 function displayDate() {
@@ -53,6 +48,7 @@ increaseTempoBtn.addEventListener("click", () => {
   validateTempo();
   updateMetronome();
 });
+
 
 tempoSlider.addEventListener("input", () => {
   bpm = tempoSlider.value;
@@ -83,27 +79,14 @@ startStopBtn.addEventListener("click", () => {
   count = 0;
   if (!isRunning) {
     metronome.start();
-    startTimer();
     isRunning = true;
     startStopBtn.textContent = "STOP";
   } else {
     metronome.stop();
-    stopTimer();
     isRunning = false;
     startStopBtn.textContent = "START";
   }
 });
-
-startStopBtn.addEventListener("click", () => {
-    if (isTimerRunning) {
-      timer.stop();
-      isTimerRunning = false;
-    } else {
-      timer.start();
-      isTimerRunning = true;
-    }
-  });
-
 
 
 const updateMetronome = () => {
@@ -167,56 +150,6 @@ function playClick() {
   count++;
 }
 
-
-
-let startTimeStamp; // Variable to store the starting timestamp
-let timerInterval; // Variable to store the interval ID
-
-function startTimer() {
-  startTimeStamp = Date.now(); // Get the starting timestamp
-
-  timerInterval = setInterval(updateTime, 1000); // Update the timer every second
-}
-
-function stopTimer() {
-  clearInterval(timerInterval); // Clear the interval to stop the timer
-}
-
-function updateTime() {
-  const elapsedTime = Date.now() - startTimeStamp;
-
-  let hours = Math.floor(elapsedTime / 3600000);
-  let minutes = Math.floor((elapsedTime % 3600000) / 60000);
-  let seconds = Math.floor((elapsedTime % 60000) / 1000);
-
-
-
-  if (seconds === 59) {
-    minutes++;
-    seconds = 0;
-
-    if (minutes === 60) {
-      hours++;
-      minutes = 0;
-    }
-  }
-
-
-  secondsDisplay.textContent = pad(seconds);
-  minutesDisplay.textContent = pad(minutes);
-  hoursDisplay.textContent = pad(hours);
-
-  let formattedTime = `${hoursDisplay.textContent}:${minutesDisplay.textContent}:${secondsDisplay.textContent}`;
-  sessionTimeDisplay.textContent = `Session Time: ${formattedTime}`;
-
-}
-
-function pad(num) {
-  return (num < 10 ? "0" : "") + num; 
-}
-
-
-
  function saveNote(event) {
   event.preventDefault();
   note = document.querySelector(".note-textarea");
@@ -242,9 +175,6 @@ function changeStyle(stylesheet) {
   }
 }
 
-
-
-const timer = new Timer(updateTime, 1000, { immediate: true });
 const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
 
 addNote.addEventListener("click", saveNote);
@@ -264,7 +194,6 @@ zeldaBtn.addEventListener("click", () => {
 
 removeNote.addEventListener("click", () => {
   event.preventDefault();
-  //note = document.querySelector(".note-textarea");
   note.value = '';
   localStorage.removeItem('Note');
 })
