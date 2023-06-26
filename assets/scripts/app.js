@@ -19,9 +19,9 @@ const removeNote = document.querySelector("#removeNote");
 const defaultBtn = document.querySelector("#default");
 const sonicBtn = document.querySelector("#sonic");
 const zeldaBtn = document.querySelector("#zelda");
-const linkElement = document.querySelector("link[href='./default.css']");
-const click1 = new Audio("./click1.wav");
-const click2 = new Audio("./click2.wav");
+const linkElement = document.querySelector("link[href='./assets/styles/default.css']");
+const click1 = new Audio("../sounds/click1.wav");
+const click2 = new Audio("../sounds/click2.wav");
 
 let note;
 let noteText;
@@ -235,8 +235,13 @@ function init() {
 
 
 function changeStyle(stylesheet) {
-linkElement.setAttribute('href', stylesheet);
-};
+  if (linkElement) {
+    linkElement.setAttribute('href', stylesheet);
+  } else {
+    console.error('Link element not found!');
+  }
+}
+
 
 
 const timer = new Timer(updateTime, 1000, { immediate: true });
@@ -245,15 +250,15 @@ const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
 addNote.addEventListener("click", saveNote);
 
 defaultBtn.addEventListener("click", () => {
-  changeStyle('default.css');
+  changeStyle('./assets/styles/default.css');
 });
 
 sonicBtn.addEventListener("click", () => {
-  changeStyle('sonic.css');
+  changeStyle('./assets/styles/sonic.css');
 });
 
 zeldaBtn.addEventListener("click", () => {
-  changeStyle('zelda.css');
+  changeStyle('./assets/styles/zelda.css');
 });
 
 
