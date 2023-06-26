@@ -47,9 +47,9 @@ function playMetronome(time, playing, volume) {
     metronome.gain.value = volume;
     metronome.connect(audioContext.destination);
     if (counter === 1) {
-      osc.frequency.value = 300;
+      osc.frequency.value = 440;
     } else {
-      osc.frequency.value = 150;
+      osc.frequency.value = 220;
     }
 
     osc.start(time);
