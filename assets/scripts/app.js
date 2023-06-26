@@ -1,5 +1,5 @@
-
 import Timer from "./timer.js";
+"use strict";
 const tempoDisplay = document.querySelector(".tempo");
 const tempoText = document.querySelector(".tempo-text");
 const decreaseTempoBtn = document.querySelector(".decrease-tempo");
@@ -15,76 +15,90 @@ const removeNote = document.querySelector("#removeNote");
 const defaultBtn = document.querySelector("#default");
 const sonicBtn = document.querySelector("#sonic");
 const zeldaBtn = document.querySelector("#zelda");
-const linkElement = document.querySelector("link[href='./assets/styles/default.css']");
-const click1 = new Audio("./assets/sounds/click1.wav");
-const click2 = new Audio("./assets/sounds/click2.wav");
+const linkElement = document.querySelector(
+  "link[href='./assets/styles/default.css']"
+);
+/* const click1 = new Audio("./assets/sounds/click1.mp3");
+const click2 = new Audio("./assets/sounds/click2.mp3"); */
+
+let audioContext,
+  futureTickTime,
+  counter = 1,
+  metronome,
+  metronomeVolume = 1,
+  bpm = 120,
+  secondsPerBeat = (60 / bpm),
+  counterTimeValue = (secondsPerBeat / 4),
+  osc;
 
 let note;
 let noteText;
-let bpm = 120;
 let beatsPerMeasure = 4;
-let count = 0;
+//let count = 0;
+
 let isRunning = false;
 let tempoTextString = "Mid";
+let animationFrameId;
 
+function playMetronome(time, playing, volume) {
+  if (playing) {
+    osc = audioContext.createOscillator();
+    osc.connect(metronome);
+    metronome.gain.value = volume;
+    metronome.connect(audioContext.destination);
+    if (counter === 1) {
+      osc.frequency.value = 300;
+    } else {
+      osc.frequency.value = 150;
+    }
 
-
-function displayDate() {
-  let todayDate = dayjs().format('M/DD/YYYY');
-  dateDisplay.textContent = `Today is: ${todayDate}`;
-  return todayDate;
-};
-displayDate();
-
-
-decreaseTempoBtn.addEventListener("click", () => {
-  bpm--;
-  validateTempo();
-  updateMetronome();
-});
-
-increaseTempoBtn.addEventListener("click", () => {
-  bpm++;
-  validateTempo();
-  updateMetronome();
-});
-
-
-tempoSlider.addEventListener("input", () => {
-  bpm = tempoSlider.value;
-  validateTempo();
-  updateMetronome();
-});
-
-subtractBeats.addEventListener("click", () => {
-  if (beatsPerMeasure <= 2) {
-    return;
+    osc.start(time);
+    osc.stop(time + 0.1);
   }
-  beatsPerMeasure--;
-  beatCount.textContent = beatsPerMeasure;
-  count = 0;
-});
+}
 
-addBeats.addEventListener("click", () => {
-  if (beatsPerMeasure >= 12) {
-    return;
+function playTick() {
+  secondsPerBeat = 60 / bpm;
+  counterTimeValue = (secondsPerBeat / 1);
+  counter += 1;
+  futureTickTime += counterTimeValue;
+  if (counter > 4) {
+    counter = 1;
   }
-  beatsPerMeasure++;
-  beatCount.textContent = beatsPerMeasure;
-  count = 0;
-});
+  // Calculate the counterTimeValue based on the slider value
+  const tempoMultiplier = tempoSlider.value / 100; // Adjust this multiplier as needed
+  counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
+} 
 
+function scheduler() {
+  if (futureTickTime < audioContext.currentTime + 0.1) {
+    playMetronome(futureTickTime, true, metronomeVolume);
+    playTick();
+
+  }
+  if (isRunning) {
+    animationFrameId = window.requestAnimationFrame(scheduler);
+  }
+}
 
 startStopBtn.addEventListener("click", () => {
-  count = 0;
   if (!isRunning) {
-    metronome.start();
+    // Start the metronome
     isRunning = true;
     startStopBtn.textContent = "STOP";
+
+    audioContext = new AudioContext();
+    futureTickTime = audioContext.currentTime;
+    osc = audioContext.createOscillator();
+    metronome = audioContext.createGain();
+    scheduler();
   } else {
-    metronome.stop();
+    // Stop the metronome
     isRunning = false;
     startStopBtn.textContent = "START";
+
+    clearTimeout(animationFrameId);
+    osc.stop();
   }
 });
 
@@ -92,7 +106,6 @@ startStopBtn.addEventListener("click", () => {
 const updateMetronome = () => {
   tempoDisplay.textContent = bpm;
   tempoSlider.value = bpm;
-  metronome.timeInterval = 60000 / bpm;
   switch (true) {
     case bpm <= 40:
       tempoTextString = " " + "Bowser tempo";
@@ -136,67 +149,93 @@ const validateTempo = () => {
   }
 };
 
-function playClick() {
-  if (count === beatsPerMeasure) {
-    count = 0;
-  }
-  if (count === 0) {
-    click1.play();
-    click1.currentTime = 0;
-  } else {
-    click2.play();
-    click2.currentTime = 0;
-  }
-  count++;
-}
 
- function saveNote(event) {
+function displayDate() {
+  let todayDate = dayjs().format("M/DD/YYYY");
+  dateDisplay.textContent = `Today is: ${todayDate}`;
+  return todayDate;
+}
+displayDate();
+
+decreaseTempoBtn.addEventListener("click", () => {
+  bpm--;
+  validateTempo();
+  updateMetronome();
+});
+
+increaseTempoBtn.addEventListener("click", () => {
+  bpm++;
+  validateTempo();
+  updateMetronome();
+});
+
+tempoSlider.addEventListener("input", () => {
+  bpm = tempoSlider.value;
+  validateTempo();
+  updateMetronome();
+});
+
+subtractBeats.addEventListener("click", () => {
+  if (beatsPerMeasure <= 2) {
+    return;
+  }
+  beatsPerMeasure--;
+  beatCount.textContent = beatsPerMeasure;
+  counter = 0;
+});
+
+addBeats.addEventListener("click", () => {
+  if (beatsPerMeasure >= 12) {
+    return;
+  }
+  beatsPerMeasure++;
+  beatCount.textContent = beatsPerMeasure;
+  counter = 0;
+});
+
+function saveNote(event) {
   event.preventDefault();
   note = document.querySelector(".note-textarea");
   noteText = note.value.trim();
-  localStorage.setItem('Note', JSON.stringify(noteText));
+  localStorage.setItem("Note", JSON.stringify(noteText));
 }
 
 function init() {
- let savedNote = JSON.parse(localStorage.getItem('Note'));
-  
+  let savedNote = JSON.parse(localStorage.getItem("Note"));
+
   if (savedNote) {
     // Populate the text on the page
     document.querySelector(".note-textarea").textContent = savedNote;
   }
-};
-
+}
 
 function changeStyle(stylesheet) {
   if (linkElement) {
-    linkElement.setAttribute('href', stylesheet);
+    linkElement.setAttribute("href", stylesheet);
   } else {
-    console.error('Link element not found!');
+    console.error("Link element not found!");
   }
 }
 
-const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
+/* const metronome = new Timer(playClick, 60000 / bpm, { immediate: true }); */
 
 addNote.addEventListener("click", saveNote);
 
 defaultBtn.addEventListener("click", () => {
-  changeStyle('./assets/styles/default.css');
+  changeStyle("./assets/styles/default.css");
 });
 
 sonicBtn.addEventListener("click", () => {
-  changeStyle('./assets/styles/sonic.css');
+  changeStyle("./assets/styles/sonic.css");
 });
 
 zeldaBtn.addEventListener("click", () => {
-  changeStyle('./assets/styles/zelda.css');
+  changeStyle("./assets/styles/zelda.css");
 });
-
 
 removeNote.addEventListener("click", () => {
   event.preventDefault();
-  note.value = '';
-  localStorage.removeItem('Note');
-})
+  note.value = "";
+  localStorage.removeItem("Note");
+});
 init();
-
-
