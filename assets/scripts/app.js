@@ -91,6 +91,8 @@ startStopBtn.addEventListener("click", () => {
     futureTickTime = audioContext.currentTime;
     osc = audioContext.createOscillator();
     metronome = audioContext.createGain();
+
+    counter = 1;
     scheduler();
   } else {
     // Stop the metronome
