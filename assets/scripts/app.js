@@ -1,5 +1,5 @@
-import Timer from "./timer.js";
 "use strict";
+
 const tempoDisplay = document.querySelector(".tempo");
 const tempoText = document.querySelector(".tempo-text");
 const decreaseTempoBtn = document.querySelector(".decrease-tempo");
@@ -18,8 +18,7 @@ const zeldaBtn = document.querySelector("#zelda");
 const linkElement = document.querySelector(
   "link[href='./assets/styles/default.css']"
 );
-/* const click1 = new Audio("./assets/sounds/click1.mp3");
-const click2 = new Audio("./assets/sounds/click2.mp3"); */
+
 
 let audioContext,
   futureTickTime,
@@ -34,7 +33,7 @@ let audioContext,
 let note;
 let noteText;
 let beatsPerMeasure = 4;
-//let count = 0;
+
 
 let isRunning = false;
 let tempoTextString = "Mid";
@@ -219,7 +218,7 @@ function changeStyle(stylesheet) {
   }
 }
 
-/* const metronome = new Timer(playClick, 60000 / bpm, { immediate: true }); */
+
 
 addNote.addEventListener("click", saveNote);
 
