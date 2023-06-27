@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap');
 
 :root {
-    --colorOne: #0d0c0c;
-    --colorTwo: #a5a2a2;
+    --colorOne: #201D1D;
+    --colorTwo: #AFACAC;
     --colorThree: #e5e5e5;
     --colorFour:#ffffff;
-    --colorFive:#dd2020;
+    --colorFive: #C41C1C;
 
     --border: 2px solid var(--colorOne);
     --margin: 1.5% 3% 1.5% 3%;
@@ -83,8 +83,9 @@ a:active {
 /* ----------------------- THEME BUTTON STYLES ----------------------- */
 
 #default {
-    background-color: var(--colorFive);
-    border: solid 2px var(--colorOne)
+    background-color: var(--colorTwo);
+    border: solid 2px var(--colorOne);
+    color: var(--colorTwo);
 }
 
 #default:active {
@@ -93,8 +94,8 @@ a:active {
   }
 
 #default:hover {
-    background: var(--colorOne);
-    color: #fff;
+    background: var(--colorTwo);
+    color: var(--colorOne);
 }
 
 
@@ -394,8 +395,8 @@ input[type="range"]::-moz-range-track {
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
 #date {
     font-family: var(--fontTwo);
-    font-size:xx-large;
-    color: #dd2020;
+    font-size:x-large;
+    color:var(--colorFive);
 }
 
 
@@ -425,7 +426,7 @@ input[type="range"]::-moz-range-track {
       justify-content: space-evenly;
       align-items: center;
       font-family: var(--fontOne);
-      font-size: 40%;
+      font-size: 0.5rem;
       color: var(--colorOne);
       margin: var(--margin);
       text-align: center;
@@ -461,10 +462,9 @@ input[type="range"]::-moz-range-track {
         border: none;
         border-radius: 40%;
         margin: 10%;
-        color:var(--colorFive);
         padding: 10px;
         font-family: var(--fontTwo);
-        font-size: 3vh;
+        font-size: 1rem;
         transition-duration: 0.4s;
         cursor: pointer;
         box-shadow: 0 5px #999;
@@ -473,8 +473,9 @@ input[type="range"]::-moz-range-track {
     /* ----------------------- THEME BUTTON STYLES ----------------------- */
     
     #default {
-        background-color: var(--colorFive);
+        background-color: var(--colorTwo);
         border: solid 2px var(--colorOne);
+        color: var(--colorTwo);
     }
     
     #default:active {
@@ -521,7 +522,6 @@ input[type="range"]::-moz-range-track {
         background-color: #d4ce46;
         color:#0d9263;
     }
-    
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
@@ -785,7 +785,7 @@ input[type="range"]::-moz-range-track {
 #date {
     font-family: var(--fontTwo);
     font-size:x-large;
-    color: #dd2020;
+    color: var(--colorFive);
 }
 }
 

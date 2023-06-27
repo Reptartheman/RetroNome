@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap');
 
 :root {
-    --colorOne: #0e142e;
+    --colorOne: #201D1D;
     --colorTwo: #F7C982;
     --colorThree: #3061E3;
     --colorFour:#FEFFFE;
-    --colorFive:#DB2429;
+    --colorFive: #C41C1C;
+    --defaultGrey: #AFACAC;
 
     --border: solid 2px var(--colorTwo);
     --margin: 1.5% 3% 1.5% 3%;
@@ -80,8 +81,9 @@ a:active {
 /* ----------------------- THEME BUTTON STYLES ----------------------- */
 
 #default {
-    background-color: var(--colorFive);
-    border: solid 2px var(--colorOne)
+    background-color: var(--defaultGrey);
+    border: solid 2px var(--colorOne);
+    color: var(--defaultGrey);
 }
 
 #default:active {
@@ -463,7 +465,7 @@ input[type="range"]::-moz-range-track {
         color:var(--colorFive);
         padding: 10px;
         font-family: var(--fontTwo);
-        font-size: 3vh;
+        font-size: 1rem;
         transition-duration: 0.4s;
         cursor: pointer;
         box-shadow: 0 5px #999;
@@ -472,8 +474,9 @@ input[type="range"]::-moz-range-track {
     /* ----------------------- THEME BUTTON STYLES ----------------------- */
     
     #default {
-        background-color: var(--colorFive);
-        border: solid 2px var(--colorOne)
+        background-color: var(--defaultGrey);
+        border: solid 2px var(--colorOne);
+        color: var(--defaultGrey);
     }
     
     #default:active {
@@ -520,7 +523,6 @@ input[type="range"]::-moz-range-track {
         background-color: #d4ce46;
         color:#0d9263;
     }
-    
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {

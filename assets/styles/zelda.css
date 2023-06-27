@@ -6,8 +6,9 @@
     --colorThree: #0D9263;
     --colorFour:#FEFFFE;
     --colorFive:#D4CE46;
-    --red:#dd2020;
+    --red:#B31919;
     --black: #0d0c0c;
+    --defaultGrey: #AFACAC;
 
     --margin: 1.5% 3% 1.5% 3%;
     --border: solid 2px var(--colorFive);
@@ -82,9 +83,9 @@ a:active {
 /* ----------------------- THEME BUTTON STYLES ----------------------- */
 
 #default {
-    background-color: var(--red);
+    background-color: var(--defaultGrey);
     border: solid 2px var(--black);
-    color: var(--red);
+    color: var(--defaultGrey);
 }
 
 #default:active {
@@ -118,8 +119,8 @@ a:active {
 
 #zelda {
     background-color: #0d9263;
-    color:#0d9263;
-    border: solid 2px #d4ce46;
+    color:var(--colorThree);
+    border: solid 2px var(--colorFive);
 }
 
 #zelda:active {
@@ -129,7 +130,8 @@ a:active {
 
 #zelda:hover {
     background-color: #d4ce46;
-    color:#0d9263;
+    color: var(--colorThree);
+    border: solid 2px var(--colorThree);
 }
 
 
@@ -466,7 +468,7 @@ input[type="range"]::-moz-range-track {
         color:var(--colorFive);
         padding: 10px;
         font-family: var(--fontTwo);
-        font-size: 3vh;
+        font-size: 1rem;
         transition-duration: 0.4s;
         cursor: pointer;
         box-shadow: 0 5px #999;
@@ -475,8 +477,9 @@ input[type="range"]::-moz-range-track {
     /* ----------------------- THEME BUTTON STYLES ----------------------- */
     
     #default {
-        background-color: var(--red);
-        border: solid 2px var(--colorOne)
+        background-color: var(--defaultGrey);
+        border: solid 2px var(--black);
+        color: var(--defaultGrey);
     }
     
     #default:active {
@@ -510,8 +513,8 @@ input[type="range"]::-moz-range-track {
     
     #zelda {
         background-color: #0d9263;
-        color:#0d9263;
-        border: solid 2px #d4ce46;
+        color:var(--colorTwo);
+        border: solid 2px var(--colorTwo);
     }
     
     #zelda:active {
@@ -521,8 +524,7 @@ input[type="range"]::-moz-range-track {
     
     #zelda:hover {
         background-color: #d4ce46;
-        color:#0d9263;
-        border: solid 2px var(--colorOne);
+        color: var(--colorTwo);
     }
     
 /* ----------------------- METRONOME CONTENT ----------------------- */
