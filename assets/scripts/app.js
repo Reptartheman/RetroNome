@@ -61,7 +61,7 @@ function playTick() {
   counterTimeValue = (secondsPerBeat / 1);
   counter += 1;
   futureTickTime += counterTimeValue;
-  if (counter > 4) {
+  if (counter > beatsPerMeasure) {
     counter = 1;
   }
   // Calculate the counterTimeValue based on the slider value
@@ -105,7 +105,7 @@ startStopBtn.addEventListener("click", () => {
 
 
 const updateMetronome = () => {
-  tempoDisplay.textContent = bpm;
+  tempoDisplay.textContent = bpm + " BPM";
   tempoSlider.value = bpm;
   switch (true) {
     case bpm <= 40:
