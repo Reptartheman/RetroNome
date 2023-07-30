@@ -201,6 +201,15 @@ function saveNote(event) {
   localStorage.setItem("Note", JSON.stringify(noteText));
 }
 
+function deleteNote(event){
+  event.preventDefault();
+  localStorage.removeItem("Note");
+  note = document.querySelector(".note-textarea");
+  if (note) {
+    note.value = "";
+  }
+}
+
 function init() {
   let savedNote = JSON.parse(localStorage.getItem("Note"));
 
@@ -221,6 +230,8 @@ function changeStyle(stylesheet) {
 
 
 addNote.addEventListener("click", saveNote);
+removeNote.addEventListener("click", deleteNote);
+
 
 defaultBtn.addEventListener("click", () => {
   changeStyle("./assets/styles/default.css");
@@ -234,9 +245,5 @@ zeldaBtn.addEventListener("click", () => {
   changeStyle("./assets/styles/zelda.css");
 });
 
-removeNote.addEventListener("click", () => {
-  event.preventDefault();
-  note.value = "";
-  localStorage.removeItem("Note");
-});
+
 init();

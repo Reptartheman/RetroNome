@@ -42,6 +42,14 @@ footer {
   text-align: center;
 }
 
+h1 {
+    font-size: 3vh;
+}
+
+header p {
+    font-size: 1vh;
+}
+
 footer p {
   color: var(--colorOne);
 }
@@ -63,7 +71,6 @@ a:active {
 .themeContainer {
     display: flex;
     justify-content: space-evenly;
-    /* align-items: center; */
 }
 
 .colorTheme {
@@ -74,7 +81,6 @@ a:active {
     color:var(--colorFive);
     padding: 10px;
     font-family: var(--fontTwo);
-    font-size: 3vh;
     transition-duration: 0.4s;
     cursor: pointer;
     box-shadow: 0 5px #999;
@@ -372,7 +378,7 @@ input[type="range"]::-moz-range-track {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: var(--fontTwo);
-    font-size: 2vw;
+    font-size: 1.2vw;
   }
 
 .timer {
@@ -397,10 +403,10 @@ input[type="range"]::-moz-range-track {
 
 
 /* iPhone 12 Portrait */
-@media only screen and (min-width: 100px) and (max-width: 844px) and (orientation: portrait) {
+@media only screen and (min-width: 320px) and (max-width: 1180px) and (orientation: portrait) {
     /* ----------------------- MAIN CONTENT STYLES ----------------------- */
     body {
-        margin: 10% 2% 10% 2%;
+        margin: auto 3% auto 3%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -412,14 +418,27 @@ input[type="range"]::-moz-range-track {
     header,
     footer {
       display: flex;
+      flex-direction: column;
       border: var(--border);
-      justify-content: space-evenly;
+      justify-content: space-around;
       align-items: center;
       font-family: var(--fontOne);
       font-size: 0.5rem;
       color: var(--colorOne);
       margin: var(--margin);
       text-align: center;
+    }
+
+    #footer {
+        flex-direction: row;
+    }
+
+    header p {
+        font-size: 1vh;
+    }
+
+    h1 {
+        font-size: 2.5vh;
     }
     
     footer p {
@@ -443,8 +462,6 @@ input[type="range"]::-moz-range-track {
     .themeContainer {
         display: flex;
         justify-content: space-evenly;
-        align-items: center;
-        margin-right: 30px;
     }
     
     .colorTheme {
@@ -452,9 +469,9 @@ input[type="range"]::-moz-range-track {
         border: none;
         border-radius: 40%;
         margin: 10%;
+        color:var(--colorFive);
         padding: 10px;
         font-family: var(--fontTwo);
-        font-size: 1rem;
         transition-duration: 0.4s;
         cursor: pointer;
         box-shadow: 0 5px #999;
@@ -532,13 +549,9 @@ input[type="range"]::-moz-range-track {
 
 .tempo {
     display: inline;
-    font-size: 3vw;    
+    font-size: 4vw;    
 }
 
-.bpm {
-    display: inline;
-    font-size: 2vw;  
-}
 
 .tempo-text {
     font-size: 2vw;
@@ -561,7 +574,7 @@ input[type="range"]::-moz-range-track {
     font-size: 5vw;
     color:var(--colorFive);
     padding: 20px;
-    width: 10%;
+    width: 14%;
     transition-duration: 0.4s;
     cursor: pointer;
 }
@@ -659,7 +672,7 @@ input[type="range"]::-moz-range-track {
     border: none;
     border-radius: 10px;
     font-family: var(--fontTwo);
-    font-size: 4vw;
+    font-size: 5vw;
     color:var(--colorFive);
     padding: 20px;
     width: 10%;
@@ -681,23 +694,6 @@ input[type="range"]::-moz-range-track {
     justify-content: space-around;
 }
 
-/* .stepper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--colorThree);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--font);
-    font-size: 28px;
-    color: var(--colorTwo);
-    width: 5vw;
-    height: 5vh;
-    font-family: var(--font);
-    font-size: 3vw;
-    text-align: center;
-    cursor: pointer;
-} */
 
 .stepper:hover {
     background: var(--colorOne);
@@ -774,8 +770,5 @@ input[type="range"]::-moz-range-track {
 }
 
 
-/* iPhone 12 Landscape */
-@media only screen and (min-width: 844px) and (max-width: 375px) and (orientation: landscape) {
-    /* Your CSS styling for iPhone 12 in landscape orientation */
-  }
+
 

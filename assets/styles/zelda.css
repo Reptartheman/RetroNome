@@ -42,6 +42,14 @@ footer {
   text-align: center;
 }
 
+header p {
+    font-size: 1vh;
+}
+
+h1 {
+    font-size: 3vh;
+}
+
 footer p {
     color: var(--colorFour);
 }
@@ -63,7 +71,6 @@ a:active {
 .themeContainer {
     display: flex;
     justify-content: space-evenly;
-    /* align-items: center; */
 }
 
 .colorTheme {
@@ -74,7 +81,6 @@ a:active {
     color:var(--colorFive);
     padding: 10px;
     font-family: var(--fontTwo);
-    font-size: 3vh;
     transition-duration: 0.4s;
     cursor: pointer;
     box-shadow: 0 5px #999;
@@ -377,7 +383,7 @@ input[type="range"]::-moz-range-track {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: var(--fontTwo);
-    font-size: larger;
+    font-size: 1.2vw;
 }
 
 
@@ -406,7 +412,7 @@ input[type="range"]::-moz-range-track {
 @media only screen and (min-width: 100px) and (max-width: 844px) and (orientation: portrait) {
     /* ----------------------- MAIN CONTENT STYLES ----------------------- */
     body {
-        margin: 10% 2% 10% 2%;
+        margin: auto 3% auto 3%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -418,6 +424,7 @@ input[type="range"]::-moz-range-track {
     header,
     footer {
       display: flex;
+      flex-direction: column;
       border: var(--border);
       justify-content: space-evenly;
       align-items: center;
@@ -426,6 +433,18 @@ input[type="range"]::-moz-range-track {
       color: var(--colorFour);
       margin: var(--margin);
       text-align: center;
+    }
+
+    #footer {
+        flex-direction: row;
+    }
+
+    header p {
+        font-size: 1vh;
+    }
+
+    h1 {
+        font-size: 2.5vh;
     }
     
     footer p {
@@ -449,8 +468,6 @@ input[type="range"]::-moz-range-track {
     .themeContainer {
         display: flex;
         justify-content: space-evenly;
-        align-items: center;
-        margin-right: 30px;
     }
     
     .colorTheme {
@@ -540,13 +557,9 @@ input[type="range"]::-moz-range-track {
 
 .tempo {
     display: inline;
-    font-size: 3vw;    
+    font-size: 4vw;    
 }
 
-.bpm {
-    display: inline;
-    font-size: 2vw;  
-}
 
 .tempo-text {
     font-size: 2vw;
@@ -569,7 +582,7 @@ input[type="range"]::-moz-range-track {
     font-size: 4vw;
     color:var(--colorFour);
     padding: 20px;
-    width: 10%;
+    width: 14%;
     transition-duration: 0.4s;
     cursor: pointer;
 }
@@ -672,7 +685,7 @@ input[type="range"]::-moz-range-track {
     background-color: var(--colorTwo);
     border: var(--border);
     font-family: var(--fontTwo);
-    font-size: 4vw;
+    font-size: 5vw;
     color: var(--colorFour);
     padding: 20px;
     width: 5vw;
@@ -697,23 +710,6 @@ input[type="range"]::-moz-range-track {
     color: var(--colorFour);
 }
 
-/*  .stepper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--colorThree);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--font);
-    font-size: 28px;
-    color: var(--colorTwo);
-    width: 5vw;
-    height: 5vh;
-    font-family: var(--font);
-    font-size: 3vw;
-    text-align: center;
-    cursor: pointer;
-}  */
 
 .stepper:hover {
     background: var(--colorOne);
