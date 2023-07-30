@@ -64,8 +64,7 @@ function playTick() {
   if (counter > beatsPerMeasure) {
     counter = 1;
   }
-  // Calculate the counterTimeValue based on the slider value
-  const tempoMultiplier = tempoSlider.value / 100; // Adjust this multiplier as needed
+  const tempoMultiplier = tempoSlider.value / 100;
   counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
 } 
 
@@ -82,7 +81,6 @@ function scheduler() {
 
 startStopBtn.addEventListener("click", () => {
   if (!isRunning) {
-    // Start the metronome
     isRunning = true;
     startStopBtn.textContent = "STOP";
 
@@ -94,7 +92,6 @@ startStopBtn.addEventListener("click", () => {
     counter = 1;
     scheduler();
   } else {
-    // Stop the metronome
     isRunning = false;
     startStopBtn.textContent = "START";
 
@@ -214,7 +211,6 @@ function init() {
   let savedNote = JSON.parse(localStorage.getItem("Note"));
 
   if (savedNote) {
-    // Populate the text on the page
     document.querySelector(".note-textarea").textContent = savedNote;
   }
 }
