@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/styles/default.css" />
+
     <title>RetroNome</title>
   </head>
   <body>
@@ -13,24 +18,29 @@
       <p>Press a gem for a color theme</p>
       <!-- <h3 class="themeTitle">Select your theme</h3> -->
       <div class="themeContainer">
-          <button class="colorTheme" id="default">1</button>
-          <button class="colorTheme" id="sonic">2</button>
-          <button class="colorTheme" id="zelda">3</button>
+        <button class="colorTheme" id="default">1</button>
+        <button class="colorTheme" id="sonic">2</button>
+        <button class="colorTheme" id="zelda">3</button>
       </div>
     </header>
-
 
     <div class="container">
       <main class="metronome">
         <div class="bpm-display">
-          <h1 class="tempo"> 120 BPM</h1>
+          <h1 class="tempo">120 BPM</h1>
           <p class="tempo-text"></p>
         </div>
 
-        
         <div class="tempo-settings">
           <button class="adjust-tempo-btn decrease-tempo">-</button>
-          <input type="range" min="20" max="260" step="1" class="slider" value="120" />
+          <input
+            type="range"
+            min="20"
+            max="260"
+            step="1"
+            class="slider"
+            value="120"
+          />
           <button class="adjust-tempo-btn increase-tempo">+</button>
         </div>
         <div id="startStopcontainer" aria-label="button-holder">
@@ -38,36 +48,41 @@
         </div>
         <div class="beats">
           <button class="subtract-beats stepper">-</button>
-          <p class="beat-count ">4</p>
+          <p class="beat-count">4</p>
           <p class="beatsPerMeasureTxt">Beats per Measure</p>
           <button class="add-beats stepper">+</button>
         </div>
-        
-
       </main>
       <section class="formArea">
         <p id="date"></p>
         <textarea
-          class="note-textarea"
+          id="textarea_field"
+          class="note-textarea nes-textarea"
           placeholder="Enter your practice session info"
         ></textarea>
         <div id="noteBtnContainer">
-        <button class="note" id="addNote">Add Note</button>
-        <button class="note" id="removeNote">Remove Note</button>
-      </div>
-
+          <button class="note" id="addNote">Add Note</button>
+          <button class="note" id="removeNote">Remove Note</button>
+        </div>
       </section>
     </div>
 
     <footer id="footer">
-      <p id="joystick">🕹</p> 
-      <p> App by Jeff: <a href="https://github.com/Reptartheman"> Click me!</a> </p>  
-      <p id="joystick">🕹</p> 
+      <a href="https://www.instagram.com/reptartheman/">
+        <i class="nes-icon instagram is-large"></i>
+      </a>
+      <a href="https://github.com/Reptartheman">
+        <i class="nes-icon github is-large"></i
+      ></a>
+      <a href="https://www.linkedin.com/in/jeffmoro/">
+        <i class="nes-icon linkedin is-large"></i>
+      </a>
     </footer>
     <script
-    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-    crossorigin="anonymous"></script>
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
     <script src="./assets/scripts/app.js" type="module"></script>
   </body>
 </html>

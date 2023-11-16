@@ -375,10 +375,6 @@ input[type="range"]::-moz-range-track {
     width: 42vw;
     height: 25vh;
     padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: var(--fontTwo);
-    font-size: 1.2vw;
   }
 
 .timer {
