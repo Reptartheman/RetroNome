@@ -4,24 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+    rel="stylesheet"
+  />
     <link rel="stylesheet" href="./assets/styles/default.css" />
     <title>RetroNome</title>
   </head>
   <body>
     <header class="header">
       <h1>Welcome to RetroNome</h1>
-      <p>Press a gem for a color theme</p>
-      <!-- <h3 class="themeTitle">Select your theme</h3> -->
       <div class="themeContainer">
-          <button class="colorTheme" id="default">1</button>
-          <button class="colorTheme" id="sonic">2</button>
-          <button class="colorTheme" id="zelda">3</button>
+      <p>Select your theme</p>
+      <!-- <h3 class="themeTitle">Select your theme</h3> -->
+      <div class="button-container">
+        <button type="button" class="nes-btn classic">Classic</button>
+          <!-- <button class="colorTheme" >1</button> -->
+          <button type="button" class="nes-btn is-primary">Sonic</button>
+          <!-- <button class="colorTheme" id="sonic">2</button> -->
+          <button type="button" class="nes-btn is-success">Zelda</button>
+          <!-- <button class="colorTheme" id="zelda">3</button> -->
+        </div>
       </div>
     </header>
 
 
     <div class="container">
-      <main class="metronome">
+      <section class="metronome">
         <div class="bpm-display">
           <h1 class="tempo"> 120 BPM</h1>
           <p class="tempo-text"></p>
@@ -42,22 +51,31 @@
           <p class="beatsPerMeasureTxt">Beats per Measure</p>
           <button class="add-beats stepper">+</button>
         </div>
-        
-
-      </main>
-      <section class="formArea">
-        <p id="date"></p>
-        <textarea
-          class="note-textarea"
-          placeholder="Enter your practice session info"
-        ></textarea>
-        <div id="noteBtnContainer">
-        <button class="note" id="addNote">Add Note</button>
-        <button class="note" id="removeNote">Remove Note</button>
-      </div>
-
       </section>
+
+      <section class="sound-select">
+        <h3>Select your tone</h3>
+        <ul>
+          <li><button type="button" class="nes-btn is-warning sine">Sine</button></li>
+          <li><button type="button" class="nes-btn is-warning triangle">Triangle</button></li>
+          <li><button type="button" class="nes-btn is-warning square">Square</button></li>
+          <li><button type="button" class="nes-btn is-warning saw">Saw</button></li>
+        </ul>
+      </section>
+
     </div>
+    <section class="formArea">
+      <p id="date"></p>
+      <textarea
+        class="note-textarea"
+        placeholder="Enter your practice session info"
+      ></textarea>
+      <div id="noteBtnContainer">
+      <button class="note" id="addNote">Add Note</button>
+      <button class="note" id="removeNote">Remove Note</button>
+    </div>
+
+    </section>
 
     <footer id="footer">
       <p id="joystick">🕹</p> 

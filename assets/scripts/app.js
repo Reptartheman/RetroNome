@@ -12,9 +12,10 @@ const beatCount = document.querySelector(".beat-count");
 const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
-const defaultBtn = document.querySelector("#default");
-const sonicBtn = document.querySelector("#sonic");
-const zeldaBtn = document.querySelector("#zelda");
+const defaultBtn = document.querySelector(".classic");
+const sonicBtn = document.querySelector(".is-primary");
+const zeldaBtn = document.querySelector(".is-success");
+const waveformBtn = document.querySelector(".is-warning");
 const linkElement = document.querySelector(
   "link[href='./assets/styles/default.css']"
 );
