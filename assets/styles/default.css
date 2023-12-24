@@ -66,6 +66,10 @@ header {
     padding-top: var(--size-10);
 }
 
+footer {
+    padding: var(--size-10);
+}
+
 h1 {
     font-size: 3vh;
     margin: 0;
@@ -90,6 +94,8 @@ a {
 
 ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 
@@ -194,24 +200,8 @@ a:active {
 
 
 .metronome {
-    grid-column: 1/ span 3;
+    grid-column: 1/ span 4;
     border: var(--border);   
-}
-
-.sound-select {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    grid-column: 4/ span 1;
-    border: var(--border);
-    gap: var(--size-20);
-}
-
-.sound-select h3 {
-    text-align: center;
-    
 }
 
 .bpm-display {
@@ -320,7 +310,7 @@ input[type="range"]::-moz-range-track {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: auto 50px auto 50px;
+    margin: auto var(--size-50) var(--size-10) var(--size-50);
 }
 
 /* .beats button {
@@ -356,16 +346,23 @@ input[type="range"]::-moz-range-track {
 } */
 
 /* ----------------------- FORM STYLES ----------------------- */
+section.container {
+    border: var(--border);
+    margin: var(--size-20) 0;
+}
+
 .formArea {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    grid-column: 1/ span 3;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid var(--colorOne);
     border-radius: 4px;
     font-size: 16px;
     resize: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .note {
@@ -393,7 +390,7 @@ input[type="range"]::-moz-range-track {
     display: flex;
     justify-content: space-evenly;
     margin-top: 1%;
-    width: 55%;
+    width: 75%;
 }
 
 .note-textarea {
@@ -408,6 +405,27 @@ input[type="range"]::-moz-range-track {
     font-size: 1.2vw;
   }
 
+  .sound-select {
+    grid-column: 4/ span 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    gap: var(--size-20);
+}
+
+.sound-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-10);
+}
+
+.sound-select h3 {
+    margin: 0;
+    font-size: 1vw;
+}
+
 .timer {
     font-family: var(--fontTwo);
     color: var(--colorOne);
@@ -415,10 +433,11 @@ input[type="range"]::-moz-range-track {
 
 
 
+
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
 #date {
     font-family: var(--fontTwo);
-    font-size:x-large;
+    font-size: var(--size-30);
     color:var(--colorFive);
 }
 

@@ -53,18 +53,11 @@
         </div>
       </section>
 
-      <section class="sound-select">
-        <h3>Select your tone</h3>
-        <ul>
-          <li><button type="button" id="sine" class="nes-btn is-warning sine">Sine</button></li>
-          <li><button type="button" id="triangle" class="nes-btn is-warning triangle">Triangle</button></li>
-          <li><button type="button" id="square" class="nes-btn is-warning square">Square</button></li>
-          <li><button type="button" id="saw" class="nes-btn is-warning saw">Saw</button></li>
-        </ul>
-      </section>
+ 
 
     </div>
-    <section class="formArea">
+    <section class="container">
+      <div class="formArea">
       <p id="date"></p>
       <textarea
         class="note-textarea"
@@ -74,13 +67,23 @@
       <button type="button" id="addNote" class="nes-btn" >Add Note</button>
       <button type="button" id="removeNote" class="nes-btn"  >Remove Note</button>
     </div>
+  </div>
+    <section class="sound-select">
+      <h3>Select your tone</h3>
+      <ul class="sound-container">
+        <li><button type="button" id="sine" class="nes-btn is-warning sine">Sine</button></li>
+        <li><button type="button" id="triangle" class="nes-btn is-warning triangle">Triangle</button></li>
+        <li><button type="button" id="square" class="nes-btn is-warning square">Square</button></li>
+        <li><button type="button" id="saw" class="nes-btn is-warning saw">Saw</button></li>
+      </ul>
+    </section>
 
     </section>
 
     <footer id="footer">
-      <p id="joystick">🕹</p> 
-      <p> App by Jeff: <a href="https://github.com/Reptartheman"> Click me!</a> </p>  
-      <p id="joystick">🕹</p> 
+      <i class="nes-icon instagram is-medium"></i>
+      <i class="nes-icon github is-medium"><a href="https://github.com/Reptartheman"></a></i> 
+      <i class="nes-icon linkedin is-medium"></i>
     </footer>
     <script
     src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
