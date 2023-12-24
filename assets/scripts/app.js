@@ -15,7 +15,6 @@ const removeNote = document.querySelector("#removeNote");
 const defaultBtn = document.querySelector(".classic");
 const sonicBtn = document.querySelector(".is-primary");
 const zeldaBtn = document.querySelector(".is-success");
-const waveformBtn = document.querySelector(".is-warning");
 const linkElement = document.querySelector(
   "link[href='./assets/styles/default.css']"
 );
@@ -39,6 +38,8 @@ let beatsPerMeasure = 4;
 let isRunning = false;
 let tempoTextString = "Mid";
 let animationFrameId;
+let selectedWaveform;
+let waveformTypes = document.querySelector(".sine");
 
 function playMetronome(time, playing, volume) {
   if (playing) {
@@ -68,6 +69,19 @@ function playTick() {
   const tempoMultiplier = tempoSlider.value / 100;
   counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
 } 
+
+function changeTone() {
+  let selectedWaveform = document.getElementById(this.id);
+  if (selectedWaveform.textContent == 'sine') {
+    osc.type = 'sine';
+    console.log('Selected Waveform');
+  }
+};
+
+waveformTypes.addEventListener('click', changeTone);
+
+
+
 
 function scheduler() {
   if (futureTickTime < audioContext.currentTime + 0.1) {

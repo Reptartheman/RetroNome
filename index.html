@@ -38,28 +38,28 @@
 
         
         <div class="tempo-settings">
-          <button class="adjust-tempo-btn decrease-tempo">-</button>
+          <button class="nes-btn adjust-tempo-btn decrease-tempo">-</button>
           <input type="range" min="20" max="260" step="1" class="slider" value="120" />
-          <button class="adjust-tempo-btn increase-tempo">+</button>
+          <button class="nes-btn adjust-tempo-btn increase-tempo">+</button>
         </div>
         <div id="startStopcontainer" aria-label="button-holder">
-          <button class="start-stop">START</button>
+          <button type="button" class="nes-btn start-stop">START</button>
         </div>
         <div class="beats">
-          <button class="subtract-beats stepper">-</button>
+          <button type="button" class="nes-btn subtract-beats stepper">-</button>
           <p class="beat-count ">4</p>
           <p class="beatsPerMeasureTxt">Beats per Measure</p>
-          <button class="add-beats stepper">+</button>
+          <button class="nes-btn add-beats stepper">+</button>
         </div>
       </section>
 
       <section class="sound-select">
         <h3>Select your tone</h3>
         <ul>
-          <li><button type="button" class="nes-btn is-warning sine">Sine</button></li>
-          <li><button type="button" class="nes-btn is-warning triangle">Triangle</button></li>
-          <li><button type="button" class="nes-btn is-warning square">Square</button></li>
-          <li><button type="button" class="nes-btn is-warning saw">Saw</button></li>
+          <li><button type="button" id="sine" class="nes-btn is-warning sine">Sine</button></li>
+          <li><button type="button" id="triangle" class="nes-btn is-warning triangle">Triangle</button></li>
+          <li><button type="button" id="square" class="nes-btn is-warning square">Square</button></li>
+          <li><button type="button" id="saw" class="nes-btn is-warning saw">Saw</button></li>
         </ul>
       </section>
 
@@ -71,8 +71,8 @@
         placeholder="Enter your practice session info"
       ></textarea>
       <div id="noteBtnContainer">
-      <button class="note" id="addNote">Add Note</button>
-      <button class="note" id="removeNote">Remove Note</button>
+      <button type="button" id="addNote" class="nes-btn" >Add Note</button>
+      <button type="button" id="removeNote" class="nes-btn"  >Remove Note</button>
     </div>
 
     </section>

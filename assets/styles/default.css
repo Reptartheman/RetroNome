@@ -62,11 +62,17 @@ footer {
 header {
     margin-top: var(--size-20);
     margin-bottom: var(--size-20);
+    padding-bottom: var(--size-10);
+    padding-top: var(--size-10);
 }
 
 h1 {
     font-size: 3vh;
     margin: 0;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 header p {
@@ -101,6 +107,7 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: var(--size-6);
 }
 
 .button-container {
@@ -181,7 +188,7 @@ a:active {
 .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    align-items: start;
+    align-items: stretch;
     gap: var(--size-20);
 }
 
@@ -215,6 +222,7 @@ a:active {
     font-size: var(--fontSizeOne);
     color: var(--colorOne);
     font-family: var(--fontOne);
+    margin-top: var(--size-10);
 
 }
 
@@ -224,17 +232,9 @@ a:active {
     justify-content: space-evenly;   
 }
 
-.tempo-settings button {
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: var(--fontSizeTwo);
-    color:var(--colorFive);
-    padding: 0.5%;
-    width: 5%;
-    transition-duration: 0.4s;
-    cursor: pointer;
+.adjust-tempo-btn {
+    font-size: 24px;
+    width: 5vw;
 }
 
 .tempo-settings button:hover {
@@ -305,22 +305,9 @@ input[type="range"]::-moz-range-track {
 }
 
 
-.start-stop {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: var(--fontSizeThree);
-    color:var(--colorFive);
-    padding: 20px;
-    width: 15%;
-    transition-duration: 0.4s;
-    overflow: hidden;
-    cursor: pointer;
-}
+ .start-stop {
+    font-size: 1.8vw;
+} 
 
 .start-stop:hover {
     background: var(--colorOne);
@@ -330,14 +317,13 @@ input[type="range"]::-moz-range-track {
 
 /* ----------------------- BEATS STYLES ----------------------- */
 .beats {
-    font-family: var(--fontTwo);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin: auto 50px auto 50px;
 }
 
-.beats button {
+/* .beats button {
     background-color: var(--colorTwo);
     border: none;
     border-radius: 10px;
@@ -348,7 +334,7 @@ input[type="range"]::-moz-range-track {
     width: 5%;
     transition-duration: 0.4s;
     cursor: pointer;
-}
+} */
 
 .beats button:hover {
     background: var(--colorOne);
@@ -356,43 +342,24 @@ input[type="range"]::-moz-range-track {
 }
 
 .beats p {
-    font-size: 2.5vw;
+    font-size: 1.5vw;
 }
 
-.beatsPerMeasureTxt {
-    display: flex;
-    justify-content: space-around;
-}
-
-.stepper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--colorThree);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--font);
-    font-size: 28px;
-    color: var(--colorTwo);
+ button.stepper {
+    font-size: 1.5vw;
     width: 5vw;
-    height: 5vh;
-    font-family: var(--font);
-    font-size: 3vw;
-    text-align: center;
-    cursor: pointer;
 }
 
-.stepper:hover {
+/* .stepper:hover {
     background: var(--colorOne);
     color: #fff;
-}
+} */
 
 /* ----------------------- FORM STYLES ----------------------- */
 .formArea {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 2% 3% 2% 3%;
     padding: 12px 20px;
     box-sizing: border-box;
     border: 2px solid var(--colorOne);
