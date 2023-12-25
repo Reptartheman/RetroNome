@@ -39,14 +39,17 @@ let isRunning = false;
 let tempoTextString = "Mid";
 let animationFrameId;
 let selectedWaveform;
-let waveformTypes = document.querySelector(".sine");
+let waveformTypes = document.getElementsByClassName("is-warning");
 
+
+//this function is responsible for playing the freq of the click
 function playMetronome(time, playing, volume) {
   if (playing) {
     osc = audioContext.createOscillator();
     osc.connect(metronome);
     metronome.gain.value = volume;
     metronome.connect(audioContext.destination);
+    
     if (counter === 1) {
       osc.frequency.value = 440;
     } else {
@@ -55,9 +58,13 @@ function playMetronome(time, playing, volume) {
 
     osc.start(time);
     osc.stop(time + 0.1);
+    
   }
+  
 }
 
+
+//this function is responsible for keeping the tempo steady
 function playTick() {
   secondsPerBeat = 60 / bpm;
   counterTimeValue = (secondsPerBeat / 1);
@@ -70,15 +77,23 @@ function playTick() {
   counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
 } 
 
-function changeTone() {
-  let selectedWaveform = document.getElementById(this.id);
-  if (selectedWaveform.textContent == 'sine') {
-    osc.type = 'sine';
-    console.log('Selected Waveform');
-  }
-};
 
-waveformTypes.addEventListener('click', changeTone);
+function changeTone() {
+  let selectedWaveformElement = document.getElementById(this.id);
+  selectedWaveform = document.getElementById(this.id).id;
+  osc.type = selectedWaveform;
+  console.log(selectedWaveform);
+
+  for (let i = 0; i < waveformTypes.length; i += 1) {
+    waveformTypes[i].classList.remove("selected-waveform");
+  }
+
+  selectedWaveformElement.classList.add("selected-waveform");
+}
+
+for (let i = 0; i < waveformTypes.length; i++) {
+  waveformTypes[i].addEventListener("click", changeTone)
+}
 
 
 
@@ -103,7 +118,6 @@ startStopBtn.addEventListener("click", () => {
     futureTickTime = audioContext.currentTime;
     osc = audioContext.createOscillator();
     metronome = audioContext.createGain();
-
     counter = 1;
     scheduler();
   } else {
