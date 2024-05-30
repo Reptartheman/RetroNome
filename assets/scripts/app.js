@@ -18,7 +18,10 @@ const zeldaBtn = document.querySelector(".is-success");
 const linkElement = document.querySelector(
   "link[href='./assets/styles/default.css']"
 );
-
+const sineBtn = document.getElementById('sine');
+const triangleBtn = document.getElementById('triangle');
+const squareBtn = document.getElementById('square');
+let waveformTypes = document.getElementsByTagName('li');
 
 let audioContext,
   futureTickTime,
@@ -38,12 +41,13 @@ let beatsPerMeasure = 4;
 let isRunning = false;
 let tempoTextString = "Mid";
 let animationFrameId;
-let selectedWaveform;
-let waveformTypes = document.querySelector(".sine");
+let selectedWaveform = 'sine';
+
 
 function playMetronome(time, playing, volume) {
   if (playing) {
     osc = audioContext.createOscillator();
+    osc.type = selectedWaveform;
     osc.connect(metronome);
     metronome.gain.value = volume;
     metronome.connect(audioContext.destination);
@@ -70,15 +74,23 @@ function playTick() {
   counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
 } 
 
-function changeTone() {
-  let selectedWaveform = document.getElementById(this.id);
-  if (selectedWaveform.textContent == 'sine') {
-    osc.type = 'sine';
+function changeTone(e) {
+  const waveTypes = {
+    sine: 'sine',
+    triangle: 'triangle',
+    square: 'square',
+    saw: 'sawtooth'
+  };
+
+  const waveType = waveTypes[e.target.id];
+  if (waveType) {
+    selectedWaveform = waveType;
     console.log('Selected Waveform');
   }
 };
 
-waveformTypes.addEventListener('click', changeTone);
+[...waveformTypes].forEach(wave => wave.addEventListener('click', changeTone));
+
 
 
 
