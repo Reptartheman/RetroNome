@@ -1,7 +1,7 @@
 "use strict";
 
-const tempoDisplay = document.querySelector(".tempo");
-const tempoText = document.querySelector(".tempo-text");
+
+
 const decreaseTempoBtn = document.querySelector(".decrease-tempo");
 const increaseTempoBtn = document.querySelector(".increase-tempo");
 const tempoSlider = document.querySelector(".slider");
@@ -9,7 +9,6 @@ const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
 const addBeats = document.querySelector(".add-beats");
 const beatCount = document.querySelector(".beat-count");
-const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
 const defaultBtn = document.querySelector("#default");
@@ -23,15 +22,12 @@ const linkElement = document.querySelector(
 let audioContext,
   futureTickTime,
   counter = 1,
-  metronome,
-  metronomeVolume = 1,
   bpm = 120,
   secondsPerBeat = (60 / bpm),
   counterTimeValue = (secondsPerBeat / 4),
   osc;
 
 let note;
-let noteText;
 let beatsPerMeasure = 4;
 
 
@@ -40,6 +36,7 @@ let tempoTextString = "Mid";
 let animationFrameId;
 
 function playMetronome(time, playing, volume) {
+  let metronome;
   if (playing) {
     osc = audioContext.createOscillator();
     osc.connect(metronome);
@@ -70,6 +67,7 @@ function playTick() {
 
 function scheduler() {
   if (futureTickTime < audioContext.currentTime + 0.1) {
+   let metronomeVolume = 1;
     playMetronome(futureTickTime, true, metronomeVolume);
     playTick();
 
@@ -102,6 +100,8 @@ startStopBtn.addEventListener("click", () => {
 
 
 const updateMetronome = () => {
+  const tempoDisplay = document.querySelector(".tempo");
+  const tempoText = document.querySelector(".tempo-text");
   tempoDisplay.textContent = bpm + " BPM";
   tempoSlider.value = bpm;
   switch (true) {
@@ -149,6 +149,7 @@ const validateTempo = () => {
 
 
 function displayDate() {
+  const dateDisplay = document.querySelector("#date");
   let todayDate = dayjs().format("M/DD/YYYY");
   dateDisplay.textContent = `Today is: ${todayDate}`;
   return todayDate;
@@ -192,6 +193,7 @@ addBeats.addEventListener("click", () => {
 });
 
 function saveNote(event) {
+  let noteText;
   event.preventDefault();
   note = document.querySelector(".note-textarea");
   noteText = note.value.trim();
