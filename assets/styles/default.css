@@ -33,9 +33,45 @@
     --size-100: 6.25rem;
     --size-120: 7.5rem;
     --size-150: 9.375rem;
-    
-
 }
+
+[data-theme="sonic"] {
+    --colorOne: #201D1D;
+    --colorTwo: #F7C982;
+    --colorThree: #0156AC;
+    --colorFour:#FEFFFE;
+    --colorFive: #C41C1C;
+    --defaultGrey: #AFACAC;
+
+    --border: solid 2px var(--colorTwo);
+    --margin: 1.5% 3% 1.5% 3%;
+    --fontOne: 'Press Start 2P', cursive;
+    --fontTwo: 'VT323', monospace;
+    --fontSizeOne: 0.8vw;
+    --fontSizeTwo: 2.8vw;
+    --fontSizeThree: 2.2vw;
+}
+
+[data-theme="zelda"] {
+    --colorOne: #494B4B;
+    --colorTwo: #0E5135;
+    --colorThree: #0D9263;
+    --colorFour:#FEFFFE;
+    --colorFive:#D4CE46;
+    --red:#B31919;
+    --black: #0d0c0c;
+    --defaultGrey: #AFACAC;
+
+    --margin: 1.5% 3% 1.5% 3%;
+    --border: solid 2px var(--colorFive);
+    --fontOne: 'Press Start 2P', cursive;
+    --fontTwo: 'VT323', monospace;
+    --fontSizeOne: 0.8vw;
+    --fontSizeTwo: 2.8vw;
+    --fontSizeThree: 2.2vw;
+}
+
+
 
 /* ----------------------- MAIN CONTENT STYLES ----------------------- */
 body {

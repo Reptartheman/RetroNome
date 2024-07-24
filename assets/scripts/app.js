@@ -1,5 +1,7 @@
 "use strict";
-
+const root = document.documentElement;
+const theme = "theme";
+const dataTheme = "data-theme";
 const tempoDisplay = document.querySelector(".tempo");
 const tempoText = document.querySelector(".tempo-text");
 const decreaseTempoBtn = document.querySelector(".decrease-tempo");
@@ -13,6 +15,10 @@ const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
 const defaultBtn = document.querySelector(".classic");
+const switchBtns = document.querySelectorAll('.nes-btn');
+const classic = 'classic';
+const sonic = 'sonic';
+const zelda = 'zelda';
 const sonicBtn = document.querySelector(".is-primary");
 const zeldaBtn = document.querySelector(".is-success");
 const linkElement = document.querySelector(
@@ -242,31 +248,29 @@ function init() {
   }
 }
 
-function changeStyle(stylesheet) {
-  if (linkElement) {
-    linkElement.setAttribute("href", stylesheet);
+const setTheme = (val) => {
+  if (val === classic) {
+    root.setAttribute(dataTheme, classic);
+    localStorage.setItem(theme, classic);
+  } else if (val === sonic) {
+    root.setAttribute(dataTheme, sonic);
+    localStorage.setItem(theme, sonic);
   } else {
-    console.error("Link element not found!");
+    root.setAttribute(dataTheme, zelda);
+    localStorage.setItem(theme, zelda);
   }
-}
+};
 
+for (const button of switchBtns) {
+  button.addEventListener('click', function() {
+    const toggle = this.dataset.toggle;
+    setTheme(toggle);
+  })
+}
 
 
 addNote.addEventListener("click", saveNote);
 removeNote.addEventListener("click", deleteNote);
-
-
-defaultBtn.addEventListener("click", () => {
-  changeStyle("./assets/styles/default.css");
-});
-
-sonicBtn.addEventListener("click", () => {
-  changeStyle("./assets/styles/sonic.css");
-});
-
-zeldaBtn.addEventListener("click", () => {
-  changeStyle("./assets/styles/zelda.css");
-});
 
 
 init();

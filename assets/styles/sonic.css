@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap');
 
-:root {
+[data-theme="sonic"] {
     --colorOne: #201D1D;
     --colorTwo: #F7C982;
     --colorThree: #0156AC;
