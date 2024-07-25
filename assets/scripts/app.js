@@ -15,6 +15,7 @@ const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
 const defaultBtn = document.querySelector(".classic");
+const dropDownMenu = document.getElementById('default_select')
 const switchBtns = document.querySelectorAll('.nes-btn');
 const classic = 'classic';
 const sonic = 'sonic';
@@ -246,29 +247,24 @@ function init() {
   if (savedNote) {
     document.querySelector(".note-textarea").textContent = savedNote;
   }
+  const savedTheme = localStorage.getItem(theme);
+  if (savedTheme) {
+    root.setAttribute(dataTheme, savedTheme);
+    dropDownMenu.value = savedTheme;
+  }
 }
 
 const setTheme = (val) => {
-  if (val === classic) {
-    root.setAttribute(dataTheme, classic);
-    localStorage.setItem(theme, classic);
-  } else if (val === sonic) {
-    root.setAttribute(dataTheme, sonic);
-    localStorage.setItem(theme, sonic);
-  } else {
-    root.setAttribute(dataTheme, zelda);
-    localStorage.setItem(theme, zelda);
-  }
+  root.setAttribute(dataTheme, val);
+  localStorage.setItem(theme, val);
 };
 
-for (const button of switchBtns) {
-  button.addEventListener('click', function() {
-    const toggle = this.dataset.toggle;
-    setTheme(toggle);
-  })
-}
+dropDownMenu.addEventListener('change', function() {
+  const selectedOption = this.options[this.selectedIndex].value;
+  setTheme(selectedOption);
+});
 
-
+console.log(dropDownMenu)
 addNote.addEventListener("click", saveNote);
 removeNote.addEventListener("click", deleteNote);
 

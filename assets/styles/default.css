@@ -36,11 +36,11 @@
 }
 
 [data-theme="sonic"] {
-    --colorOne: #201D1D;
+    --colorOne: #FEFFFE;
     --colorTwo: #F7C982;
     --colorThree: #0156AC;
     --colorFour:#FEFFFE;
-    --colorFive: #C41C1C;
+    --colorFive: #FEFFFE;
     --defaultGrey: #AFACAC;
 
     --border: solid 2px var(--colorTwo);
@@ -165,6 +165,7 @@ a:active {
     box-shadow: 0 5px #999;
 }
 
+
 /* ----------------------- THEME BUTTON STYLES ----------------------- */
 
 #default {
@@ -216,6 +217,12 @@ a:active {
 #zelda:hover {
     background-color: #d4ce46;
     color:#0d9263;
+}
+
+.nes-select {
+    position: relative;
+    width: calc(15% - 8px);
+    margin: 4px;
 }
 
 
@@ -390,6 +397,10 @@ input[type="range"]::-moz-range-track {
     background: var(--colorOne);
     color: #fff;
 } */
+
+.beat-count, .beatsPerMeasureTxt {
+    color: var(--colorOne);
+}
 
 /* ----------------------- FORM STYLES ----------------------- */
 .formArea {

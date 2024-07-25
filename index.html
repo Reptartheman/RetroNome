@@ -13,19 +13,15 @@
   </head>
   <body>
     <header class="header">
-      <h1>Welcome to RetroNome</h1>
-      <div class="themeContainer">
-      <p>Select your theme</p>
-      <!-- <h3 class="themeTitle">Select your theme</h3> -->
-      <div class="button-container">
-        <button data-toggle="classic" type="button" class="nes-btn classic">Classic</button>
-          <!-- <button class="colorTheme" >1</button> -->
-          <button data-toggle="sonic" type="button" class="nes-btn is-primary">Sonic</button>
-          <!-- <button class="colorTheme" id="sonic">2</button> -->
-          <button data-toggle="zelda" type="button" class="nes-btn is-success">Zelda</button>
-          <!-- <button class="colorTheme" id="zelda">3</button> -->
-        </div>
-      </div>
+      <h1>RetroNome</h1>
+<div class="nes-select">
+  <select required id="default_select">
+    <option value="" disabled selected hidden>Theme...</option>
+    <option value="classic"><button data-toggle="classic" type="button" class="nes-btn classic">Classic</button></option>
+    <option value="sonic"><button data-toggle="sonic" type="button" class="nes-btn is-primary">Sonic</button></option>
+    <option value="zelda"><button data-toggle="zelda" type="button" class="nes-btn is-success">Zelda</button></option>
+  </select>
+</div>
     </header>
 
 
