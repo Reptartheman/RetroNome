@@ -1,6 +1,4 @@
-"use strict";
-
-
+import * as Tone from "tone";
 
 const decreaseTempoBtn = document.querySelector(".decrease-tempo");
 const increaseTempoBtn = document.querySelector(".increase-tempo");
@@ -9,178 +7,44 @@ const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
 const addBeats = document.querySelector(".add-beats");
 const beatCount = document.querySelector(".beat-count");
-const addNote = document.querySelector("#addNote");
-const removeNote = document.querySelector("#removeNote");
-const defaultBtn = document.querySelector("#default");
-const sonicBtn = document.querySelector("#sonic");
-const zeldaBtn = document.querySelector("#zelda");
-const linkElement = document.querySelector(
-  "link[href='./assets/styles/default.css']"
-);
+const timeBlocksContainer = document.getElementById("timeBlocksContainer");
+const timeBlocks = document.querySelectorAll(".time-block");
 
+const transport = Tone.getTransport();
+const metronomeSource = new Tone.Synth().toDestination();
 
-let audioContext,
-  futureTickTime,
-  counter = 1,
-  bpm = 120,
-  secondsPerBeat = (60 / bpm),
-  counterTimeValue = (secondsPerBeat / 4),
-  osc;
-
-let note;
+const draw = Tone.getDraw();
+let bpm = 120;
+let beatCounter = 0;
 let beatsPerMeasure = 4;
+let isMetronomeOn = false;
 
+let currentBlock = 0;
+transport.bpm.value = bpm;
+transport.timeSignature = beatsPerMeasure;
 
-let isRunning = false;
-let tempoTextString = "Mid";
-let animationFrameId;
+startStopBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const metronomeLoop = new Tone.Loop((time) =>  {
+  metronomeSource.volume.value = -13;
+  const note = beatCounter % beatsPerMeasure === 0 ? "C5" : "C4";
+  metronomeSource.triggerAttackRelease(note, "16n", time);
+  beatCounter++;
+  console.log(`Time signature is: ${beatsPerMeasure}, we are on beat: ${beatCounter}`);
+  }, "4n")
 
-function playMetronome(time, playing, volume) {
-  let metronome;
-  if (playing) {
-    osc = audioContext.createOscillator();
-    osc.connect(metronome);
-    metronome.gain.value = volume;
-    metronome.connect(audioContext.destination);
-    if (counter === 1) {
-      osc.frequency.value = 440;
-    } else {
-      osc.frequency.value = 220;
-    }
-
-    osc.start(time);
-    osc.stop(time + 0.1);
-  }
-}
-
-function playTick() {
-  secondsPerBeat = 60 / bpm;
-  counterTimeValue = (secondsPerBeat / 1);
-  counter += 1;
-  futureTickTime += counterTimeValue;
-  if (counter > beatsPerMeasure) {
-    counter = 1;
-  }
-  const tempoMultiplier = tempoSlider.value / 100;
-  counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
-} 
-
-function scheduler() {
-  if (futureTickTime < audioContext.currentTime + 0.1) {
-   let metronomeVolume = 1;
-    playMetronome(futureTickTime, true, metronomeVolume);
-    playTick();
-
-  }
-  if (isRunning) {
-    animationFrameId = window.requestAnimationFrame(scheduler);
-  }
-}
-
-startStopBtn.addEventListener("click", () => {
-  if (!isRunning) {
-    isRunning = true;
-    startStopBtn.textContent = "STOP";
-
-    audioContext = new AudioContext();
-    futureTickTime = audioContext.currentTime;
-    osc = audioContext.createOscillator();
-    metronome = audioContext.createGain();
-
-    counter = 1;
-    scheduler();
+  if (transport.state === 'stopped') {
+    metronomeLoop.start();
+    transport.start();
+    
+    startStopBtn.textContent = 'Stop';
+    console.log(transport.state);
   } else {
-    isRunning = false;
-    startStopBtn.textContent = "START";
-
-    clearTimeout(animationFrameId);
-    osc.stop();
+    transport.stop();
+    startStopBtn.textContent = 'Start';
+    console.log(transport.state);
   }
-});
-
-
-const updateMetronome = () => {
-  const tempoDisplay = document.querySelector(".tempo");
-  const tempoText = document.querySelector(".tempo-text");
-  tempoDisplay.textContent = bpm + " BPM";
-  tempoSlider.value = bpm;
-  switch (true) {
-    case bpm <= 40:
-      tempoTextString = " " + "Bowser tempo";
-      break;
-    case bpm > 40 && bpm < 80:
-      tempoTextString = " " + "Donkey kong tempo";
-      break;
-    case bpm > 80 && bpm < 120:
-      tempoTextString = " " + "Yoshi tempo";
-      break;
-    case bpm > 120 && bpm < 180:
-      tempoTextString = " " + "Tetris tempo";
-      break;
-    case bpm > 180 && bpm < 220:
-      tempoTextString = " " + "Cowabunga!";
-      break;
-    case bpm > 220 && bpm < 240:
-      tempoTextString = " " + "Sonic tempo!";
-      break;
-    case bpm > 240 && bpm < 260:
-      tempoTextString = "Mario's fireball tempo!";
-      break;
-    case bpm > 260 && bpm < 280:
-      tempoTextString = "Megaman tempo!";
-      break;
-    case bpm > 280 && bpm < 300:
-      tempoTextString = "Slow Down!";
-      break;
-    default:
-      tempoTextString = "Ok, chill out";
-  }
-  tempoText.textContent = tempoTextString;
-};
-
-const validateTempo = () => {
-  if (bpm <= 20) {
-    return;
-  }
-  if (bpm >= 280) {
-    return;
-  }
-};
-
-
-function displayDate() {
-  const dateDisplay = document.querySelector("#date");
-  let todayDate = dayjs().format("M/DD/YYYY");
-  dateDisplay.textContent = `Today is: ${todayDate}`;
-  return todayDate;
-}
-displayDate();
-
-decreaseTempoBtn.addEventListener("click", () => {
-  bpm--;
-  validateTempo();
-  updateMetronome();
-});
-
-increaseTempoBtn.addEventListener("click", () => {
-  bpm++;
-  validateTempo();
-  updateMetronome();
-});
-
-tempoSlider.addEventListener("input", () => {
-  bpm = tempoSlider.value;
-  validateTempo();
-  updateMetronome();
-});
-
-subtractBeats.addEventListener("click", () => {
-  if (beatsPerMeasure <= 2) {
-    return;
-  }
-  beatsPerMeasure--;
-  beatCount.textContent = beatsPerMeasure;
-  counter = 0;
+  
 });
 
 addBeats.addEventListener("click", () => {
@@ -189,59 +53,114 @@ addBeats.addEventListener("click", () => {
   }
   beatsPerMeasure++;
   beatCount.textContent = beatsPerMeasure;
-  counter = 0;
+  beatCounter = 0;
 });
 
-function saveNote(event) {
-  let noteText;
-  event.preventDefault();
-  note = document.querySelector(".note-textarea");
-  noteText = note.value.trim();
-  localStorage.setItem("Note", JSON.stringify(noteText));
+
+
+/* const playMetronome = (time) => {
+  metronomeSource.volume.value = -13;
+  const note = beatCounter % 4 === 0 ? "C5" : "C4";
+  metronomeSource.triggerAttackRelease(note, "16n", time);
+  beatCounter++;
+};
+
+const handleBlockFill = (index) => {
+  
+  timeBlocks.forEach((block, i) => {
+    if (i === index) {
+        block.classList.add('active');
+    } else {
+        block.classList.remove('active');
+    }
+});
 }
 
-function deleteNote(event){
-  event.preventDefault();
-  localStorage.removeItem("Note");
-  note = document.querySelector(".note-textarea");
-  if (note) {
-    note.value = "";
+transport.scheduleRepeat((time) => {
+  if (isMetronomeOn) {
+    playMetronome(time);
+    draw.schedule(() => {
+      handleBlockFill(currentBlock);
+      currentBlock = (currentBlock + 1) % timeBlocks.length;
+			}, time);
   }
-}
+}, "4n");
 
-function init() {
-  let savedNote = JSON.parse(localStorage.getItem("Note"));
-
-  if (savedNote) {
-    document.querySelector(".note-textarea").textContent = savedNote;
-  }
-}
-
-function changeStyle(stylesheet) {
-  if (linkElement) {
-    linkElement.setAttribute("href", stylesheet);
+const toggleMetronome = () => {
+  isMetronomeOn = !isMetronomeOn;
+  if (isMetronomeOn) {
+    transport.start();
+    startStopBtn.textContent = 'Stop';
   } else {
-    console.error("Link element not found!");
+    transport.stop();
+    startStopBtn.textContent = 'Start';
   }
-}
+}; */
+
+
+const updateBPM = (newBPM) => {
+  bpm = newBPM;
+  transport.bpm.value = bpm;
+  updateTempoDisplay();
+};
 
 
 
-addNote.addEventListener("click", saveNote);
-removeNote.addEventListener("click", deleteNote);
+
+const updateTempoDisplay = () => {
+  const tempoDisplay = document.querySelector(".tempo");
+  const tempoText = document.querySelector(".tempo-text");
+
+  tempoDisplay.textContent = `${bpm} BPM`;
+
+  switch (true) {
+    case bpm <= 40:
+      tempoText.textContent = "Bowser tempo";
+      break;
+    case bpm > 40 && bpm < 80:
+      tempoText.textContent = "Donkey Kong tempo";
+      break;
+    case bpm >= 80 && bpm < 120:
+      tempoText.textContent = "Yoshi tempo";
+      break;
+    case bpm >= 120 && bpm < 180:
+      tempoText.textContent = "Tetris tempo";
+      break;
+    case bpm >= 180:
+      tempoText.textContent = "Sonic speed!";
+      break;
+    default:
+      tempoText.textContent = "Normal";
+  }
+};
 
 
-defaultBtn.addEventListener("click", () => {
-  changeStyle("./assets/styles/default.css");
+
+
+decreaseTempoBtn.addEventListener("click", () => {
+  if (bpm > 20) {
+    updateBPM(bpm - 1);
+  }
 });
 
-sonicBtn.addEventListener("click", () => {
-  changeStyle("./assets/styles/sonic.css");
+increaseTempoBtn.addEventListener("click", () => {
+  if (bpm < 300) {
+    updateBPM(bpm + 1);
+  }
 });
 
-zeldaBtn.addEventListener("click", () => {
-  changeStyle("./assets/styles/zelda.css");
+tempoSlider.addEventListener("input", (e) => {
+  updateBPM(parseInt(e.target.value));
+});
+
+subtractBeats.addEventListener("click", () => {
+  if (beatsPerMeasure > 2) {
+    beatsPerMeasure--;
+    beatCount.textContent = beatsPerMeasure;
+    transport.timeSignature = beatsPerMeasure;
+  }
 });
 
 
-init();
+
+updateTempoDisplay();
