@@ -12,48 +12,63 @@ const timeBlocks = document.querySelectorAll(".time-block");
 
 const transport = Tone.getTransport();
 const metronomeSource = new Tone.Synth().toDestination();
-
 const draw = Tone.getDraw();
 let bpm = 120;
-let beatCounter = 0;
-let beatsPerMeasure = 4;
+let beatCounter;
 let isMetronomeOn = false;
 
 let currentBlock = 0;
 transport.bpm.value = bpm;
-transport.timeSignature = beatsPerMeasure;
 
-startStopBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const metronomeLoop = new Tone.Loop((time) =>  {
+
+const playMetronome = () => {
+  beatCounter = 1;
+  new Tone.Loop((time) =>  {
+      console.log(beatCounter);
   metronomeSource.volume.value = -13;
-  const note = beatCounter % beatsPerMeasure === 0 ? "C5" : "C4";
-  metronomeSource.triggerAttackRelease(note, "16n", time);
+  if (beatCounter > transport.timeSignature) {
+    beatCounter = 1;
+  }
+  if (beatCounter === 1) {
+    metronomeSource.triggerAttackRelease("C5", "16n", time);
+  } else {
+    metronomeSource.triggerAttackRelease("C4", "16n", time);
+  }
+  
+  
   beatCounter++;
-  console.log(`Time signature is: ${beatsPerMeasure}, we are on beat: ${beatCounter}`);
-  }, "4n")
 
-  if (transport.state === 'stopped') {
-    metronomeLoop.start();
+  }, "4n").start(0)
+  
+};
+
+const toggleMetronome = () => {
+  isMetronomeOn = !isMetronomeOn;
+  if (isMetronomeOn) {
     transport.start();
-    
     startStopBtn.textContent = 'Stop';
-    console.log(transport.state);
   } else {
     transport.stop();
     startStopBtn.textContent = 'Start';
-    console.log(transport.state);
   }
+}
+
+startStopBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  
+  toggleMetronome(); 
+  playMetronome();
   
 });
 
+
 addBeats.addEventListener("click", () => {
-  if (beatsPerMeasure >= 12) {
+  if (transport.timeSignature >= 12) {
     return;
   }
-  beatsPerMeasure++;
-  beatCount.textContent = beatsPerMeasure;
-  beatCounter = 0;
+  transport.timeSignature++;
+  beatCount.textContent = transport.timeSignature;
+  beatCounter = 1;
 });
 
 
