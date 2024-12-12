@@ -16,49 +16,45 @@ const draw = Tone.getDraw();
 let bpm = 120;
 let beatCounter;
 let isMetronomeOn = false;
+let metronomeLoop;
 
 let currentBlock = 0;
 transport.bpm.value = bpm;
 
-
 const playMetronome = () => {
   beatCounter = 1;
-  new Tone.Loop((time) =>  {
-      console.log(beatCounter);
-  metronomeSource.volume.value = -13;
-  if (beatCounter > transport.timeSignature) {
-    beatCounter = 1;
-  }
-  if (beatCounter === 1) {
-    metronomeSource.triggerAttackRelease("C5", "16n", time);
-  } else {
-    metronomeSource.triggerAttackRelease("C4", "16n", time);
-  }
+  metronomeLoop = new Tone.Loop((time) =>  {
+    console.log(beatCounter);
+    metronomeSource.volume.value = -13;
+    if (beatCounter > transport.timeSignature) {
+      beatCounter = 1;
+    }
+    if (beatCounter === 1) {
+      metronomeSource.triggerAttackRelease("C5", "16n", time);
+    } else {
+      metronomeSource.triggerAttackRelease("C4", "16n", time);
+    }
   
-  
-  beatCounter++;
-
-  }, "4n").start(0)
-  
+    beatCounter++;
+  }, "4n").start(0);
 };
 
 const toggleMetronome = () => {
   isMetronomeOn = !isMetronomeOn;
   if (isMetronomeOn) {
     transport.start();
+    playMetronome();
     startStopBtn.textContent = 'Stop';
   } else {
     transport.stop();
+    metronomeLoop.stop();
     startStopBtn.textContent = 'Start';
   }
-}
+};
 
 startStopBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  
   toggleMetronome(); 
-  playMetronome();
-  
 });
 
 
