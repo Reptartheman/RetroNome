@@ -10,7 +10,8 @@ const beatCount = document.querySelector(".beat-count");
 const timeBlocksContainer = document.getElementById("timeBlocksContainer");
 const timeBlocks = document.querySelectorAll(".time-block");
 let timeBlocksArray = Array.from(timeBlocks);
-
+const sliderHandle = document.getElementById('slider-handle');
+const tempoRange = document.getElementById('tempoRange');
 const transport = Tone.getTransport();
 const metronomeSource = new Tone.Synth().toDestination();
 const draw = Tone.getDraw();
@@ -135,13 +136,29 @@ increaseTempoBtn.addEventListener("click", () => {
 });
 
 tempoSlider.addEventListener("input", (e) => {
-  updateBPM(parseInt(e.target.value));
+  const newValue = e.target.value;
+  transport.bpm.value = newValue;
+  updateBPM(parseInt(newValue));
+  updateSliderHandle(newValue);
 });
 
 
+/* tempoRange.addEventListener('input', (event) => {
+  
+  
+}); */
+
+const updateSliderHandle = (value) => {
+  const min = tempoRange.min;
+  const max = tempoRange.max;
+  const percentage = (value - min) / (max - min);
+  const newCX = 10 + (percentage * 280);
+  sliderHandle.setAttribute('cx', newCX);
+};
+
 addBeats.addEventListener("click", () => {
   const newBlock = document.createElement('div');
-  newBlock.classList.add('time-block');
+  newBlock.classList.add(...['nes-container', 'is-rounded', 'time-block']);
   newBlock.textContent = transport.timeSignature + 1;
   timeBlocksContainer.appendChild(newBlock);
   timeBlocksArray.push(newBlock);

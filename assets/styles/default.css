@@ -33,7 +33,6 @@ body {
 header,
 footer {
   display: flex;
-  border: var(--border);
   justify-content: space-evenly;
   align-items: center;
   font-family: var(--fontOne);
@@ -143,8 +142,7 @@ a:active {
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
-    margin: var(--margin);
-    border: var(--border);   
+    margin: var(--margin);    
 }
 
 .bpm-display {
@@ -248,7 +246,7 @@ input[type="range"]::-moz-range-track {
 .start-stop {
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+ /*    justify-content: center;
     background-color: var(--colorTwo);
     border: none;
     border-radius: 10px;
@@ -259,7 +257,7 @@ input[type="range"]::-moz-range-track {
     width: 15%;
     transition-duration: 0.4s;
     overflow: hidden;
-    cursor: pointer;
+    cursor: pointer; */
 }
 
 .start-stop:hover {
@@ -335,8 +333,6 @@ input[type="range"]::-moz-range-track {
     margin: 2% 3% 2% 3%;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid var(--colorOne);
-    border-radius: 4px;
     font-size: 16px;
     resize: none;
 }
