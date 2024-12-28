@@ -1,7 +1,7 @@
 import * as Tone from "tone";
 
-const decreaseTempoBtn = document.querySelector(".decrease-tempo");
-const increaseTempoBtn = document.querySelector(".increase-tempo");
+const decreaseTempoBtn = document.getElementById("decreaseTempo");
+const increaseTempoBtn = document.getElementById("increaseTempo");
 const tempoSlider = document.querySelector(".slider");
 const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
@@ -157,14 +157,16 @@ const updateSliderHandle = (value) => {
 };
 
 addBeats.addEventListener("click", () => {
+  if (transport.timeSignature > 13) {
+    alert('No one needs more than 14 beats bro...');
+    return;
+  }
   const newBlock = document.createElement('div');
   newBlock.classList.add(...['nes-container', 'is-rounded', 'time-block']);
   newBlock.textContent = transport.timeSignature + 1;
   timeBlocksContainer.appendChild(newBlock);
   timeBlocksArray.push(newBlock);
-  if (transport.timeSignature > 13) {
-    return;
-  }
+  
   transport.timeSignature++;
   beatCount.textContent = transport.timeSignature;
   beatCounter = 1;
