@@ -30,6 +30,7 @@ body {
   flex-direction: column;
   justify-content: center;
   user-select: none;
+  border: var(--border);
 }
 
 header,
