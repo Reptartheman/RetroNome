@@ -6,37 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/styles/default.css" />
-    
     <title>RetroNome</title>
   </head>
   <body>
+    <div class="container">
     <header class="header">
       <h1>RetroNome</h1>
-      <!-- <p>Press a gem for a color theme</p> -->
-      <!-- <h3 class="themeTitle">Select your theme</h3> -->
-     <!--  <div class="themeContainer">
-          <button class="colorTheme" id="default">1</button>
-          <button class="colorTheme" id="sonic">2</button>
-          <button class="colorTheme" id="zelda">3</button>
-      </div> -->
     </header>
-
-
-    <div class="container">
       <main class="metronome">
         <div class="bpm-display">
           <h1 class="tempo"> 120 BPM</h1>
           <p class="tempo-text"></p>
-        </div>
-
-        
-
-
-
-        
+        </div>        
         <div class="tempo-settings">
           <button id="decreaseTempo" type="button" class="nes-btn tempo-btn">-</button>
-            
           <input type="range" min="20" max="260" step="1" class="slider" value="120" />
           <button id="increaseTempo" type="button" class="nes-btn tempo-btn">+</button>
         </div>
@@ -49,8 +32,6 @@
           <p class="beatsPerMeasureTxt">Beats per Measure</p>
           <button type="button" class="nes-btn add-beats stepper">+</button>
         </div>
-        
-
       </main>
   <section class="time-blocks-area">
         <div id="timeBlocksContainer" class="nes-container with-title time-blocks-container">
@@ -60,27 +41,9 @@
           <div class="nes-container is-rounded time-block">4</div>
         </div>
       </div>
-
       </section> 
-<!--       <section class="formArea">
-        <p id="date"></p>
-        <textarea
-          class="note-textarea"
-          placeholder="Enter your practice session info"
-        ></textarea>
-        <div id="noteBtnContainer">
-        <button class="note" id="addNote">Add Note</button>
-        <button class="note" id="removeNote">Remove Note</button>
-      </div>
-
-      </section> -->
     </div>
-<!-- 
-    <footer id="footer">
-      <p id="joystick">🕹</p> 
-      <p> App by Jeff: <a href="https://github.com/Reptartheman"> Click me!</a> </p>  
-      <p id="joystick">🕹</p> 
-    </footer> -->
+    </div>
     <script src="./assets/scripts/app.js" type="module"></script>
   </body>
 </html>
