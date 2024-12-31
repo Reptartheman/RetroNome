@@ -1,7 +1,7 @@
 import * as Tone from "tone";
 
-const decreaseTempoBtn = document.querySelector(".decrease-tempo");
-const increaseTempoBtn = document.querySelector(".increase-tempo");
+const decreaseTempoBtn = document.getElementById("decreaseTempo");
+const increaseTempoBtn = document.getElementById("increaseTempo");
 const tempoSlider = document.querySelector(".slider");
 const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
@@ -9,22 +9,22 @@ const addBeats = document.querySelector(".add-beats");
 const beatCount = document.querySelector(".beat-count");
 const timeBlocksContainer = document.getElementById("timeBlocksContainer");
 const timeBlocks = document.querySelectorAll(".time-block");
-
+let timeBlocksArray = Array.from(timeBlocks);
+const sliderHandle = document.getElementById('slider-handle');
+const tempoRange = document.getElementById('tempoRange');
 const transport = Tone.getTransport();
 const metronomeSource = new Tone.Synth().toDestination();
 const draw = Tone.getDraw();
 let bpm = 120;
 let beatCounter;
-let isMetronomeOn = false;
+let isMetronomeOn = false; //No it's not
 let metronomeLoop;
-
 let currentBlock = 0;
 transport.bpm.value = bpm;
 
 const playMetronome = () => {
   beatCounter = 1;
   metronomeLoop = new Tone.Loop((time) =>  {
-    console.log(beatCounter);
     metronomeSource.volume.value = -13;
     if (beatCounter > transport.timeSignature) {
       beatCounter = 1;
@@ -34,20 +34,28 @@ const playMetronome = () => {
     } else {
       metronomeSource.triggerAttackRelease("C4", "16n", time);
     }
-  
     beatCounter++;
+    draw.schedule(() => {
+      console.log(currentBlock);
+      handleBlockFill(currentBlock);
+      currentBlock = (currentBlock + 1) % timeBlocksArray.length;
+			}, time);
   }, "4n").start(0);
 };
 
 const toggleMetronome = () => {
   isMetronomeOn = !isMetronomeOn;
+  console.log(isMetronomeOn);
   if (isMetronomeOn) {
+    console.log(`I am on!!`);
     transport.start();
     playMetronome();
     startStopBtn.textContent = 'Stop';
-  } else {
+  } else {  
+    console.log(`I am off!!`);
     transport.stop();
     metronomeLoop.stop();
+    currentBlock = 0;
     startStopBtn.textContent = 'Start';
   }
 };
@@ -58,27 +66,14 @@ startStopBtn.addEventListener("click", (e) => {
 });
 
 
-addBeats.addEventListener("click", () => {
-  if (transport.timeSignature >= 12) {
-    return;
-  }
-  transport.timeSignature++;
-  beatCount.textContent = transport.timeSignature;
-  beatCounter = 1;
-});
 
 
 
-/* const playMetronome = (time) => {
-  metronomeSource.volume.value = -13;
-  const note = beatCounter % 4 === 0 ? "C5" : "C4";
-  metronomeSource.triggerAttackRelease(note, "16n", time);
-  beatCounter++;
-};
+
+
 
 const handleBlockFill = (index) => {
-  
-  timeBlocks.forEach((block, i) => {
+  timeBlocksArray.forEach((block, i) => {
     if (i === index) {
         block.classList.add('active');
     } else {
@@ -87,26 +82,6 @@ const handleBlockFill = (index) => {
 });
 }
 
-transport.scheduleRepeat((time) => {
-  if (isMetronomeOn) {
-    playMetronome(time);
-    draw.schedule(() => {
-      handleBlockFill(currentBlock);
-      currentBlock = (currentBlock + 1) % timeBlocks.length;
-			}, time);
-  }
-}, "4n");
-
-const toggleMetronome = () => {
-  isMetronomeOn = !isMetronomeOn;
-  if (isMetronomeOn) {
-    transport.start();
-    startStopBtn.textContent = 'Stop';
-  } else {
-    transport.stop();
-    startStopBtn.textContent = 'Start';
-  }
-}; */
 
 
 const updateBPM = (newBPM) => {
@@ -161,14 +136,62 @@ increaseTempoBtn.addEventListener("click", () => {
 });
 
 tempoSlider.addEventListener("input", (e) => {
-  updateBPM(parseInt(e.target.value));
+  const newValue = e.target.value;
+  transport.bpm.value = newValue;
+  updateBPM(parseInt(newValue));
+  updateSliderHandle(newValue);
 });
 
+
+/* tempoRange.addEventListener('input', (event) => {
+  
+  
+}); */
+
+const updateSliderHandle = (value) => {
+  const min = tempoRange.min;
+  const max = tempoRange.max;
+  const percentage = (value - min) / (max - min);
+  const newCX = 10 + (percentage * 280);
+  sliderHandle.setAttribute('cx', newCX);
+};
+
+addBeats.addEventListener("click", () => {
+  if (transport.timeSignature > 13) {
+    alert('No one needs more than 14 beats bro...');
+    return;
+  }
+  const newBlock = document.createElement('div');
+  newBlock.classList.add(...['nes-container', 'is-rounded', 'time-block']);
+  newBlock.textContent = transport.timeSignature + 1;
+  timeBlocksContainer.appendChild(newBlock);
+  timeBlocksArray.push(newBlock);
+  
+  transport.timeSignature++;
+  beatCount.textContent = transport.timeSignature;
+  beatCounter = 1;
+
+  currentBlock = 0;
+  if (isMetronomeOn) {
+    metronomeLoop.stop();
+    playMetronome();
+  }
+});
+
+
+
+
 subtractBeats.addEventListener("click", () => {
-  if (beatsPerMeasure > 2) {
-    beatsPerMeasure--;
-    beatCount.textContent = beatsPerMeasure;
-    transport.timeSignature = beatsPerMeasure;
+  if (transport.timeSignature > 2) {
+    transport.timeSignature--;
+    beatCount.textContent = transport.timeSignature;
+    const lastBlock = timeBlocksArray.pop();
+    timeBlocksContainer.removeChild(lastBlock);
+    currentBlock = 0;
+    if (isMetronomeOn) {
+      metronomeLoop.stop();
+      playMetronome();
+    }
   }
 });
 

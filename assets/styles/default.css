@@ -1,39 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap");
 
 :root {
-    --colorOne: #201D1D;
-    --colorTwo: #AFACAC;
-    --colorThree: #e5e5e5;
-    --colorFour:#ffffff;
-    --colorFive: #C41C1C;
+  --colorOne: #201d1d;
+  --colorTwo: #afacac;
+  --colorThree: #e5e5e5;
+  --colorFour: #ffffff;
+  --red: #db5b41;
 
-    --border: 2px solid var(--colorOne);
-    --margin: 1.5% 3% 1.5% 3%;
+  --border: 2px solid var(--colorOne);
+  --margin: 1.5% 3% 1.5% 3%;
 
-    --fontOne: 'Press Start 2P', cursive;
-    --fontTwo: 'VT323', monospace;
-    --fontSizeOne: 0.8vw;
-    --fontSizeTwo: 2.8vw;
-    --fontSizeThree: 2.2vw;
-    
-
+  --fontOne: "Press Start 2P", cursive;
+  --fontTwo: "VT323", monospace;
+  --fontSizeOne: 0.8vw;
+  --fontSizeTwo: 2.8vw;
+  --fontSizeThree: 2.2vw;
 }
 
 /* ----------------------- MAIN CONTENT STYLES ----------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-    margin: auto 10% auto 10%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    background-color: var(--colorThree);
-    user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  user-select: none;
+  border: var(--border);
 }
 
 header,
 footer {
   display: flex;
-  border: var(--border);
   justify-content: space-evenly;
   align-items: center;
   font-family: var(--fontOne);
@@ -43,11 +45,11 @@ footer {
 }
 
 h1 {
-    font-size: 3vh;
+  font-size: 3vh;
 }
 
 header p {
-    font-size: 1vh;
+  font-size: 1vh;
 }
 
 footer p {
@@ -55,762 +57,337 @@ footer p {
 }
 
 a {
-    color: var(--colorOne);
-} 
+  color: var(--colorOne);
+}
 
 a:active {
-    color:var(--colorFive);
+  color: var(--colorFive);
 }
 
 #joystick {
-    font-size: 3vh;
+  font-size: 3vh;
 }
 
 /* ----------------------- THEME CONTAINER STYLES ----------------------- */
 
 .themeContainer {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .colorTheme {
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 40%;
-    margin: 10%;
-    color:var(--colorFive);
-    padding: 10px;
-    font-family: var(--fontTwo);
-    transition-duration: 0.4s;
-    cursor: pointer;
-    box-shadow: 0 5px #999;
+  background-color: var(--colorTwo);
+  border: none;
+  border-radius: 40%;
+  margin: 10%;
+  color: var(--colorFive);
+  padding: 10px;
+  font-family: var(--fontTwo);
+  transition-duration: 0.4s;
+  cursor: pointer;
+  box-shadow: 0 5px #999;
 }
 
 /* ----------------------- THEME BUTTON STYLES ----------------------- */
 
 #default {
-    background-color: var(--colorTwo);
-    border: solid 2px var(--colorOne);
-    color: var(--colorTwo);
+  background-color: var(--colorTwo);
+  border: solid 2px var(--colorOne);
+  color: var(--colorTwo);
 }
 
 #default:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }
-
-#default:hover {
-    background: var(--colorTwo);
-    color: var(--colorOne);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
+#default:hover {
+  background: var(--colorTwo);
+  color: var(--colorOne);
+}
 
 #sonic {
-    background-color:#0156AC;
-    border: solid 2px var(--colorFour);
-    color:#0156AC
+  background-color: #0156ac;
+  border: solid 2px var(--colorFour);
+  color: #0156ac;
 }
 
 #sonic:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }
-
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 
 #sonic:hover {
-    background-color:var(--colorFour);
-    color:#0156AC;
-    border: solid 2px #0156AC;
+  background-color: var(--colorFour);
+  color: #0156ac;
+  border: solid 2px #0156ac;
 }
 
 #zelda {
-    background-color: #0d9263;
-    color:#0d9263;
-    border: solid 2px #d4ce46;
+  background-color: #0d9263;
+  color: #0d9263;
+  border: solid 2px #d4ce46;
 }
 
 #zelda:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }
-
-#zelda:hover {
-    background-color: #d4ce46;
-    color:#0d9263;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
+#zelda:hover {
+  background-color: #d4ce46;
+  color: #0d9263;
+}
 
 /* ----------------------- METRONOME CONTENT ----------------------- */
 
 .metronome {
-    margin: var(--margin);
-    border: var(--border);   
+  margin: var(--margin);
 }
 
 .bpm-display {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    font-size: var(--fontSizeOne);
-    color: var(--colorOne);
-    font-family: var(--fontOne);
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: var(--fontSizeOne);
+  color: var(--colorOne);
+  font-family: var(--fontOne);
 }
-
 
 .tempo-settings {
-    display: flex;
-    justify-content: space-evenly;   
+  display: flex;
+  justify-content: center;
 }
 
-.tempo-settings button {
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: var(--fontSizeTwo);
-    color:var(--colorFive);
-    padding: 0.5%;
-    width: 5%;
-    transition-duration: 0.4s;
-    cursor: pointer;
+.nes-btn.tempo-btn {
+  border-image-repeat: initial;
+  background-color: var(--red);
+  font-size: var(--fontSizeThree);
+  color: var(--colorOne);
+  transition-duration: 0.4s;
 }
 
-.tempo-settings button:hover {
-    background: var(--colorOne);
-    color: #fff;
+.nes-btn.tempo-btn::after {
+  box-shadow: inset -4px -4px #811315;
+}
+
+.tempo-btn:hover {
+  background: var(--colorOne);
+  color: #fff;
 }
 
 .slider {
-    width: 35vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
+  width: 35vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
 input[type="range"] {
-    -webkit-appearance: none;
-    background-color: transparent;
+  -webkit-appearance: none;
+  background-color: transparent;
 }
-input[type="range"]::-webkit-slider-thumb{
-    -webkit-appearance: none;
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 1px solid var(--colorOne);
-    height: 36px;
-    width: 20px;
-    border-radius: 8px;
-    background: var(--colorTwo);
-    cursor: pointer;
-    margin-top: -15px; 
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; 
-    
+  -webkit-appearance: none;
+  border: 1px solid var(--colorOne);
+  height: 36px;
+  width: 20px;
+  border-radius: 8px;
+  background: var(--colorTwo);
+  cursor: pointer;
+  margin-top: -15px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
 input[type="range"]::-moz-range-thumb {
-    -webkit-appearance: none;
-    border: 1px solid var(--colorOne);
-    height: 36px;
-    width: 20px;
-    border-radius: 8px;
-    background: var(--colorTwo);
-    cursor: pointer;
-    margin-top: -15px; 
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  
+  -webkit-appearance: none;
+  border: 1px solid var(--colorOne);
+  height: 36px;
+  width: 20px;
+  border-radius: 8px;
+  background: var(--colorTwo);
+  cursor: pointer;
+  margin-top: -15px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-    width: 25rem;
-    height: 0.3rem;
-    border-radius: 5px;
-    background-color: var(--colorFive);
+  width: 25rem;
+  height: 0.3rem;
+  border-radius: 5px;
+  background-color: var(--red);
 }
 
 input[type="range"]::-moz-range-track {
-    width: 25rem;
-    height: 0.3rem;
-    border-radius: 5px;
-    background-color: var(--colorFive);
+  width: 25rem;
+  height: 0.3rem;
+  border-radius: 5px;
+  background-color: var(--colorFive);
 }
 
 /* ----------------------- START BUTTON STYLES ----------------------- */
 
 #startStopcontainer {
-    display: flex;
-    justify-content: center;
-    padding-top: 3vh;
-    padding-bottom: 3vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
 }
 
-
 .start-stop {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: var(--fontSizeThree);
-    color:var(--colorFive);
-    padding: 20px;
-    width: 15%;
-    transition-duration: 0.4s;
-    overflow: hidden;
-    cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  font-size: var(--fontSizeThree);
 }
 
 .start-stop:hover {
-    background: var(--colorOne);
-    color: #fff;
+  background: var(--colorOne);
+  color: #fff;
 }
-
 
 /* ----------------------- BEATS STYLES ----------------------- */
 .beats {
-    font-family: var(--fontTwo);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: auto 50px auto 50px;
+  font-family: var(--fontTwo);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto 50px auto 50px;
 }
 
 .beats button {
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: var(--fontSizeTwo);
-    color:var(--colorFive);
-    padding: 20px;
-    width: 5%;
-    transition-duration: 0.4s;
-    cursor: pointer;
+  background-color: var(--colorTwo);
+  border: none;
+  border-radius: 10px;
+  font-family: var(--fontTwo);
+  font-size: var(--fontSizeTwo);
+  color: var(--colorFive);
+  padding: 20px;
+  width: 5%;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 .beats button:hover {
-    background: var(--colorOne);
-    color: #fff;
+  background: var(--colorOne);
+  color: #fff;
 }
 
 .beats p {
-    font-size: 2.5vw;
+  font-size: 2.5vw;
 }
 
 .beatsPerMeasureTxt {
-    display: flex;
-    justify-content: space-around;
-}
-
-.stepper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--colorThree);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--font);
-    font-size: 28px;
-    color: var(--colorTwo);
-    width: 5vw;
-    height: 5vh;
-    font-family: var(--font);
-    font-size: 3vw;
-    text-align: center;
-    cursor: pointer;
-}
-
-.stepper:hover {
-    background: var(--colorOne);
-    color: #fff;
+  display: flex;
+  justify-content: space-around;
 }
 
 .time-blocks-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 2% 3% 2% 3%;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid var(--colorOne);
-    border-radius: 4px;
-    font-size: 16px;
-    resize: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .time-blocks-container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            align-items: center;
-            justify-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 33%;
+  justify-content: space-around;
+  max-width: 33%;
 }
 
 .time-block {
-            width: 80px;
-            height: 80px;
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: rgb(14, 14, 14);
-            font-size: 1.5rem;
-            font-family: var(--fontOne);
-            border: 2px solid var(--colorOne);
-            transition: background-color 0.3s;
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(14, 14, 14);
+  font-size: 1.5rem;
+  font-family: var(--fontOne);
+  border: 2px solid var(--colorOne);
+  transition: background-color 0.3s;
 }
 
 .time-block.active {
-    background-color: #0d0d0da8;
+  color: var(--colorFour);
+  background-color: #0d0d0da8;
 }
-
 
 /* ----------------------- FORM STYLES ----------------------- */
 .formArea {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 2% 3% 2% 3%;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid var(--colorOne);
-    border-radius: 4px;
-    font-size: 16px;
-    resize: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2% 3% 2% 3%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid var(--colorOne);
+  border-radius: 4px;
+  font-size: 16px;
+  resize: none;
 }
 
 .note {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: 1.7vw;
-    color:var(--colorFive);
-    width: 12.5vw;
-    height: 7vh;
-    transition-duration: 0.4s;
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--colorTwo);
+  border: none;
+  border-radius: 10px;
+  font-family: var(--fontTwo);
+  font-size: 1.7vw;
+  color: var(--colorFive);
+  width: 12.5vw;
+  height: 7vh;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 .note:hover {
-    background: var(--colorOne);
-    color: #fff;
+  background: var(--colorOne);
+  color: #fff;
 }
 
 #noteBtnContainer {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 1%;
-    width: 55%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1%;
+  width: 55%;
 }
 
 .note-textarea {
-    display: flex;
-    resize:inherit;
-    width: 42vw;
-    height: 25vh;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: var(--fontTwo);
-    font-size: 1.2vw;
-  }
-
-.timer {
-    font-family: var(--fontTwo);
-    color: var(--colorOne);
+  display: flex;
+  resize: inherit;
+  width: 42vw;
+  height: 25vh;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: var(--fontTwo);
+  font-size: 1.2vw;
 }
 
-
+.timer {
+  font-family: var(--fontTwo);
+  color: var(--colorOne);
+}
 
 /* ----------------------- MISC CONTENT STYLES ----------------------- */
 #date {
-    font-family: var(--fontTwo);
-    font-size:x-large;
-    color:var(--colorFive);
+  font-family: var(--fontTwo);
+  font-size: x-large;
+  color: var(--colorFive);
 }
-
-
-
-
-
-
-
 
 /* iPhone 12 Portrait */
 @media only screen and (min-width: 320px) and (max-width: 1180px) and (orientation: portrait) {
-    /* ----------------------- MAIN CONTENT STYLES ----------------------- */
-    body {
-        margin: auto 3% auto 3%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        background-color: var(--colorThree);
-        user-select: none;
-    }
-    
-    header,
-    footer {
-      display: flex;
-      flex-direction: column;
-      border: var(--border);
-      justify-content: space-around;
-      align-items: center;
-      font-family: var(--fontOne);
-      font-size: 0.5rem;
-      color: var(--colorOne);
-      margin: var(--margin);
-      text-align: center;
-    }
-
-    #footer {
-        flex-direction: row;
-    }
-
-    header p {
-        font-size: 1vh;
-    }
-
-    h1 {
-        font-size: 2.5vh;
-    }
-    
-    footer p {
-        color: var(--colorOne);
-    }
-    
-    a {
-        color: var(--colorOne);
-    } 
-    
-    a:active {
-        color:var(--colorOne);
-    }
-    
-    #joystick {
-        font-size: 3vh;
-    }
-    
-    /* ----------------------- THEME CONTAINER STYLES ----------------------- */
-    
-    .themeContainer {
-        display: flex;
-        justify-content: space-evenly;
-    }
-    
-    .colorTheme {
-        background-color: var(--colorTwo);
-        border: none;
-        border-radius: 40%;
-        margin: 10%;
-        color:var(--colorFive);
-        padding: 10px;
-        font-family: var(--fontTwo);
-        transition-duration: 0.4s;
-        cursor: pointer;
-        box-shadow: 0 5px #999;
-    }
-    
-    /* ----------------------- THEME BUTTON STYLES ----------------------- */
-    
-    #default {
-        background-color: var(--colorTwo);
-        border: solid 2px var(--colorOne);
-        color: var(--colorTwo);
-    }
-    
-    #default:active {
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
-    
-    #default:hover {
-        background: var(--colorTwo);
-        color: var(--colorOne);
-    }
-    
-    
-    #sonic {
-        background-color:#0156AC;
-        border: solid 2px var(--colorFour);
-        color:#0156AC
-    }
-    
-    #sonic:active {
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
-    
-    
-    #sonic:hover {
-        background-color:var(--colorFour);
-        color:#0156AC;
-        border: solid 2px #0156AC;
-    }
-    
-    #zelda {
-        background-color: #0d9263;
-        color:#0d9263;
-        border: solid 2px #d4ce46;
-    }
-    
-    #zelda:active {
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
-    
-    #zelda:hover {
-        background-color: #d4ce46;
-        color:#0d9263;
-    }
-/* ----------------------- METRONOME CONTENT ----------------------- */
-
-.metronome {
-    margin: 1.5% 3% 1.5% 3%;
-    border: var(--border);   
+  /* ----------------------- MAIN CONTENT STYLES ----------------------- */
 }
-
-.bpm-display {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    margin-top: 15px;
-    text-align: center;
-    color: var(--colorOne);
-    font-family: var(--fontOne);
-}
-
-.tempo {
-    display: inline;
-    font-size: 4vw;    
-}
-
-
-.tempo-text {
-    font-size: 2vw;
-    text-transform: uppercase;
-    text-align: center; 
-}
-
-.tempo-settings {
-    display: flex;
-    justify-content: space-evenly;   
-}
-
-.tempo-settings button {
-    display: flex;
-    justify-content: center;
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: 5vw;
-    color:var(--colorFive);
-    padding: 20px;
-    width: 14%;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.tempo-settings button:hover {
-    background: var(--colorOne);
-    color: #fff;
-}
-
-
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 1px solid var(--colorOne);
-    height: 36px;
-    width: 20px;
-    border-radius: 8px;
-    background: var(--colorTwo);
-    cursor: pointer;
-    margin-top: -15px; 
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; 
-    
-}
-
-input[type="range"]::-moz-range-thumb {
-    -webkit-appearance: none;
-    border: 1px solid var(--colorOne);
-    height: 36px;
-    width: 20px;
-    border-radius: 8px;
-    background: var(--colorTwo);
-    cursor: pointer;
-    margin-top: -15px; 
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  
-}
-
-input[type="range"]::-webkit-slider-runnable-track {
-    width: 25rem;
-    height: 0.3rem;
-    border-radius: 5px;
-    background-color: var(--colorFive);
-}
-
-input[type="range"]::-moz-range-track {
-    width: 25rem;
-    height: 0.3rem;
-    border-radius: 5px;
-    background-color: var(--colorFive);
-}
-
-/* ----------------------- START BUTTON STYLES ----------------------- */
-
-#startStopcontainer {
-    display: flex;
-    justify-content: center;
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-}
-
-
-.start-stop {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: 5vw;
-    color:var(--colorFive);
-    padding: 20px;
-    width: 30%;
-    transition-duration: 0.4s;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.start-stop:hover {
-    background: var(--colorOne);
-    color: #fff;
-}
-
-
-/* ----------------------- BEATS STYLES ----------------------- */
-.beats {
-    font-family: var(--fontTwo);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: auto 50px 25px 50px;
-}
-
-.beats button {
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: 5vw;
-    color:var(--colorFive);
-    padding: 20px;
-    width: 10%;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.beats button:hover {
-    background: var(--colorOne);
-    color: #fff;
-}
-
-.beats p {
-    font-size: 4vw;
-}
-
-.beatsPerMeasureTxt {
-    display: flex;
-    justify-content: space-around;
-}
-
-
-.stepper:hover {
-    background: var(--colorOne);
-    color: #fff;
-}
-
-/* ----------------------- FORM STYLES ----------------------- */
-.formArea {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 2% 3% 2% 3%;
-    
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid var(--colorOne);
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
-}
-
-.note {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--colorTwo);
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fontTwo);
-    font-size: 3.7vw;
-    color:var(--colorFive);
-    width: 15vw;
-    height: 5vh;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.note:hover {
-    background: var(--colorOne);
-    color: #fff;
-}
-
-#noteBtnContainer {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 5%;
-    width: 55%;
-}
-
-.note-textarea {
-    resize: none;
-    width: 50vw;
-    height: 15vh;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: var(--fontTwo);
-    font-size: larger;
-  }
-
-  .timer {
-    font-family: var(--fontTwo);
-    color: var(--colorOne);
-}
-
-
-/* ----------------------- MISC CONTENT STYLES ----------------------- */
-#date {
-    font-family: var(--fontTwo);
-    font-size:x-large;
-    color: var(--colorFive);
-}
-}
-
-
-
-
