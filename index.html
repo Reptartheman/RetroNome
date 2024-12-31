@@ -4,29 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-    href="https://unpkg.com/nes.css@latest/css/nes.min.css"
-    rel="stylesheet"
-  />
     <link rel="stylesheet" href="./assets/styles/default.css" />
     <title>RetroNome</title>
   </head>
   <body>
     <header class="header">
-      <h1>RetroNome</h1>
-<div class="nes-select">
-  <select required id="default_select">
-    <option value="" disabled selected hidden>Theme...</option>
-    <option value="classic"><button data-toggle="classic" type="button" class="nes-btn classic">Classic</button></option>
-    <option value="sonic"><button data-toggle="sonic" type="button" class="nes-btn is-primary">Sonic</button></option>
-    <option value="zelda"><button data-toggle="zelda" type="button" class="nes-btn is-success">Zelda</button></option>
-  </select>
-</div>
+      <h1>Welcome to RetroNome</h1>
+      <p>Press a gem for a color theme</p>
+      <!-- <h3 class="themeTitle">Select your theme</h3> -->
+      <div class="themeContainer">
+          <button class="colorTheme" id="default">1</button>
+          <button class="colorTheme" id="sonic">2</button>
+          <button class="colorTheme" id="zelda">3</button>
+      </div>
     </header>
 
 
     <div class="container">
-      <section class="metronome">
+      <main class="metronome">
         <div class="bpm-display">
           <h1 class="tempo"> 120 BPM</h1>
           <p class="tempo-text"></p>
@@ -34,44 +29,35 @@
 
         
         <div class="tempo-settings">
-          <button class="nes-btn adjust-tempo-btn decrease-tempo">-</button>
+          <button class="adjust-tempo-btn decrease-tempo">-</button>
           <input type="range" min="20" max="260" step="1" class="slider" value="120" />
-          <button class="nes-btn adjust-tempo-btn increase-tempo">+</button>
+          <button class="adjust-tempo-btn increase-tempo">+</button>
         </div>
         <div id="startStopcontainer" aria-label="button-holder">
-          <button type="button" class="nes-btn start-stop">START</button>
+          <button class="start-stop">START</button>
         </div>
         <div class="beats">
-          <button type="button" class="nes-btn subtract-beats stepper">-</button>
+          <button class="subtract-beats stepper">-</button>
           <p class="beat-count ">4</p>
           <p class="beatsPerMeasureTxt">Beats per Measure</p>
-          <button class="nes-btn add-beats stepper">+</button>
+          <button class="add-beats stepper">+</button>
         </div>
+        
+
+      </main>
+      <section class="formArea">
+        <p id="date"></p>
+        <textarea
+          class="note-textarea"
+          placeholder="Enter your practice session info"
+        ></textarea>
+        <div id="noteBtnContainer">
+        <button class="note" id="addNote">Add Note</button>
+        <button class="note" id="removeNote">Remove Note</button>
+      </div>
+
       </section>
-
-      <section class="sound-select">
-        <h3>Select your tone</h3>
-        <ul id="btn-list">
-          <li><button type="button" id="sine" class="nes-btn is-warning sine">Sine</button></li>
-          <li><button type="button" id="triangle" class="nes-btn is-warning triangle">Triangle</button></li>
-          <li><button type="button" id="square" class="nes-btn is-warning square">Square</button></li>
-          <li><button type="button" id="saw" class="nes-btn is-warning saw">Saw</button></li>
-        </ul>
-      </section>
-
     </div>
-    <section class="formArea">
-      <p id="date"></p>
-      <textarea
-        class="note-textarea"
-        placeholder="Enter your practice session info"
-      ></textarea>
-      <div id="noteBtnContainer">
-      <button type="button" id="addNote" class="nes-btn" >Add Note</button>
-      <button type="button" id="removeNote" class="nes-btn"  >Remove Note</button>
-    </div>
-
-    </section>
 
     <footer id="footer">
       <p id="joystick">🕹</p> 

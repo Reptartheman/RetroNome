@@ -1,9 +1,7 @@
 "use strict";
-const root = document.documentElement;
-const theme = "theme";
-const dataTheme = "data-theme";
-const tempoDisplay = document.querySelector(".tempo");
-const tempoText = document.querySelector(".tempo-text");
+
+
+
 const decreaseTempoBtn = document.querySelector(".decrease-tempo");
 const increaseTempoBtn = document.querySelector(".increase-tempo");
 const tempoSlider = document.querySelector(".slider");
@@ -11,50 +9,36 @@ const startStopBtn = document.querySelector(".start-stop");
 const subtractBeats = document.querySelector(".subtract-beats");
 const addBeats = document.querySelector(".add-beats");
 const beatCount = document.querySelector(".beat-count");
-const dateDisplay = document.querySelector("#date");
 const addNote = document.querySelector("#addNote");
 const removeNote = document.querySelector("#removeNote");
-const defaultBtn = document.querySelector(".classic");
-const dropDownMenu = document.getElementById('default_select')
-const switchBtns = document.querySelectorAll('.nes-btn');
-const classic = 'classic';
-const sonic = 'sonic';
-const zelda = 'zelda';
-const sonicBtn = document.querySelector(".is-primary");
-const zeldaBtn = document.querySelector(".is-success");
+const defaultBtn = document.querySelector("#default");
+const sonicBtn = document.querySelector("#sonic");
+const zeldaBtn = document.querySelector("#zelda");
 const linkElement = document.querySelector(
   "link[href='./assets/styles/default.css']"
 );
-const sineBtn = document.getElementById('sine');
-const triangleBtn = document.getElementById('triangle');
-const squareBtn = document.getElementById('square');
-let waveformTypes = document.getElementsByTagName('li');
+
 
 let audioContext,
   futureTickTime,
   counter = 1,
   metronome,
-  metronomeVolume = 1,
   bpm = 120,
   secondsPerBeat = (60 / bpm),
   counterTimeValue = (secondsPerBeat / 4),
   osc;
 
 let note;
-let noteText;
 let beatsPerMeasure = 4;
 
 
 let isRunning = false;
 let tempoTextString = "Mid";
 let animationFrameId;
-let selectedWaveform = 'sine';
-
 
 function playMetronome(time, playing, volume) {
   if (playing) {
     osc = audioContext.createOscillator();
-    osc.type = selectedWaveform;
     osc.connect(metronome);
     metronome.gain.value = volume;
     metronome.connect(audioContext.destination);
@@ -81,29 +65,9 @@ function playTick() {
   counterTimeValue = (secondsPerBeat / 1) * tempoMultiplier;
 } 
 
-function changeTone(e) {
-  const waveTypes = {
-    sine: 'sine',
-    triangle: 'triangle',
-    square: 'square',
-    saw: 'sawtooth'
-  };
-
-  const waveType = waveTypes[e.target.id];
-  if (waveType) {
-    selectedWaveform = waveType;
-    console.log('Selected Waveform');
-  }
-};
-
-[...waveformTypes].forEach(wave => wave.addEventListener('click', changeTone));
-
-
-
-
-
 function scheduler() {
   if (futureTickTime < audioContext.currentTime + 0.1) {
+   let metronomeVolume = 1;
     playMetronome(futureTickTime, true, metronomeVolume);
     playTick();
 
@@ -136,6 +100,8 @@ startStopBtn.addEventListener("click", () => {
 
 
 const updateMetronome = () => {
+  const tempoDisplay = document.querySelector(".tempo");
+  const tempoText = document.querySelector(".tempo-text");
   tempoDisplay.textContent = bpm + " BPM";
   tempoSlider.value = bpm;
   switch (true) {
@@ -183,6 +149,7 @@ const validateTempo = () => {
 
 
 function displayDate() {
+  const dateDisplay = document.querySelector("#date");
   let todayDate = dayjs().format("M/DD/YYYY");
   dateDisplay.textContent = `Today is: ${todayDate}`;
   return todayDate;
@@ -226,6 +193,7 @@ addBeats.addEventListener("click", () => {
 });
 
 function saveNote(event) {
+  let noteText;
   event.preventDefault();
   note = document.querySelector(".note-textarea");
   noteText = note.value.trim();
@@ -247,26 +215,33 @@ function init() {
   if (savedNote) {
     document.querySelector(".note-textarea").textContent = savedNote;
   }
-  const savedTheme = localStorage.getItem(theme);
-  if (savedTheme) {
-    root.setAttribute(dataTheme, savedTheme);
-    dropDownMenu.value = savedTheme;
+}
+
+function changeStyle(stylesheet) {
+  if (linkElement) {
+    linkElement.setAttribute("href", stylesheet);
+  } else {
+    console.error("Link element not found!");
   }
 }
 
-const setTheme = (val) => {
-  root.setAttribute(dataTheme, val);
-  localStorage.setItem(theme, val);
-};
 
-dropDownMenu.addEventListener('change', function() {
-  const selectedOption = this.options[this.selectedIndex].value;
-  setTheme(selectedOption);
-});
 
-console.log(dropDownMenu)
 addNote.addEventListener("click", saveNote);
 removeNote.addEventListener("click", deleteNote);
+
+
+defaultBtn.addEventListener("click", () => {
+  changeStyle("./assets/styles/default.css");
+});
+
+sonicBtn.addEventListener("click", () => {
+  changeStyle("./assets/styles/sonic.css");
+});
+
+zeldaBtn.addEventListener("click", () => {
+  changeStyle("./assets/styles/zelda.css");
+});
 
 
 init();

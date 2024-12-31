@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&family=VT323&family=Press+Start+2P&display=swap');
 
-[data-theme="sonic"] {
+:root {
     --colorOne: #201D1D;
     --colorTwo: #F7C982;
     --colorThree: #0156AC;
@@ -332,12 +332,12 @@ input[type="range"]::-moz-range-track {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: 2% 3% 2% 3%;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid var(--colorTwo);
+    border: 2px solid var(--colorOne);
     border-radius: 4px;
-    background-color: var(--colorThree);
     font-size: 16px;
     resize: none;
 }
@@ -783,4 +783,3 @@ input[type="range"]::-moz-range-track {
 @media only screen and (min-width: 844px) and (max-width: 375px) and (orientation: landscape) {
     /* Your CSS styling for iPhone 12 in landscape orientation */
   }
-
