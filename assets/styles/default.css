@@ -7,154 +7,161 @@
   --colorFour: #ffffff;
   --red: #db5b41;
 
-  --border: 2px solid var(--colorOne);
-  --margin: 1.5% 3% 1.5% 3%;
+  --border: 5px solid var(--colorOne);
 
-  --fontOne: "Press Start 2P", cursive;
-  --fontTwo: "VT323", monospace;
-  --fontSizeOne: 0.8vw;
-  --fontSizeTwo: 2.8vw;
-  --fontSizeThree: 2.2vw;
+  --size-6: 0.375rem;
+  --size-10: 0.625rem;
+  --size-14: 0.875rem;
+  --size-16: 1rem;
+  --size-18: 1.125rem;
+  --size-20: 1.25rem;
+  --size-24: 1.5rem;
+  --size-26: 1.625rem;
+  --size-30: 1.875rem;
+  --size-40: 2.5rem;
+  --size-50: 3.125rem;
+  --size-60: 3.75rem;
+  --size-70: 4.375rem;
+  --size-80: 5rem;
+  --size-100: 6.25rem;
+  --size-110: 6.875rem;
+  --size-120: 7.5rem;
+  --size-150: 9.375rem;
 }
 
 /* ----------------------- MAIN CONTENT STYLES ----------------------- */
-/* * { border: 1px solid red; } */
+
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+}
+
+.test-border {
+  border: 1px solid red;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 body {
   user-select: none;
-  align-content: center;
+  background-image: url('../gameboy-svgrepo-com.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.container {
-  
-  border: var(--border);
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
 }
 
-header,
-footer {
-  display: flex;
-  justify-content: space-evenly;
+.main-grid {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: auto;   
   align-items: center;
-  font-family: var(--fontOne);
-  color: var(--colorOne);
-  text-align: center;
+  gap: 0px 0px; 
+  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3vh;
+.app-container {
+  grid-column: 2/ span 1;
+  height: 100vh;
+  border: var(--border);
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(2, 50%);
 }
 
-header p {
-  font-size: 1vh;
+
+
+.header {
+  grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    align-self: center;
 }
 
-footer p {
-  color: var(--colorOne);
+ .metronome-state-container {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 4;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  justify-items: center;
+  border: var(--border);
+
 }
 
-a {
-  color: var(--colorOne);
+.screen-area-container {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 4;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
 }
 
-a:active {
-  color: var(--colorFive);
-}
-
-#joystick {
-  font-size: 3vh;
-}
-
-/* ----------------------- THEME CONTAINER STYLES ----------------------- */
-
-.themeContainer {
+.time-blocks-container {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
 }
 
-.colorTheme {
-  background-color: var(--colorTwo);
-  border: none;
-  border-radius: 40%;
-  color: var(--colorFive);
-  padding: 10px;
-  font-family: var(--fontTwo);
-  transition-duration: 0.4s;
-  cursor: pointer;
-  box-shadow: 0 5px #999;
+.time-block {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(14, 14, 14);
+  font-size: var(--size-16);
+  border: 2px solid var(--colorOne);
+  transition: background-color 0.3s;
 }
 
-/* ----------------------- THEME BUTTON STYLES ----------------------- */
-
-#default {
-  background-color: var(--colorTwo);
-  border: solid 2px var(--colorOne);
-  color: var(--colorTwo);
+.time-block.active {
+  color: var(--colorFour);
+  background-color: #0d0d0da8;
 }
-
-#default:active {
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-#default:hover {
-  background: var(--colorTwo);
-  color: var(--colorOne);
-}
-
-#sonic {
-  background-color: #0156ac;
-  border: solid 2px var(--colorFour);
-  color: #0156ac;
-}
-
-#sonic:active {
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-#sonic:hover {
-  background-color: var(--colorFour);
-  color: #0156ac;
-  border: solid 2px #0156ac;
-}
-
-#zelda {
-  background-color: #0d9263;
-  color: #0d9263;
-  border: solid 2px #d4ce46;
-}
-
-#zelda:active {
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-#zelda:hover {
-  background-color: #d4ce46;
-  color: #0d9263;
-}
-
-/* ----------------------- METRONOME CONTENT ----------------------- */
-
-/* .metronome {
-  margin: var(--margin);
-} */
 
 .bpm-display {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
-  font-size: var(--fontSizeOne);
-  color: var(--colorOne);
-  font-family: var(--fontOne);
+  text-align: center; 
+  grid-row: 2 / span 1;
+    grid-column: 1 / span 2;
 }
+
+.bpm-display h1 {
+  font-size: var(--size-40);
+}
+
+.button-state-container {
+  grid-column: 1 / span 2;
+  align-self: center;
+}
+
+
+
+.metronome {
+  grid-column: 2 / span 1;
+  grid-row: 2/ span 2;
+} 
+
+
+
 
 .tempo-settings {
   display: flex;
@@ -232,23 +239,7 @@ input[type="range"]::-moz-range-track {
 
 /* ----------------------- START BUTTON STYLES ----------------------- */
 
-#startStopcontainer {
-  display: flex;
-  justify-content: center;
-  padding-top: 3vh;
-  padding-bottom: 3vh;
-}
 
-.start-stop {
-  display: flex;
-  align-items: flex-end;
-  font-size: var(--fontSizeThree);
-}
-
-.start-stop:hover {
-  background: var(--colorOne);
-  color: #fff;
-}
 
 /* ----------------------- BEATS STYLES ----------------------- */
 .beats {
@@ -286,40 +277,7 @@ input[type="range"]::-moz-range-track {
   justify-content: space-around;
 }
 
-.time-blocks-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.time-blocks-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 33%;
-  justify-content: space-around;
-  max-width: 33%;
-}
-
-.time-block {
-  width: 60px;
-  height: 60px;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgb(14, 14, 14);
-  font-size: 1.5rem;
-  font-family: var(--fontOne);
-  border: 2px solid var(--colorOne);
-  transition: background-color 0.3s;
-}
-
-.time-block.active {
-  color: var(--colorFour);
-  background-color: #0d0d0da8;
-}
 
 /* ----------------------- FORM STYLES ----------------------- */
 .formArea {
@@ -389,6 +347,6 @@ input[type="range"]::-moz-range-track {
 }
 
 /* iPhone 12 Portrait */
-@media only screen and (min-width: 320px) and (max-width: 1180px) and (orientation: portrait) {
+@media only screen and (min-width: 320px) and (max-width: 650px) and (orientation: portrait) {
   /* ----------------------- MAIN CONTENT STYLES ----------------------- */
 }

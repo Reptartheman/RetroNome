@@ -9,41 +9,51 @@
     <title>RetroNome</title>
   </head>
   <body>
-    <div class="container">
-    <header class="header">
-      <h1>RetroNome</h1>
-    </header>
-      <main class="metronome">
-        <div class="bpm-display">
-          <h1 class="tempo"> 120 BPM</h1>
-          <p class="tempo-text"></p>
-        </div>        
-        <div class="tempo-settings">
+    
+    <div class="main-grid">
+      <div class="app-container">
+        <header class="header">
+          <h1>RetroNome</h1>
+        </header>
+        <div class="metronome-state-container">
+          <section class="screen-area-container">
+            <div id="timeBlocksContainer" class="nes-container with-title time-blocks-container">
+              <div class="nes-container is-rounded time-block">1</div>
+              <div class="nes-container is-rounded time-block">2</div>
+              <div class="nes-container is-rounded time-block">3</div>
+              <div class="nes-container is-rounded time-block">4</div>
+            </div>
+            <div class="bpm-display">
+              <h1 class="tempo"> 120 BPM</h1>
+            </div>
+          </section>
+          <div class="button-state-container" id="startStopcontainer" aria-label="button-holder">
+            <button type="button" class="nes-btn start-stop">START</button>
+            <button type="button" class="nes-btn start-stop">STOP</button>
+            </div>
+        </div> 
+
+      </div>
+      
+    </div>
+      
+<!--        <main class="metronome">
+                
+      <div class="tempo-settings">
           <button id="decreaseTempo" type="button" class="nes-btn tempo-btn">-</button>
           <input type="range" min="20" max="260" step="1" class="slider" value="120" />
           <button id="increaseTempo" type="button" class="nes-btn tempo-btn">+</button>
         </div>
-        <div id="startStopcontainer" aria-label="button-holder">
-          <button type="button" class="nes-btn start-stop">START</button>
-        </div>
+        
         <div class="beats">
           <button type="button" class="nes-btn subtract-beats stepper">-</button>
           <p class="beat-count ">4</p>
           <p class="beatsPerMeasureTxt">Beats per Measure</p>
           <button type="button" class="nes-btn add-beats stepper">+</button>
         </div>
-      </main>
-  <section class="time-blocks-area">
-        <div id="timeBlocksContainer" class="nes-container with-title time-blocks-container">
-          <div class="nes-container is-rounded time-block">1</div>
-          <div class="nes-container is-rounded time-block">2</div>
-          <div class="nes-container is-rounded time-block">3</div>
-          <div class="nes-container is-rounded time-block">4</div>
-        </div>
-      </div>
-      </section> 
-    </div>
-    </div>
+      </main> -->
+ 
+  </div>
     <script src="./assets/scripts/app.js" type="module"></script>
   </body>
 </html>
