@@ -3,57 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/styles/default.css" />
     <title>RetroNome</title>
   </head>
   <body>
-    
-    <div class="main-grid">
-      <div class="app-container">
-        <header class="header">
-          <h1>RetroNome</h1>
-        </header>
-        <div class="metronome-state-container">
-          <section class="screen-area-container">
-            <div id="timeBlocksContainer" class="nes-container with-title time-blocks-container">
-              <div class="nes-container is-rounded time-block">1</div>
-              <div class="nes-container is-rounded time-block">2</div>
-              <div class="nes-container is-rounded time-block">3</div>
-              <div class="nes-container is-rounded time-block">4</div>
-            </div>
-            <div class="bpm-display">
-              <h1 class="tempo"> 120 BPM</h1>
-            </div>
-          </section>
-          <div class="button-state-container" id="startStopcontainer" aria-label="button-holder">
-            <button type="button" class="nes-btn start-stop">START</button>
-            <button type="button" class="nes-btn start-stop">STOP</button>
-            </div>
-        </div> 
-
+    <div class="gameboy">
+      <!-- Top curved section with branding -->
+      <div class="gameboy-top">
+        <span class="brand-color">RetroNome v2</span>
       </div>
       
+      <!-- Screen section -->
+      <div class="screen-bezel">
+        <div class="screen-inner">
+          <div class="status-bar">
+            <span class="tempo">120 BPM</span>
+            <span class="beat-count-display">
+              <span class="beat-count">4</span>
+              <span class="beat-label">beats</span>
+            </span>
+          </div>
+          <div id="timeBlocksContainer" class="time-blocks-container">
+            <div class="time-block">1</div>
+            <div class="time-block">2</div>
+            <div class="time-block">3</div>
+            <div class="time-block">4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls section -->
+      <div class="controls-section">
+        <!-- D-Pad -->
+        <div class="dpad-container">
+          <div class="dpad">
+            <button class="dpad-btn dpad-up" id="dpadUp" aria-label="Increase tempo">
+              <span class="dpad-arrow">▲</span>
+            </button>
+            <button class="dpad-btn dpad-left" id="dpadLeft" aria-label="Remove beat">
+              <span class="dpad-arrow"></span>
+            </button>
+            <div class="dpad-center"></div>
+            <button class="dpad-btn dpad-right" id="dpadRight" aria-label="Add beat">
+              <span class="dpad-arrow"></span>
+            </button>
+            <button class="dpad-btn dpad-down" id="dpadDown" aria-label="Decrease tempo">
+              <span class="dpad-arrow">▼</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- A/B Buttons -->
+        <div class="ab-buttons-container">
+          <button class="action-btn btn-b start-stop" id="btnStop">
+            <span class="stop-icon"></span>
+          </button>
+          <button class="action-btn btn-a start-stop" id="btnStart">
+            <span class="play-arrow"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Small buttons row -->
+      <div class="small-buttons-row">
+        <div class="small-buttons">
+          <button class="small-btn" id="selectBtn">COLORS</button>
+          <button class="small-btn" id="startBtn">TONES</button>
+        </div>
+      </div>
+
+      <!-- Speaker grille -->
+      <div class="speaker-section">
+        <div class="speaker-grille">
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+        </div>
+      </div>
     </div>
-      
-<!--        <main class="metronome">
-                
-      <div class="tempo-settings">
-          <button id="decreaseTempo" type="button" class="nes-btn tempo-btn">-</button>
-          <input type="range" min="20" max="260" step="1" class="slider" value="120" />
-          <button id="increaseTempo" type="button" class="nes-btn tempo-btn">+</button>
-        </div>
-        
-        <div class="beats">
-          <button type="button" class="nes-btn subtract-beats stepper">-</button>
-          <p class="beat-count ">4</p>
-          <p class="beatsPerMeasureTxt">Beats per Measure</p>
-          <button type="button" class="nes-btn add-beats stepper">+</button>
-        </div>
-      </main> -->
- 
-  </div>
     <script src="./assets/scripts/app.js" type="module"></script>
   </body>
 </html>

@@ -1,200 +1,46 @@
-import * as Tone from "tone";
+/**
+ * RetroNome - Main Application Entry Point
+ * 
+ * This app follows a modular architecture with a single source of truth:
+ * 
+ * - MetronomeState: Central state management with observable pattern
+ * - AudioEngine: Handles all Tone.js audio functionality
+ * - BeatVisualizer: Manages beat indicator blocks
+ * - TempoDisplay: Shows BPM and tempo descriptions
+ * - Controls: Bridges user input with state and audio
+ */
 
-const decreaseTempoBtn = document.getElementById("decreaseTempo");
-const increaseTempoBtn = document.getElementById("increaseTempo");
-const tempoSlider = document.querySelector(".slider");
-const startStopBtn = document.querySelector(".start-stop");
-const subtractBeats = document.querySelector(".subtract-beats");
-const addBeats = document.querySelector(".add-beats");
-const beatCount = document.querySelector(".beat-count");
-const timeBlocksContainer = document.getElementById("timeBlocksContainer");
-const timeBlocks = document.querySelectorAll(".time-block");
-let timeBlocksArray = Array.from(timeBlocks);
-const sliderHandle = document.getElementById('slider-handle');
-const tempoRange = document.getElementById('tempoRange');
-const transport = Tone.getTransport();
-const metronomeSource = new Tone.Synth().toDestination();
-const draw = Tone.getDraw();
-let bpm = 120;
-let beatCounter;
-let isMetronomeOn = false; //No it's not
-let metronomeLoop;
-let currentBlock = 0;
-transport.bpm.value = bpm;
+import { metronomeState } from './state/MetronomeState.js';
+import { audioEngine } from './audio/AudioEngine.js';
+import { beatVisualizer } from './ui/BeatVisualizer.js';
+import { tempoDisplay } from './ui/TempoDisplay.js';
+import { controls } from './ui/Controls.js';
+import { colorMenu } from './ui/ColorMenu.js';
+import { toneMenu } from './ui/ToneMenu.js';
 
-const playMetronome = () => {
-  beatCounter = 1;
-  metronomeLoop = new Tone.Loop((time) =>  {
-    metronomeSource.volume.value = -13;
-    if (beatCounter > transport.timeSignature) {
-      beatCounter = 1;
-    }
-    if (beatCounter === 1) {
-      metronomeSource.triggerAttackRelease("C5", "16n", time);
-    } else {
-      metronomeSource.triggerAttackRelease("C4", "16n", time);
-    }
-    beatCounter++;
-    draw.schedule(() => {
-      console.log(currentBlock);
-      handleBlockFill(currentBlock);
-      currentBlock = (currentBlock + 1) % timeBlocksArray.length;
-			}, time);
-  }, "4n").start(0);
-};
+/**
+ * Initialize the application
+ */
+function initApp() {
+  // Initialize UI components
+  beatVisualizer.init('timeBlocksContainer');
+  tempoDisplay.init('.tempo');
+  controls.init();
+  colorMenu.init();
+  toneMenu.init();
 
-const toggleMetronome = () => {
-  isMetronomeOn = !isMetronomeOn;
-  console.log(isMetronomeOn);
-  if (isMetronomeOn) {
-    console.log(`I am on!!`);
-    transport.start();
-    playMetronome();
-    startStopBtn.textContent = 'Stop';
-  } else {  
-    console.log(`I am off!!`);
-    transport.stop();
-    metronomeLoop.stop();
-    currentBlock = 0;
-    startStopBtn.textContent = 'Start';
-  }
-};
-
-startStopBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  toggleMetronome(); 
-});
-
-
-
-
-
-
-
-
-const handleBlockFill = (index) => {
-  timeBlocksArray.forEach((block, i) => {
-    if (i === index) {
-        block.classList.add('active');
-    } else {
-        block.classList.remove('active');
-    }
-});
+  console.log('RetroNome initialized!');
 }
 
+// Start the app when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
-
-const updateBPM = (newBPM) => {
-  bpm = newBPM;
-  transport.bpm.value = bpm;
-  updateTempoDisplay();
+// Export for debugging in console if needed
+window.RetroNome = {
+  state: metronomeState,
+  audio: audioEngine
 };
-
-
-
-
-const updateTempoDisplay = () => {
-  const tempoDisplay = document.querySelector(".tempo");
-  const tempoText = document.querySelector(".tempo-text");
-
-  tempoDisplay.textContent = `${bpm} BPM`;
-
-  switch (true) {
-    case bpm <= 40:
-      tempoText.textContent = "Bowser tempo";
-      break;
-    case bpm > 40 && bpm < 80:
-      tempoText.textContent = "Donkey Kong tempo";
-      break;
-    case bpm >= 80 && bpm < 120:
-      tempoText.textContent = "Yoshi tempo";
-      break;
-    case bpm >= 120 && bpm < 180:
-      tempoText.textContent = "Tetris tempo";
-      break;
-    case bpm >= 180:
-      tempoText.textContent = "Sonic speed!";
-      break;
-    default:
-      tempoText.textContent = "Normal";
-  }
-};
-
-
-
-
-decreaseTempoBtn.addEventListener("click", () => {
-  if (bpm > 20) {
-    updateBPM(bpm - 1);
-  }
-});
-
-increaseTempoBtn.addEventListener("click", () => {
-  if (bpm < 300) {
-    updateBPM(bpm + 1);
-  }
-});
-
-tempoSlider.addEventListener("input", (e) => {
-  const newValue = e.target.value;
-  transport.bpm.value = newValue;
-  updateBPM(parseInt(newValue));
-  updateSliderHandle(newValue);
-});
-
-
-/* tempoRange.addEventListener('input', (event) => {
-  
-  
-}); */
-
-const updateSliderHandle = (value) => {
-  const min = tempoRange.min;
-  const max = tempoRange.max;
-  const percentage = (value - min) / (max - min);
-  const newCX = 10 + (percentage * 280);
-  sliderHandle.setAttribute('cx', newCX);
-};
-
-addBeats.addEventListener("click", () => {
-  if (transport.timeSignature > 13) {
-    alert('No one needs more than 14 beats bro...');
-    return;
-  }
-  const newBlock = document.createElement('div');
-  newBlock.classList.add(...['nes-container', 'is-rounded', 'time-block']);
-  newBlock.textContent = transport.timeSignature + 1;
-  timeBlocksContainer.appendChild(newBlock);
-  timeBlocksArray.push(newBlock);
-  
-  transport.timeSignature++;
-  beatCount.textContent = transport.timeSignature;
-  beatCounter = 1;
-
-  currentBlock = 0;
-  if (isMetronomeOn) {
-    metronomeLoop.stop();
-    playMetronome();
-  }
-});
-
-
-
-
-subtractBeats.addEventListener("click", () => {
-  if (transport.timeSignature > 2) {
-    transport.timeSignature--;
-    beatCount.textContent = transport.timeSignature;
-    const lastBlock = timeBlocksArray.pop();
-    timeBlocksContainer.removeChild(lastBlock);
-    currentBlock = 0;
-    if (isMetronomeOn) {
-      metronomeLoop.stop();
-      playMetronome();
-    }
-  }
-});
-
-
-
-updateTempoDisplay();
