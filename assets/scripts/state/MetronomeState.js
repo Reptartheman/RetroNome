@@ -7,12 +7,14 @@ const DEFAULT_STATE = {
   bpm: 120,
   timeSignature: 4,
   isPlaying: false,
-  currentBeat: 0,
+  currentBeat: -1,
+  subdivision: 'quarter',
 };
 
 class MetronomeState {
   constructor() {
     this._state = { ...DEFAULT_STATE };
+    this._beatStates = this._defaultBeatStates(DEFAULT_STATE.timeSignature);
     this._listeners = new Map();
   }
 
@@ -33,6 +35,14 @@ class MetronomeState {
     return this._state.currentBeat;
   }
 
+  get subdivision() {
+    return this._state.subdivision;
+  }
+
+  get accents() {
+    return this._beatStates;
+  }
+
   // Setters with notification
   setBpm(value) {
     const newBpm = Math.max(20, Math.min(300, value));
@@ -43,9 +53,11 @@ class MetronomeState {
   }
 
   setTimeSignature(value) {
-    const newTimeSignature = Math.max(2, Math.min(14, value));
+    const newTimeSignature = Math.max(2, Math.min(16, value));
     if (this._state.timeSignature !== newTimeSignature) {
       this._state.timeSignature = newTimeSignature;
+      this._beatStates = this._defaultBeatStates(newTimeSignature);
+      this._notify('accents', this._beatStates);
       this._notify('timeSignature', newTimeSignature);
     }
   }
@@ -66,8 +78,38 @@ class MetronomeState {
   }
 
   resetCurrentBeat() {
-    this._state.currentBeat = 0;
-    this._notify('currentBeat', 0);
+    this._state.currentBeat = -1;
+    this._notify('currentBeat', -1);
+  }
+
+  setSubdivision(value) {
+    const valid = ['quarter', 'eighth', 'sixteenth', 'triplet'];
+    if (valid.includes(value) && this._state.subdivision !== value) {
+      this._state.subdivision = value;
+      this._notify('subdivision', value);
+    }
+  }
+
+  toggleAccent(beatIndex) {
+    if (beatIndex >= 0 && beatIndex < this._beatStates.length) {
+      const cycle = { normal: 'accent', accent: 'muted', muted: 'normal' };
+      this._beatStates[beatIndex] = cycle[this._beatStates[beatIndex]];
+      this._notify('accents', this._beatStates);
+    }
+  }
+
+  isAccented(beatIndex) {
+    return this._beatStates[beatIndex] === 'accent';
+  }
+
+  isMuted(beatIndex) {
+    return this._beatStates[beatIndex] === 'muted';
+  }
+
+  _defaultBeatStates(count) {
+    const states = new Array(count).fill('normal');
+    states[0] = 'accent';
+    return states;
   }
 
   // Observable pattern
@@ -87,14 +129,6 @@ class MetronomeState {
     if (this._listeners.has(property)) {
       this._listeners.get(property).forEach(callback => callback(value));
     }
-  }
-
-  // Reset to defaults
-  reset() {
-    Object.keys(DEFAULT_STATE).forEach(key => {
-      this._state[key] = DEFAULT_STATE[key];
-      this._notify(key, DEFAULT_STATE[key]);
-    });
   }
 }
 

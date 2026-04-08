@@ -36,6 +36,7 @@ class ColorMenu {
 
   init() {
     this._screenInner = document.querySelector('.screen-inner');
+    this._loadFromStorage();
   }
 
   toggle() {
@@ -119,6 +120,14 @@ class ColorMenu {
           swatch.classList.add('selected');
         });
 
+        swatch.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          this._applyColor(target.key, index);
+
+          swatches.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+          swatch.classList.add('selected');
+        });
+
         swatches.appendChild(swatch);
       });
 
@@ -132,6 +141,7 @@ class ColorMenu {
   _applyColor(target, colorIndex) {
     const color = COLORS[colorIndex].value;
     this._selected[target] = colorIndex;
+    this._saveToStorage();
 
     switch (target) {
       case 'gameboy':
@@ -196,6 +206,24 @@ class ColorMenu {
       g: g * (1 - amount),
       b: b * (1 - amount),
     });
+  }
+
+  _saveToStorage() {
+    try {
+      localStorage.setItem('retronome-colors', JSON.stringify(this._selected));
+    } catch (_) { /* storage full or unavailable */ }
+  }
+
+  _loadFromStorage() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('retronome-colors'));
+      if (!saved) return;
+      for (const key of Object.keys(this._selected)) {
+        if (typeof saved[key] === 'number' && saved[key] >= 0 && saved[key] < COLORS.length) {
+          this._applyColor(key, saved[key]);
+        }
+      }
+    } catch (_) { /* invalid or unavailable */ }
   }
 }
 

@@ -4,6 +4,7 @@
  */
 
 import { audioEngine } from '../audio/AudioEngine.js';
+import { metronomeState } from '../state/MetronomeState.js';
 
 const TONES = [
   { label: 'SINE', type: 'sine' },
@@ -12,12 +13,20 @@ const TONES = [
   { label: 'PULSE', type: 'pulse' },
 ];
 
+const SUBDIVISIONS = [
+  { label: 'quarter', key: 'quarter' },
+  { label: 'eighth', key: 'eighth' },
+  { label: 'sixteenth', key: 'sixteenth' },
+  { label: 'triplets', key: 'triplet' },
+];
+
 class ToneMenu {
   constructor() {
     this._isOpen = false;
     this._menuEl = null;
     this._screenInner = null;
     this._selectedIndex = 2; // triangle is the default
+    this._selectedSubIndex = 0; // quarter notes is the default
   }
 
   get isOpen() {
@@ -70,13 +79,14 @@ class ToneMenu {
     const menu = document.createElement('div');
     menu.className = 'tone-menu';
 
-    const title = document.createElement('div');
-    title.className = 'tone-menu-title';
-    title.textContent = 'TONES';
-    menu.appendChild(title);
+    // --- Tones section ---
+    const toneTitle = document.createElement('div');
+    toneTitle.className = 'tone-menu-title';
+    toneTitle.textContent = 'TONES';
+    menu.appendChild(toneTitle);
 
-    const grid = document.createElement('div');
-    grid.className = 'tone-grid';
+    const toneGrid = document.createElement('div');
+    toneGrid.className = 'tone-grid';
 
     TONES.forEach((tone, index) => {
       const btn = document.createElement('button');
@@ -92,14 +102,69 @@ class ToneMenu {
         this._selectedIndex = index;
         audioEngine.setOscillatorType(tone.type);
 
-        grid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
+        toneGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
       });
 
-      grid.appendChild(btn);
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        this._selectedIndex = index;
+        audioEngine.setOscillatorType(tone.type);
+
+        toneGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+
+      toneGrid.appendChild(btn);
     });
 
-    menu.appendChild(grid);
+    menu.appendChild(toneGrid);
+
+    // --- Divider ---
+    const hr = document.createElement('hr');
+    hr.className = 'tone-menu-divider';
+    menu.appendChild(hr);
+
+    // --- Subdivisions section ---
+    const subTitle = document.createElement('div');
+    subTitle.className = 'tone-menu-title';
+    subTitle.textContent = 'SUBDIVISION';
+    menu.appendChild(subTitle);
+
+    const subGrid = document.createElement('div');
+    subGrid.className = 'tone-grid';
+
+    SUBDIVISIONS.forEach((sub, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'tone-option';
+      btn.textContent = sub.label;
+
+      if (this._selectedSubIndex === index) {
+        btn.classList.add('selected');
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this._selectedSubIndex = index;
+        metronomeState.setSubdivision(sub.key);
+
+        subGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        this._selectedSubIndex = index;
+        metronomeState.setSubdivision(sub.key);
+
+        subGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+
+      subGrid.appendChild(btn);
+    });
+
+    menu.appendChild(subGrid);
     return menu;
   }
 }

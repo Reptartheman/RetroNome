@@ -6,6 +6,13 @@
 import * as Tone from 'tone';
 import { metronomeState } from '../state/MetronomeState.js';
 
+const SUBDIVISION_CONFIG = {
+  quarter:   { interval: '4n', perBeat: 1 },
+  eighth:    { interval: '8n', perBeat: 2 },
+  sixteenth: { interval: '16n', perBeat: 4 },
+  triplet:   { interval: '8t', perBeat: 3 },
+};
+
 class AudioEngine {
   constructor() {
     this._isInitialized = false;
@@ -13,7 +20,8 @@ class AudioEngine {
     this._synth = null;
     this._loop = null;
     this._draw = null;
-    this._beatCallback = null;
+    this._beatCounter = 0;
+    this._subCounter = 0;
   }
 
   /**
@@ -51,20 +59,18 @@ class AudioEngine {
 
     metronomeState.subscribe('timeSignature', (timeSignature) => {
       this._transport.timeSignature = timeSignature;
-      // Restart loop if playing to apply new time signature
+      this._beatCounter = 0;
+      this._subCounter = 0;
+      metronomeState.resetCurrentBeat();
+    });
+
+    metronomeState.subscribe('subdivision', () => {
       if (metronomeState.isPlaying) {
         this._restartLoop();
       }
     });
 
     this._isInitialized = true;
-  }
-
-  /**
-   * Register a callback to be called on each beat (for visual updates)
-   */
-  onBeat(callback) {
-    this._beatCallback = callback;
   }
 
   /**
@@ -112,41 +118,55 @@ class AudioEngine {
    * Create the metronome loop
    */
   _createLoop() {
-    let beatCounter = 0;
-    
+    this._beatCounter = 0;
+    this._subCounter = 0;
+
+    const config = SUBDIVISION_CONFIG[metronomeState.subdivision];
+
     this._loop = new Tone.Loop((time) => {
       const timeSignature = metronomeState.timeSignature;
-      
-      // Play accent on beat 1, regular click on other beats
-      if (beatCounter === 0) {
+      const isMainBeat = this._subCounter === 0;
+      const isAccented = metronomeState.isAccented(this._beatCounter);
+      const isMuted = metronomeState.isMuted(this._beatCounter);
+
+      // Play accent on accented beats, skip muted beats, regular click otherwise
+      if (isMuted && isMainBeat) {
+        // No sound for muted main beats
+      } else if (isMainBeat && isAccented) {
         this._synth.triggerAttackRelease('C5', '16n', time);
-      } else {
+      } else if (isMainBeat) {
         this._synth.triggerAttackRelease('C4', '16n', time);
+      } else {
+        this._synth.triggerAttackRelease('G3', '32n', time);
       }
 
-      // Schedule visual update using Draw for sync with audio
-      const currentBeat = beatCounter;
-      this._draw.schedule(() => {
-        metronomeState.setCurrentBeat(currentBeat);
-        if (this._beatCallback) {
-          this._beatCallback(currentBeat);
-        }
-      }, time);
+      // Schedule visual update only on main beats
+      if (isMainBeat) {
+        const currentBeat = this._beatCounter;
+        this._draw.schedule(() => {
+          metronomeState.setCurrentBeat(currentBeat);
+        }, time);
+      }
 
-      beatCounter = (beatCounter + 1) % timeSignature;
-    }, '4n').start(0);
+      this._subCounter = (this._subCounter + 1) % config.perBeat;
+      if (this._subCounter === 0) {
+        this._beatCounter = (this._beatCounter + 1) % timeSignature;
+      }
+    }, config.interval).start(0);
   }
 
   /**
-   * Restart the loop (used when time signature changes)
+   * Restart the loop (used when subdivision changes while playing)
    */
   _restartLoop() {
+    this._transport.stop();
     if (this._loop) {
       this._loop.stop();
       this._loop.dispose();
+      this._loop = null;
     }
-    metronomeState.resetCurrentBeat();
     this._createLoop();
+    this._transport.start();
   }
 
   /**
@@ -163,18 +183,6 @@ class AudioEngine {
    */
   get isInitialized() {
     return this._isInitialized;
-  }
-
-  /**
-   * Dispose of all audio resources
-   */
-  dispose() {
-    this.stop();
-    if (this._synth) {
-      this._synth.dispose();
-      this._synth = null;
-    }
-    this._isInitialized = false;
   }
 }
 
