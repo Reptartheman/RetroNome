@@ -25,48 +25,20 @@
   /* Button colors */
   --gbc-btn-dark: #303745;
   --gbc-btn-surface: #5e5f63;
-  --gbc-btn-maroon: #800000;
-  
-  /* Accent colors */
-  --gbc-green-bright: #bfff4e;
-  --gbc-green-medium: #5ac400;
-  --gbc-green-dark: #4d7c0a;
-  --gbc-red: #ce0716;
-  --gbc-red-bright: #ff3b2a;
   
   /* Text colors */
   --gbc-text-label: #6e8588;
   
-  /* Original accent colors kept for variety */
-  --floral-white: #f7f4ecff;
-  --sand-dune: #e8dcc2ff;
+  /* Accent colors used by ColorMenu and button gradients */
   --blue-energy: #4a90e2ff;
   --blue-energy-dark: #357abdff;
-  --sage-green: #6e9b71ff;
   --golden-apricot: #d98f45ff;
   --golden-apricot-dark: rgb(166, 95, 24);
-  --vintage-lavender: #8a72a6ff;
   --graphite: #2f2f2fff;
 
   /* Sizing */
-  --size-6: 0.375rem;
   --size-10: 0.625rem;
-  --size-14: 0.875rem;
-  --size-16: 1rem;
-  --size-18: 1.125rem;
-  --size-20: 1.25rem;
-  --size-24: 1.5rem;
-  --size-26: 1.625rem;
-  --size-30: 1.875rem;
-  --size-40: 2.5rem;
-  --size-50: 3.125rem;
-  --size-60: 3.75rem;
-  --size-70: 4.375rem;
-  --size-80: 5rem;
-  --size-100: 6.25rem;
-  --size-110: 6.875rem;
-  --size-120: 7.5rem;
-  --size-150: 9.375rem;
+  --size-12: 0.75rem;
 }
 
 /* ----------------------- RESET & BASE ----------------------- */
@@ -79,6 +51,11 @@
   padding: 0;
 }
 
+/* Prevent double-tap zoom on all interactive elements */
+button, a, input, select, textarea, .dpad-btn, .action-btn, .small-btn, .color-swatch, .tone-option {
+  touch-action: manipulation;
+}
+
 html, body {
   height: 100%;
   overflow: hidden;
@@ -86,7 +63,7 @@ html, body {
 
 body {
   font-family: 'Press Start 2P', cursive;
-  background-color: var(--bg-primary);
+  background-color: var(--gbc-purple-dark);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,20 +76,16 @@ body {
 
 .gameboy {
   width: 100vw;
-  max-width: 380px;
   height: 100vh;
-  max-height: 750px;
   background: linear-gradient(180deg, var(--gbc-purple-light) 0%, var(--gbc-purple) 50%, var(--gbc-purple-dark) 100%);
-  border-radius: 20px 20px 80px 20px;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  box-shadow: 
-    inset 3px 3px 6px rgba(255,255,255,0.2),
-    inset -3px -3px 6px rgba(0,0,0,0.3),
-    0 15px 40px rgba(0,0,0,0.6);
+  box-shadow: none;
   position: relative;
-  border: 3px solid var(--gbc-purple-dark);
+  border: none;
+  touch-action: manipulation;
 }
 
 /* ----------------------- TOP SECTION ----------------------- */
@@ -157,7 +130,7 @@ body {
   flex-direction: column;
   gap: 8px;
   border: 2px solid var(--gbc-screen-dark);
-  height: 230px;
+  height: 275px;
   overflow: hidden;
 }
 
@@ -179,12 +152,13 @@ body {
 
 .time-blocks-container {
   display: flex;
+  align-self: center;
   flex-wrap: wrap;
   gap: 6px;
   justify-content: center;
+  align-content: center;
   padding: 8px 0;
   flex: 1;
-  align-content: center;
 }
 
 .time-block {
@@ -195,7 +169,7 @@ body {
   justify-content: center;
   align-items: center;
   color: var(--gbc-screen-dark);
-  font-size: 14px;
+  font-size: var(--size-12);
   border: 2px solid var(--gbc-screen-dark);
   transition: background-color 0.1s;
 }
@@ -203,6 +177,28 @@ body {
 .time-block.active {
   background-color: var(--gbc-screen-darkest);
   color: var(--gbc-screen-bg);
+}
+
+.time-block.accented {
+  border-color: var(--gbc-screen-darkest);
+  border-width: 3px;
+  box-shadow: inset 0 0 0 1px var(--gbc-screen-darkest);
+}
+
+.time-block.accented.active {
+  box-shadow: inset 0 0 0 1px var(--gbc-screen-bg);
+}
+
+.time-block.muted {
+  border-color: transparent;
+  opacity: 0.4;
+}
+
+.time-block.muted.active {
+  background-color: var(--gbc-screen-darkest);
+  color: var(--gbc-screen-bg);
+  border-color: transparent;
+  opacity: 0.4;
 }
 
 /* ----------------------- STATUS BAR ----------------------- */
@@ -474,7 +470,7 @@ body {
 .speaker-line {
   width: 45px;
   height: 5px;
-  background: linear-gradient(90deg, var(--gbc-purple-dark) 0%, var(--gbc-purple) 50%, var(--gbc-purple-dark) 100%);
+  background: linear-gradient(90deg, var(--gbc-dpad) 0%, var(--gbc-dpad-surface) 50%, var(--gbc-dpad) 100%);
   border-radius: 2px;
   box-shadow: inset 1px 2px 3px rgba(0,0,0,0.5);
 }
@@ -548,7 +544,7 @@ body {
 .tone-menu {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   padding: 4px 0;
   align-items: center;
   justify-content: center;
@@ -557,15 +553,22 @@ body {
 
 .tone-menu-title {
   font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
+  font-size: 10px;
   color: var(--gbc-screen-darkest);
   text-align: center;
+}
+
+.tone-menu-divider {
+  width: 100%;
+  border: none;
+  border-top: 2px solid var(--gbc-screen-dark);
+  margin: 2px 0;
 }
 
 .tone-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 6px;
   width: 100%;
 }
 
@@ -576,7 +579,7 @@ body {
   background: var(--gbc-screen-light);
   border: 2px solid var(--gbc-screen-dark);
   border-radius: 4px;
-  padding: 14px 8px;
+  padding: 10px 8px;
   cursor: pointer;
   text-align: center;
   transition: all 0.1s;
@@ -601,7 +604,14 @@ body {
   }
   
   .gameboy {
+    max-width: 380px;
+    max-height: 750px;
     margin: 20px;
-    border-radius: 20px 20px 80px 20px;
+    border-radius: 20px;
+    border: 3px solid var(--gbc-purple-dark);
+    box-shadow: 
+      inset 3px 3px 6px rgba(255,255,255,0.2),
+      inset -3px -3px 6px rgba(0,0,0,0.3),
+      0 15px 40px rgba(0,0,0,0.6);
   }
 }

@@ -28,8 +28,6 @@ function initApp() {
   controls.init();
   colorMenu.init();
   toneMenu.init();
-
-  console.log('RetroNome initialized!');
 }
 
 // Start the app when DOM is ready
@@ -38,9 +36,3 @@ if (document.readyState === 'loading') {
 } else {
   initApp();
 }
-
-// Export for debugging in console if needed
-window.RetroNome = {
-  state: metronomeState,
-  audio: audioEngine
-};

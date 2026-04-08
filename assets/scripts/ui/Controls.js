@@ -56,18 +56,22 @@ class Controls {
   _bindEvents() {
     // A Button (Start)
     if (this._elements.btnStart) {
-      this._elements.btnStart.addEventListener('click', async (e) => {
+      const handleStart = async (e) => {
         e.preventDefault();
         await this._handleStart();
-      });
+      };
+      this._elements.btnStart.addEventListener('click', handleStart);
+      this._elements.btnStart.addEventListener('touchend', handleStart);
     }
 
     // B Button (Stop)
     if (this._elements.btnStop) {
-      this._elements.btnStop.addEventListener('click', (e) => {
+      const handleStop = (e) => {
         e.preventDefault();
         this._handleStop();
-      });
+      };
+      this._elements.btnStop.addEventListener('click', handleStop);
+      this._elements.btnStop.addEventListener('touchend', handleStop);
     }
 
     // D-Pad Up - Increase tempo (with hold support)
@@ -86,36 +90,44 @@ class Controls {
 
     // D-Pad Right - Add beat
     if (this._elements.dpadRight) {
-      this._elements.dpadRight.addEventListener('click', () => {
-        const currentBeats = metronomeState.timeSignature;
-        if (currentBeats >= 14) {
-          return; // Max beats reached
-        }
-        metronomeState.setTimeSignature(currentBeats + 1);
-      });
+      const addBeat = (e) => {
+        e.preventDefault();
+        metronomeState.setTimeSignature(metronomeState.timeSignature + 1);
+      };
+      this._elements.dpadRight.addEventListener('click', addBeat);
+      this._elements.dpadRight.addEventListener('touchend', addBeat);
     }
 
     // D-Pad Left - Remove beat
     if (this._elements.dpadLeft) {
-      this._elements.dpadLeft.addEventListener('click', () => {
+      const removeBeat = (e) => {
+        e.preventDefault();
         metronomeState.setTimeSignature(metronomeState.timeSignature - 1);
-      });
+      };
+      this._elements.dpadLeft.addEventListener('click', removeBeat);
+      this._elements.dpadLeft.addEventListener('touchend', removeBeat);
     }
 
     // COLORS - Toggle color menu (close tone menu if open)
     if (this._elements.selectBtn) {
-      this._elements.selectBtn.addEventListener('click', () => {
+      const toggleColors = (e) => {
+        e.preventDefault();
         if (toneMenu.isOpen) toneMenu.close();
         colorMenu.toggle();
-      });
+      };
+      this._elements.selectBtn.addEventListener('click', toggleColors);
+      this._elements.selectBtn.addEventListener('touchend', toggleColors);
     }
 
     // TONES - Toggle tone menu (close color menu if open)
     if (this._elements.startBtn) {
-      this._elements.startBtn.addEventListener('click', () => {
+      const toggleTones = (e) => {
+        e.preventDefault();
         if (colorMenu.isOpen) colorMenu.close();
         toneMenu.toggle();
-      });
+      };
+      this._elements.startBtn.addEventListener('click', toggleTones);
+      this._elements.startBtn.addEventListener('touchend', toggleTones);
     }
   }
 

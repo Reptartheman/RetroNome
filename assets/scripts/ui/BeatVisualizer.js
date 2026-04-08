@@ -24,6 +24,9 @@ class BeatVisualizer {
     // Initialize blocks from existing DOM
     this._blocks = Array.from(this._container.querySelectorAll('.time-block'));
 
+    // Set initial grid layout
+    this._updateGridLayout(this._blocks.length);
+
     // Subscribe to state changes
     metronomeState.subscribe('currentBeat', (beat) => {
       this._highlightBeat(beat);
@@ -32,6 +35,18 @@ class BeatVisualizer {
     metronomeState.subscribe('timeSignature', (timeSignature) => {
       this._syncBlocksWithTimeSignature(timeSignature);
     });
+
+    metronomeState.subscribe('accents', () => {
+      this._updateAccentDisplay();
+    });
+
+    // Bind tap events on existing blocks
+    this._blocks.forEach((block, index) => {
+      this._bindAccentTap(block, index);
+    });
+
+    // Render initial accent state
+    this._updateAccentDisplay();
   }
 
   /**
@@ -64,6 +79,23 @@ class BeatVisualizer {
         this._removeLastBlock();
       }
     }
+
+    this._updateGridLayout(timeSignature);
+  }
+
+  /**
+   * Update the grid layout based on beat count
+   */
+  _updateGridLayout(beatCount) {
+    let columns;
+    if (beatCount <= 5) {
+      columns = beatCount;
+    } else if (beatCount === 9) {
+      columns = 3;
+    } else {
+      columns = 4;
+    }
+    this._container.style.maxWidth = `${columns * 44 + (columns - 1) * 6}px`;
   }
 
   /**
@@ -75,6 +107,7 @@ class BeatVisualizer {
     block.textContent = number;
     this._container.appendChild(block);
     this._blocks.push(block);
+    this._bindAccentTap(block, this._blocks.length - 1);
   }
 
   /**
@@ -88,18 +121,27 @@ class BeatVisualizer {
   }
 
   /**
-   * Clear all highlights
+   * Bind accent tap to a beat block
    */
-  clearHighlights() {
-    this._blocks.forEach(block => block.classList.remove('active'));
+  _bindAccentTap(block, index) {
+    const handler = (e) => {
+      e.preventDefault();
+      metronomeState.toggleAccent(index);
+    };
+    block.addEventListener('click', handler);
+    block.addEventListener('touchend', handler);
   }
 
   /**
-   * Get current block count
+   * Update accent display on all blocks
    */
-  get blockCount() {
-    return this._blocks.length;
+  _updateAccentDisplay() {
+    this._blocks.forEach((block, index) => {
+      block.classList.toggle('accented', metronomeState.isAccented(index));
+      block.classList.toggle('muted', metronomeState.isMuted(index));
+    });
   }
+
 }
 
 // Export singleton instance
