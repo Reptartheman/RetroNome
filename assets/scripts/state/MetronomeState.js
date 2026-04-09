@@ -39,10 +39,6 @@ class MetronomeState {
     return this._state.subdivision;
   }
 
-  get accents() {
-    return this._beatStates;
-  }
-
   // Setters with notification
   setBpm(value) {
     const newBpm = Math.max(20, Math.min(300, value));
