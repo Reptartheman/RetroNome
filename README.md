@@ -14,7 +14,7 @@
 
 ## Description
 
-RetroNome is a metronome with a retro UI with a notes section for musicians to track their progress 
+RetroNome is a metronome with a UI that resembles a handheld game console for a nostalgic and fun practice experience. 
 
 ## Installation
 
@@ -24,13 +24,6 @@ Simply enter the link into your browser!
 
 This application is intended for musicians to track their growth. Most metronomes do not have a specified notes section for musicians to keep track of what they practiced, and what they intend to practice next.
 
-## Tests
-
-N/A
-
-## Contributors
-
-N/A
 
 ## Questions
 
@@ -38,17 +31,3 @@ N/A
 * Email: JeffMoroMusic@gmail.com
 
 
-## TO-DO
-subdivision selection
-```js 
-const subdivisions = {
-  quarterNotes: '1, 2, 3, 4',
-  eighthNotes: '1+, 2+, 3+, 4+',
-  sixteenthNotes: '1e+uh, 2e+uh, 3e+uh, 4e+uh',
-  eighthNoteTriplets: '1dadee, 2dadee, 3dadee, 4dadee',
-}
-
-const tonesMenu = {
-  tones: ['sine', 'saw','triangle','pulse'],
-  subs: subdivisions,
-}

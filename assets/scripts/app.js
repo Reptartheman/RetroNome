@@ -21,6 +21,25 @@ import { colorMenu } from './ui/ColorMenu.js';
 import { toneMenu } from './ui/ToneMenu.js';
 
 /**
+ * Request fullscreen on first touch for in-browser Android users.
+ * Skipped when running as an installed PWA (standalone mode).
+ */
+function initFullscreen() {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+    || navigator.standalone;
+  if (isStandalone) return;
+
+  const el = document.documentElement;
+  const request = el.requestFullscreen || el.webkitRequestFullscreen;
+  if (!request) return;
+
+  document.addEventListener('touchstart', function goFullscreen() {
+    request.call(el).catch(() => {});
+    document.removeEventListener('touchstart', goFullscreen);
+  }, { once: true });
+}
+
+/**
  * Initialize the application
  */
 function initApp() {
@@ -30,6 +49,7 @@ function initApp() {
   controls.init();
   colorMenu.init();
   toneMenu.init();
+  initFullscreen();
 }
 
 // Start the app when DOM is ready
