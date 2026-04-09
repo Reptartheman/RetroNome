@@ -104,17 +104,6 @@ class AudioEngine {
   }
 
   /**
-   * Toggle metronome on/off
-   */
-  toggle() {
-    if (metronomeState.isPlaying) {
-      this.stop();
-    } else {
-      this.start();
-    }
-  }
-
-  /**
    * Create the metronome loop
    */
   _createLoop() {
