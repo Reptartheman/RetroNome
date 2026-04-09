@@ -30,7 +30,6 @@ class Controls {
   _cacheElements() {
     this._elements = {
       // Start/Stop buttons (A and B)
-      startStopBtns: document.querySelectorAll('.start-stop'),
       btnStart: document.getElementById('btnStart'),
       btnStop: document.getElementById('btnStop'),
       
@@ -42,7 +41,6 @@ class Controls {
       
       // Display elements
       beatCountDisplay: document.querySelector('.beat-count'),
-      tempoDisplay: document.querySelector('.tempo'),
 
       // Menu buttons
       selectBtn: document.getElementById('selectBtn'),
