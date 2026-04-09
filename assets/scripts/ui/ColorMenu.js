@@ -1,8 +1,3 @@
-/**
- * ColorMenu - Handles the color customization menu displayed on the screen
- * Toggled by the SELECT button
- */
-
 const COLORS = [
   { name: 'sand-dune', value: '#e8dcc2' },
   { name: 'blue-energy', value: '#4a90e2' },
@@ -51,14 +46,12 @@ class ColorMenu {
     if (this._isOpen) return;
     this._isOpen = true;
 
-    // Hide existing screen content
     Array.from(this._screenInner.children).forEach(child => {
       if (!child.classList.contains('color-menu')) {
         child.style.display = 'none';
       }
     });
 
-    // Create and append menu
     this._menuEl = this._createMenu();
     this._screenInner.appendChild(this._menuEl);
   }
@@ -67,13 +60,11 @@ class ColorMenu {
     if (!this._isOpen) return;
     this._isOpen = false;
 
-    // Remove menu
     if (this._menuEl) {
       this._menuEl.remove();
       this._menuEl = null;
     }
 
-    // Restore existing screen content
     Array.from(this._screenInner.children).forEach(child => {
       child.style.display = '';
     });
@@ -106,7 +97,6 @@ class ColorMenu {
         swatch.style.backgroundColor = color.value;
         swatch.setAttribute('aria-label', `${target.label} ${color.name}`);
 
-        // Mark as selected if this is the current choice
         if (this._selected[target.key] === index) {
           swatch.classList.add('selected');
         }
@@ -115,7 +105,6 @@ class ColorMenu {
           e.preventDefault();
           this._applyColor(target.key, index);
 
-          // Update selected states within this row
           swatches.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
           swatch.classList.add('selected');
         });
@@ -211,7 +200,7 @@ class ColorMenu {
   _saveToStorage() {
     try {
       localStorage.setItem('retronome-colors', JSON.stringify(this._selected));
-    } catch (_) { /* storage full or unavailable */ }
+    } catch (_) {}
   }
 
   _loadFromStorage() {
@@ -223,9 +212,8 @@ class ColorMenu {
           this._applyColor(key, saved[key]);
         }
       }
-    } catch (_) { /* invalid or unavailable */ }
+    } catch (_) {}
   }
 }
 
-// Export singleton instance
 export const colorMenu = new ColorMenu();

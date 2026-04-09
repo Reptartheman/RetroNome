@@ -1,8 +1,3 @@
-/**
- * MetronomeState - Single source of truth for metronome state
- * Implements an observable pattern so modules can subscribe to state changes
- */
-
 const DEFAULT_STATE = {
   bpm: 120,
   timeSignature: 4,
@@ -18,7 +13,6 @@ class MetronomeState {
     this._listeners = new Map();
   }
 
-  // Getters
   get bpm() {
     return this._state.bpm;
   }
@@ -39,7 +33,6 @@ class MetronomeState {
     return this._state.subdivision;
   }
 
-  // Setters with notification
   setBpm(value) {
     const newBpm = Math.max(20, Math.min(300, value));
     if (this._state.bpm !== newBpm) {
@@ -108,14 +101,12 @@ class MetronomeState {
     return states;
   }
 
-  // Observable pattern
   subscribe(property, callback) {
     if (!this._listeners.has(property)) {
       this._listeners.set(property, new Set());
     }
     this._listeners.get(property).add(callback);
 
-    // Return unsubscribe function
     return () => {
       this._listeners.get(property).delete(callback);
     };
@@ -128,5 +119,4 @@ class MetronomeState {
   }
 }
 
-// Export singleton instance
 export const metronomeState = new MetronomeState();

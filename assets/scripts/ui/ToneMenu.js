@@ -1,8 +1,3 @@
-/**
- * ToneMenu - Handles the tone selection menu displayed on the screen
- * Toggled by the TONES button
- */
-
 import { audioEngine } from '../audio/AudioEngine.js';
 import { metronomeState } from '../state/MetronomeState.js';
 
@@ -25,8 +20,8 @@ class ToneMenu {
     this._isOpen = false;
     this._menuEl = null;
     this._screenInner = null;
-    this._selectedIndex = 2; // triangle is the default
-    this._selectedSubIndex = 0; // quarter notes is the default
+    this._selectedIndex = 2;
+    this._selectedSubIndex = 0;
   }
 
   get isOpen() {
@@ -49,7 +44,6 @@ class ToneMenu {
     if (this._isOpen) return;
     this._isOpen = true;
 
-    // Hide existing screen content
     Array.from(this._screenInner.children).forEach(child => {
       if (!child.classList.contains('tone-menu')) {
         child.style.display = 'none';
@@ -69,7 +63,6 @@ class ToneMenu {
       this._menuEl = null;
     }
 
-    // Restore existing screen content
     Array.from(this._screenInner.children).forEach(child => {
       child.style.display = '';
     });
@@ -79,7 +72,6 @@ class ToneMenu {
     const menu = document.createElement('div');
     menu.className = 'tone-menu';
 
-    // --- Tones section ---
     const toneTitle = document.createElement('div');
     toneTitle.className = 'tone-menu-title';
     toneTitle.textContent = 'TONES';
@@ -120,12 +112,10 @@ class ToneMenu {
 
     menu.appendChild(toneGrid);
 
-    // --- Divider ---
     const hr = document.createElement('hr');
     hr.className = 'tone-menu-divider';
     menu.appendChild(hr);
 
-    // --- Subdivisions section ---
     const subTitle = document.createElement('div');
     subTitle.className = 'tone-menu-title';
     subTitle.textContent = 'SUBDIVISION';
@@ -169,5 +159,4 @@ class ToneMenu {
   }
 }
 
-// Export singleton instance
 export const toneMenu = new ToneMenu();
