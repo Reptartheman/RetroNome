@@ -121,15 +121,15 @@ class BeatVisualizer {
   }
 
   /**
-   * Bind accent tap to a beat block
+   * Bind accent tap to a beat block.
+   * `touch-action: manipulation` (set globally in CSS) makes click fire
+   * immediately on tap, so a separate touchend listener is unnecessary.
    */
   _bindAccentTap(block, index) {
-    const handler = (e) => {
+    block.addEventListener('click', (e) => {
       e.preventDefault();
       metronomeState.toggleAccent(index);
-    };
-    block.addEventListener('click', handler);
-    block.addEventListener('touchend', handler);
+    });
   }
 
   /**

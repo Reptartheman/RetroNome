@@ -19,6 +19,7 @@ import { tempoDisplay } from './ui/TempoDisplay.js';
 import { controls } from './ui/Controls.js';
 import { colorMenu } from './ui/ColorMenu.js';
 import { toneMenu } from './ui/ToneMenu.js';
+import { creditsMenu } from './ui/CreditsMenu.js';
 
 /**
  * Request fullscreen on first touch for in-browser Android users.
@@ -49,6 +50,7 @@ function initApp() {
   controls.init();
   colorMenu.init();
   toneMenu.init();
+  creditsMenu.init();
   initFullscreen();
 }
 

@@ -78,13 +78,10 @@ body {
   width: 100vw;
   height: 100dvh;
   background: linear-gradient(180deg, var(--gbc-purple-light) 0%, var(--gbc-purple) 50%, var(--gbc-purple-dark) 100%);
-  border-radius: 0;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  box-shadow: none;
   position: relative;
-  border: none;
   touch-action: manipulation;
 }
 
@@ -104,6 +101,20 @@ body {
   font-weight: bold;
   letter-spacing: 2px;
   color: var(--graphite);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.brand-color::after {
+  content: ' </>';
+  font-size: var(--size-10);
+  vertical-align: middle;
+  opacity: 0.6;
+}
+
+.brand-color:active {
+  opacity: 0.6;
 }
 
 /* ----------------------- SCREEN BEZEL ----------------------- */
@@ -579,6 +590,63 @@ body {
   background: var(--gbc-screen-darkest);
   color: var(--gbc-screen-bg);
   border-color: var(--gbc-screen-darkest);
+}
+
+/* ----------------------- CREDITS MENU ----------------------- */
+
+.credits-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.credits-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: var(--gbc-screen-darkest);
+  text-align: center;
+}
+
+.credits-byline {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--gbc-screen-dark);
+  text-align: center;
+}
+
+.credits-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.credits-link {
+  display: block;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 9px;
+  color: var(--gbc-screen-dark);
+  background: var(--gbc-screen-light);
+  border: 2px solid var(--gbc-screen-dark);
+  border-radius: 4px;
+  padding: 10px 8px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.credits-link:active {
+  background: var(--gbc-screen-darkest);
+  color: var(--gbc-screen-bg);
+  border-color: var(--gbc-screen-darkest);
+  transform: scale(0.95);
 }
 
 /* ----------------------- DESKTOP STYLES ----------------------- */
