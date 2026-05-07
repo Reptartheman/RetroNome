@@ -1,3 +1,4 @@
+import { ScreenMenu } from './ScreenMenu.js';
 import { audioEngine } from '../audio/AudioEngine.js';
 import { metronomeState } from '../state/MetronomeState.js';
 
@@ -15,147 +16,64 @@ const SUBDIVISIONS = [
   { label: 'triplets', key: 'triplet' },
 ];
 
-class ToneMenu {
+class ToneMenu extends ScreenMenu {
   constructor() {
-    this._isOpen = false;
-    this._menuEl = null;
-    this._screenInner = null;
+    super('tone-menu');
     this._selectedIndex = 2;
     this._selectedSubIndex = 0;
-  }
-
-  get isOpen() {
-    return this._isOpen;
-  }
-
-  init() {
-    this._screenInner = document.querySelector('.screen-inner');
-  }
-
-  toggle() {
-    if (this._isOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  open() {
-    if (this._isOpen) return;
-    this._isOpen = true;
-
-    Array.from(this._screenInner.children).forEach(child => {
-      if (!child.classList.contains('tone-menu')) {
-        child.style.display = 'none';
-      }
-    });
-
-    this._menuEl = this._createMenu();
-    this._screenInner.appendChild(this._menuEl);
-  }
-
-  close() {
-    if (!this._isOpen) return;
-    this._isOpen = false;
-
-    if (this._menuEl) {
-      this._menuEl.remove();
-      this._menuEl = null;
-    }
-
-    Array.from(this._screenInner.children).forEach(child => {
-      child.style.display = '';
-    });
   }
 
   _createMenu() {
     const menu = document.createElement('div');
     menu.className = 'tone-menu';
 
-    const toneTitle = document.createElement('div');
-    toneTitle.className = 'tone-menu-title';
-    toneTitle.textContent = 'TONES';
-    menu.appendChild(toneTitle);
-
-    const toneGrid = document.createElement('div');
-    toneGrid.className = 'tone-grid';
-
-    TONES.forEach((tone, index) => {
-      const btn = document.createElement('button');
-      btn.className = 'tone-option';
-      btn.textContent = tone.label;
-
-      if (this._selectedIndex === index) {
-        btn.classList.add('selected');
-      }
-
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this._selectedIndex = index;
-        audioEngine.setOscillatorType(tone.type);
-
-        toneGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      });
-
-      btn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        this._selectedIndex = index;
-        audioEngine.setOscillatorType(tone.type);
-
-        toneGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      });
-
-      toneGrid.appendChild(btn);
-    });
-
-    menu.appendChild(toneGrid);
+    menu.appendChild(this._createTitle('TONES'));
+    menu.appendChild(this._createGrid(TONES, this._selectedIndex, (item, index) => {
+      this._selectedIndex = index;
+      audioEngine.setOscillatorType(item.type);
+    }));
 
     const hr = document.createElement('hr');
     hr.className = 'tone-menu-divider';
     menu.appendChild(hr);
 
-    const subTitle = document.createElement('div');
-    subTitle.className = 'tone-menu-title';
-    subTitle.textContent = 'SUBDIVISION';
-    menu.appendChild(subTitle);
+    menu.appendChild(this._createTitle('SUBDIVISION'));
+    menu.appendChild(this._createGrid(SUBDIVISIONS, this._selectedSubIndex, (item, index) => {
+      this._selectedSubIndex = index;
+      metronomeState.setSubdivision(item.key);
+    }));
 
-    const subGrid = document.createElement('div');
-    subGrid.className = 'tone-grid';
+    return menu;
+  }
 
-    SUBDIVISIONS.forEach((sub, index) => {
+  _createTitle(text) {
+    const title = document.createElement('div');
+    title.className = 'tone-menu-title';
+    title.textContent = text;
+    return title;
+  }
+
+  _createGrid(items, selectedIndex, onSelect) {
+    const grid = document.createElement('div');
+    grid.className = 'tone-grid';
+
+    items.forEach((item, index) => {
       const btn = document.createElement('button');
       btn.className = 'tone-option';
-      btn.textContent = sub.label;
-
-      if (this._selectedSubIndex === index) {
-        btn.classList.add('selected');
-      }
+      btn.textContent = item.label;
+      if (index === selectedIndex) btn.classList.add('selected');
 
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        this._selectedSubIndex = index;
-        metronomeState.setSubdivision(sub.key);
-
-        subGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
+        onSelect(item, index);
+        grid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
       });
 
-      btn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        this._selectedSubIndex = index;
-        metronomeState.setSubdivision(sub.key);
-
-        subGrid.querySelectorAll('.tone-option').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      });
-
-      subGrid.appendChild(btn);
+      grid.appendChild(btn);
     });
 
-    menu.appendChild(subGrid);
-    return menu;
+    return grid;
   }
 }
 

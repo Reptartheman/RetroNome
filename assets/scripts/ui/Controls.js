@@ -2,12 +2,14 @@ import { metronomeState } from '../state/MetronomeState.js';
 import { audioEngine } from '../audio/AudioEngine.js';
 import { colorMenu } from './ColorMenu.js';
 import { toneMenu } from './ToneMenu.js';
+import { creditsMenu } from './CreditsMenu.js';
+
+const HOLD_REPEAT_MS = 150;
 
 class Controls {
   constructor() {
     this._elements = {};
     this._holdInterval = null;
-    this._holdDelay = 150;
   }
 
   init() {
@@ -20,90 +22,54 @@ class Controls {
     this._elements = {
       btnStart: document.getElementById('btnStart'),
       btnStop: document.getElementById('btnStop'),
-
       dpadUp: document.getElementById('dpadUp'),
       dpadDown: document.getElementById('dpadDown'),
       dpadLeft: document.getElementById('dpadLeft'),
       dpadRight: document.getElementById('dpadRight'),
-
       beatCountDisplay: document.querySelector('.beat-count'),
-
       selectBtn: document.getElementById('selectBtn'),
       startBtn: document.getElementById('startBtn'),
+      brandText: document.querySelector('.brand-color'),
     };
   }
 
   _bindEvents() {
-    if (this._elements.btnStart) {
-      const handleStart = async (e) => {
-        e.preventDefault();
-        await this._handleStart();
-      };
-      this._elements.btnStart.addEventListener('click', handleStart);
-      this._elements.btnStart.addEventListener('touchend', handleStart);
-    }
+    const e = this._elements;
 
-    if (this._elements.btnStop) {
-      const handleStop = (e) => {
-        e.preventDefault();
-        this._handleStop();
-      };
-      this._elements.btnStop.addEventListener('click', handleStop);
-      this._elements.btnStop.addEventListener('touchend', handleStop);
-    }
+    this._onClick(e.btnStart, () => this._handleStart());
+    this._onClick(e.btnStop, () => this._handleStop());
 
-    if (this._elements.dpadUp) {
-      this._bindHoldAction(this._elements.dpadUp, () => {
-        metronomeState.setBpm(metronomeState.bpm + 1);
-      });
-    }
+    this._bindHoldAction(e.dpadUp,   () => metronomeState.setBpm(metronomeState.bpm + 1));
+    this._bindHoldAction(e.dpadDown, () => metronomeState.setBpm(metronomeState.bpm - 1));
 
-    if (this._elements.dpadDown) {
-      this._bindHoldAction(this._elements.dpadDown, () => {
-        metronomeState.setBpm(metronomeState.bpm - 1);
-      });
-    }
+    this._onClick(e.dpadRight, () => metronomeState.setTimeSignature(metronomeState.timeSignature + 1));
+    this._onClick(e.dpadLeft,  () => metronomeState.setTimeSignature(metronomeState.timeSignature - 1));
 
-    if (this._elements.dpadRight) {
-      const addBeat = (e) => {
-        e.preventDefault();
-        metronomeState.setTimeSignature(metronomeState.timeSignature + 1);
-      };
-      this._elements.dpadRight.addEventListener('click', addBeat);
-      this._elements.dpadRight.addEventListener('touchend', addBeat);
-    }
+    const menus = [colorMenu, toneMenu, creditsMenu];
+    this._bindMenuToggle(e.selectBtn, colorMenu, menus);
+    this._bindMenuToggle(e.startBtn,  toneMenu, menus);
+    this._bindMenuToggle(e.brandText, creditsMenu, menus);
+  }
 
-    if (this._elements.dpadLeft) {
-      const removeBeat = (e) => {
-        e.preventDefault();
-        metronomeState.setTimeSignature(metronomeState.timeSignature - 1);
-      };
-      this._elements.dpadLeft.addEventListener('click', removeBeat);
-      this._elements.dpadLeft.addEventListener('touchend', removeBeat);
-    }
+  _onClick(element, handler) {
+    if (!element) return;
+    element.addEventListener('click', async (event) => {
+      event.preventDefault();
+      await handler();
+    });
+  }
 
-    if (this._elements.selectBtn) {
-      const toggleColors = (e) => {
-        e.preventDefault();
-        if (toneMenu.isOpen) toneMenu.close();
-        colorMenu.toggle();
-      };
-      this._elements.selectBtn.addEventListener('click', toggleColors);
-      this._elements.selectBtn.addEventListener('touchend', toggleColors);
-    }
-
-    if (this._elements.startBtn) {
-      const toggleTones = (e) => {
-        e.preventDefault();
-        if (colorMenu.isOpen) colorMenu.close();
-        toneMenu.toggle();
-      };
-      this._elements.startBtn.addEventListener('click', toggleTones);
-      this._elements.startBtn.addEventListener('touchend', toggleTones);
-    }
+  _bindMenuToggle(element, target, allMenus) {
+    this._onClick(element, () => {
+      for (const m of allMenus) {
+        if (m !== target && m.isOpen) m.close();
+      }
+      target.toggle();
+    });
   }
 
   _bindHoldAction(element, action) {
+    if (!element) return;
     let isHolding = false;
 
     const startHold = (e) => {
@@ -111,7 +77,7 @@ class Controls {
       if (isHolding) return;
       isHolding = true;
       action();
-      this._holdInterval = setInterval(action, this._holdDelay);
+      this._holdInterval = setInterval(action, HOLD_REPEAT_MS);
     };
 
     const endHold = () => {
@@ -125,7 +91,6 @@ class Controls {
     element.addEventListener('mousedown', startHold);
     element.addEventListener('mouseup', endHold);
     element.addEventListener('mouseleave', endHold);
-
     element.addEventListener('touchstart', startHold, { passive: false });
     element.addEventListener('touchend', endHold);
     element.addEventListener('touchcancel', endHold);
@@ -150,7 +115,6 @@ class Controls {
 
   async _handleStart() {
     if (metronomeState.isPlaying) return;
-
     if (!audioEngine.isInitialized) {
       await audioEngine.init();
     }

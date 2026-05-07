@@ -1,3 +1,5 @@
+import { ScreenMenu } from './ScreenMenu.js';
+
 const COLORS = [
   { name: 'sand-dune', value: '#e8dcc2' },
   { name: 'blue-energy', value: '#4a90e2' },
@@ -13,61 +15,17 @@ const TARGETS = [
   { key: 'stop', label: 'STOP' },
 ];
 
-class ColorMenu {
-  constructor() {
-    this._isOpen = false;
-    this._menuEl = null;
-    this._screenInner = null;
-    this._selected = {
-      gameboy: null,
-      play: null,
-      stop: null,
-    };
-  }
+const STORAGE_KEY = 'retronome-colors';
 
-  get isOpen() {
-    return this._isOpen;
+class ColorMenu extends ScreenMenu {
+  constructor() {
+    super('color-menu');
+    this._selected = { gameboy: null, play: null, stop: null };
   }
 
   init() {
-    this._screenInner = document.querySelector('.screen-inner');
+    super.init();
     this._loadFromStorage();
-  }
-
-  toggle() {
-    if (this._isOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  open() {
-    if (this._isOpen) return;
-    this._isOpen = true;
-
-    Array.from(this._screenInner.children).forEach(child => {
-      if (!child.classList.contains('color-menu')) {
-        child.style.display = 'none';
-      }
-    });
-
-    this._menuEl = this._createMenu();
-    this._screenInner.appendChild(this._menuEl);
-  }
-
-  close() {
-    if (!this._isOpen) return;
-    this._isOpen = false;
-
-    if (this._menuEl) {
-      this._menuEl.remove();
-      this._menuEl = null;
-    }
-
-    Array.from(this._screenInner.children).forEach(child => {
-      child.style.display = '';
-    });
   }
 
   _createMenu() {
@@ -80,51 +38,46 @@ class ColorMenu {
     menu.appendChild(title);
 
     TARGETS.forEach(target => {
-      const group = document.createElement('div');
-      group.className = 'color-menu-group';
-
-      const label = document.createElement('span');
-      label.className = 'color-menu-label';
-      label.textContent = target.label;
-      group.appendChild(label);
-
-      const swatches = document.createElement('div');
-      swatches.className = 'color-swatches';
-
-      COLORS.forEach((color, index) => {
-        const swatch = document.createElement('button');
-        swatch.className = 'color-swatch';
-        swatch.style.backgroundColor = color.value;
-        swatch.setAttribute('aria-label', `${target.label} ${color.name}`);
-
-        if (this._selected[target.key] === index) {
-          swatch.classList.add('selected');
-        }
-
-        swatch.addEventListener('click', (e) => {
-          e.preventDefault();
-          this._applyColor(target.key, index);
-
-          swatches.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
-          swatch.classList.add('selected');
-        });
-
-        swatch.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          this._applyColor(target.key, index);
-
-          swatches.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
-          swatch.classList.add('selected');
-        });
-
-        swatches.appendChild(swatch);
-      });
-
-      group.appendChild(swatches);
-      menu.appendChild(group);
+      menu.appendChild(this._createTargetGroup(target));
     });
 
     return menu;
+  }
+
+  _createTargetGroup(target) {
+    const group = document.createElement('div');
+    group.className = 'color-menu-group';
+
+    const label = document.createElement('span');
+    label.className = 'color-menu-label';
+    label.textContent = target.label;
+    group.appendChild(label);
+
+    const swatches = document.createElement('div');
+    swatches.className = 'color-swatches';
+
+    COLORS.forEach((color, index) => {
+      const swatch = document.createElement('button');
+      swatch.className = 'color-swatch';
+      swatch.style.backgroundColor = color.value;
+      swatch.setAttribute('aria-label', `${target.label} ${color.name}`);
+
+      if (this._selected[target.key] === index) {
+        swatch.classList.add('selected');
+      }
+
+      swatch.addEventListener('click', (e) => {
+        e.preventDefault();
+        this._applyColor(target.key, index);
+        swatches.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+      });
+
+      swatches.appendChild(swatch);
+    });
+
+    group.appendChild(swatches);
+    return group;
   }
 
   _applyColor(target, colorIndex) {
@@ -133,15 +86,9 @@ class ColorMenu {
     this._saveToStorage();
 
     switch (target) {
-      case 'gameboy':
-        this._applyGameboyColor(color);
-        break;
-      case 'play':
-        this._applyPlayColor(color);
-        break;
-      case 'stop':
-        this._applyStopColor(color);
-        break;
+      case 'gameboy': this._applyGameboyColor(color); break;
+      case 'play':    this._applyPlayColor(color); break;
+      case 'stop':    this._applyStopColor(color); break;
     }
   }
 
@@ -199,13 +146,13 @@ class ColorMenu {
 
   _saveToStorage() {
     try {
-      localStorage.setItem('retronome-colors', JSON.stringify(this._selected));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this._selected));
     } catch (_) {}
   }
 
   _loadFromStorage() {
     try {
-      const saved = JSON.parse(localStorage.getItem('retronome-colors'));
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (!saved) return;
       for (const key of Object.keys(this._selected)) {
         if (typeof saved[key] === 'number' && saved[key] >= 0 && saved[key] < COLORS.length) {

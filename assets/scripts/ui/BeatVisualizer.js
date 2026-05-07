@@ -91,12 +91,10 @@ class BeatVisualizer {
   }
 
   _bindAccentTap(block, index) {
-    const handler = (e) => {
+    block.addEventListener('click', (e) => {
       e.preventDefault();
       metronomeState.toggleAccent(index);
-    };
-    block.addEventListener('click', handler);
-    block.addEventListener('touchend', handler);
+    });
   }
 
   _updateAccentDisplay() {
@@ -105,7 +103,6 @@ class BeatVisualizer {
       block.classList.toggle('muted', metronomeState.isMuted(index));
     });
   }
-
 }
 
 export const beatVisualizer = new BeatVisualizer();
